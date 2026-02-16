@@ -114,7 +114,7 @@ async function sendOrderEmail(session) {
 
     const mailOptions = {
         from: `"Protecht Solutions Orders" <${process.env.EMAIL_USER}>`,
-        to: 'benjazpz@gmail.com',
+        to: 'protechtsolutions.orders@gmail.com',
         subject: `Order Confirmation #${orderId} - Protecht Solutions`,
         html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; color: #333;">
