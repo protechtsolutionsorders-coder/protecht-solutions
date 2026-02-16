@@ -5,7 +5,8 @@ const products = [
         price: 369.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "Stainless Steel AISI 304 - Brushed Finish",
-        desc: "Professional-grade stainless steel backsplash. Heat-resistant, corrosion-resistant, and easy to clean.\n\nSize: 3000 x 1500 mm\nThickness: 1.0 mm\nFinish: Brushed"
+        desc: "Professional-grade stainless steel backsplash. Heat-resistant, corrosion-resistant, and easy to clean.\n\nSize: 3000 x 1500 mm\nThickness: 1.0 mm\nFinish: Brushed",
+        stock: 15
     },
     {
         id: "rvs-316-3000x1500",
@@ -13,7 +14,8 @@ const products = [
         price: 499.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "Stainless Steel AISI 316 - Marine Grade",
-        desc: "Highest corrosion resistance. Ideal for coastal areas or high-humidity environments.\n\nSize: 3000 x 1500 mm\nThickness: 1.0 mm\nFinish: Brushed"
+        desc: "Highest corrosion resistance. Ideal for coastal areas or high-humidity environments.\n\nSize: 3000 x 1500 mm\nThickness: 1.0 mm\nFinish: Brushed",
+        stock: 5
     },
     {
         id: "rvs-304-2000x1000",
@@ -21,7 +23,8 @@ const products = [
         price: 249.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "Stainless Steel AISI 304 - Brushed Finish",
-        desc: "Perfect for smaller kitchens or accents. Same industrial quality in a compact size.\n\nSize: 2000 x 1000 mm\nThickness: 1.0 mm\nFinish: Brushed"
+        desc: "Perfect for smaller kitchens or accents. Same industrial quality in a compact size.\n\nSize: 2000 x 1000 mm\nThickness: 1.0 mm\nFinish: Brushed",
+        stock: 25
     }
 ];
 
@@ -57,7 +60,7 @@ function handleSuccess() {
             .then(data => {
                 if (data.success) {
                     console.log("Order verified and email triggered.");
-                    alert("¡Gracias por tu compra! Hemos enviado un correo de confirmación a benjazpz@gmail.com");
+                    alert("¡Gracias por tu compra! Hemos enviado un correo de confirmación a protechtsolutions.orders@gmail.com");
                 }
             })
             .catch(err => console.error("Verification failed:", err));
@@ -86,8 +89,9 @@ function checkUrlParams() {
 function renderShelf() {
     productGrid.innerHTML = products.map(p => `
         <div class="product-item">
+            ${p.stock < 20 ? '<span class="stock-badge">Low Stock</span>' : ''}
             <h3 class="p-title">${p.title}</h3>
-            <p class="p-price">From $${p.price}</p>
+            <p class="p-price">From €${p.price}</p>
             <img src="${p.image}" alt="${p.title}">
             <div>
                 <button class="btn-buy-small" onclick="openModal('${p.id}')">Buy</button>
@@ -103,9 +107,17 @@ window.openModal = function (id) {
 
     document.getElementById('modal-img').src = p.image;
     document.getElementById('modal-title').innerText = p.title;
-    document.getElementById('modal-price').innerText = `$${p.price.toFixed(2)}`;
+    document.getElementById('modal-price').innerText = `€${p.price.toFixed(2)}`;
     document.getElementById('modal-desc').innerText = p.desc;
     document.getElementById('modal-material').innerText = p.material;
+
+    // Update stock info in shipping-info
+    const shippingInfo = document.querySelector('.shipping-info');
+    if (p.stock < 20) {
+        shippingInfo.innerHTML = `<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> <span style="color: #ef4444; font-weight: 600;">Only ${p.stock} units left!</span>`;
+    } else {
+        shippingInfo.innerHTML = `<i class="fas fa-box"></i> In stock, ships: 1 business day`;
+    }
 
     const modal = document.getElementById('product-modal');
     modal.classList.add('active');
