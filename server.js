@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.static('.')); // Serve static files (html, css, js)
 app.use(express.json());
 
-const DOMAIN = 'http://localhost:4242';
+const DOMAIN = process.env.DOMAIN || 'https://protecht-solutions.onrender.com';
 
 app.post('/create-checkout-session', async (req, res) => {
     try {
@@ -20,7 +20,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
         const lineItems = cartItems.map(item => ({
             price_data: {
-                currency: 'usd',
+                currency: 'eur',
                 product_data: {
                     name: item.title,
                     images: [item.image], // Stripe expects a valid URL
@@ -36,7 +36,7 @@ app.post('/create-checkout-session', async (req, res) => {
             {
                 shipping_rate_data: {
                     type: 'fixed_amount',
-                    fixed_amount: { amount: 0, currency: 'usd' },
+                    fixed_amount: { amount: 0, currency: 'eur' },
                     display_name: 'Store Pickup',
                     delivery_estimate: {
                         minimum: { unit: 'business_day', value: 1 },
@@ -47,7 +47,7 @@ app.post('/create-checkout-session', async (req, res) => {
             {
                 shipping_rate_data: {
                     type: 'fixed_amount',
-                    fixed_amount: { amount: 2500, currency: 'usd' }, // $25.00
+                    fixed_amount: { amount: 2500, currency: 'eur' }, // €25.00
                     display_name: 'Standard Delivery',
                     delivery_estimate: {
                         minimum: { unit: 'business_day', value: 3 },
@@ -214,4 +214,5 @@ app.get('/verify-session/:id', async (req, res) => {
     }
 });
 
-app.listen(4242, () => console.log('Running on port 4242'));
+const PORT = process.env.PORT || 4242;
+app.listen(PORT, () => console.log(`Running on port ${PORT}`));
