@@ -27,7 +27,7 @@ const products = [
 
 // State
 let cart = JSON.parse(localStorage.getItem('metallum_apple_cart')) || [];
-const stripe = Stripe('pk_test_51T00094TngCt8dg4QCxBrvl1aFLUNxKV0YTAK4toqttZMrDF2jRMfprWshz6lGa1KOBHQFDj6AOhNcwY7CcnexzH00s9Ub5Cil');
+const stripe = Stripe('pk_live_51SzzzzQECx6xOqcU366GElFvHtQ2ZYIUpj1OCbBXcISlsV1CbOFEE1IEEU8AXpVIpuVBCWZIlOotOEFYIs0ojOSq00orS8vc5b');
 // DOM
 const productGrid = document.getElementById('product-grid');
 const cartSidebar = document.getElementById('cart-sidebar');
