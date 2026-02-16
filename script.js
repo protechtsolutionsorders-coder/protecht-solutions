@@ -31,62 +31,107 @@ const products = [
 // State
 let cart = JSON.parse(localStorage.getItem('metallum_apple_cart')) || [];
 const stripe = Stripe('pk_live_51SzzzzQECx6xOqcU366GElFvHtQ2ZYIUpj1OCbBXcISlsV1CbOFEE1IEEU8AXpVIpuVBCWZIlOotOEFYIs0ojOSq00orS8vc5b');
-// DOM
+
+// DOM Elements
 const productGrid = document.getElementById('product-grid');
 const cartSidebar = document.getElementById('cart-sidebar');
 const cartOverlay = document.getElementById('cart-overlay');
 const cartCount = document.getElementById('cart-count');
 const cartTotal = document.getElementById('cart-total-price');
 
-// Init
+// Customizer Elements
+const custWidth = document.getElementById('cust-width');
+const custHeight = document.getElementById('cust-height');
+const custMaterial = document.getElementById('cust-material');
+const valWidth = document.getElementById('val-width');
+const valHeight = document.getElementById('val-height');
+const priceDisplay = document.getElementById('cust-price');
+const platePreview = document.getElementById('plate-preview');
+const labelW = document.getElementById('label-w');
+const labelH = document.getElementById('label-h');
+
+// Initialize
 function init() {
     renderShelf();
     updateCartUI();
     handleSuccess();
-
-    // Listeners ...
+    initCustomizer();
     setupListeners();
-    checkUrlParams();
 }
 
 function handleSuccess() {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('success') === 'true' && params.get('session_id')) {
-        const sessionId = params.get('session_id');
+    if (params.get('success') === 'true') {
+        // Clear cart
+        localStorage.removeItem('metallum_apple_cart');
+        cart = [];
+        updateCartUI();
 
-        // Notify server to verify session and send email (Fallback for local dev)
-        fetch(`/verify-session/${sessionId}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Order verified and email triggered.");
-                    alert("¡Gracias por tu compra! Hemos enviado un correo de confirmación a protechtsolutions.orders@gmail.com");
-                }
-            })
-            .catch(err => console.error("Verification failed:", err));
+        // Show Professional Modal
+        const successModal = document.getElementById('success-modal');
+        if (successModal) {
+            successModal.classList.add('active');
+        }
 
         // Clean URL
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 }
 
-function checkUrlParams() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success')) {
-        alert("Payment Successful! Thank you for your order.");
-        localStorage.removeItem('metallum_apple_cart');
-        cart = [];
-        updateCartUI();
-        window.history.replaceState(null, '', window.location.pathname);
-    }
-    if (urlParams.get('canceled')) {
-        alert("Payment Canceled.");
-        window.history.replaceState(null, '', window.location.pathname);
-    }
+window.closeSuccessModal = function () {
+    document.getElementById('success-modal').classList.remove('active');
 }
 
-// Render Products (Apple Shelf Style)
+// Visual Customizer
+function initCustomizer() {
+    if (!custWidth) return;
+
+    const updateUI = () => {
+        const w = parseInt(custWidth.value);
+        const h = parseInt(custHeight.value);
+        const material = custMaterial.value;
+
+        // Visual labels
+        valWidth.innerText = `${w} mm`;
+        valHeight.innerText = `${h} mm`;
+        labelW.innerText = `${w}mm`;
+        labelH.innerText = `${h}mm`;
+
+        // Scale Visual Plate
+        // Base max display area is ~300px width for 3000mm
+        const scale = 0.1;
+        platePreview.style.width = `${w * scale}px`;
+        platePreview.style.height = `${h * scale}px`;
+
+        // Price Calc (Simplified: €80 per m2 for 304, €110 for 316 + base €20 fee)
+        const areaM2 = (w / 1000) * (h / 1000);
+        const rate = material === '304' ? 82 : 115;
+        const total = (areaM2 * rate) + 25; // €25 processing fee
+
+        priceDisplay.innerText = `€${total.toFixed(2)}`;
+    };
+
+    custWidth.oninput = updateUI;
+    custHeight.oninput = updateUI;
+    custMaterial.onchange = updateUI;
+
+    updateUI(); // Init call
+}
+
+window.requestCustomQuote = function () {
+    const w = custWidth.value;
+    const h = custHeight.value;
+    const mat = custMaterial.options[custMaterial.selectedIndex].text;
+    const price = priceDisplay.innerText;
+
+    const subject = encodeURIComponent(`Bespoke Design Request: ${w}x${h}mm`);
+    const body = encodeURIComponent(`I am interested in a custom backsplash:\n\nMaterial: ${mat}\nDimensions: ${w}mm x ${h}mm\nEstimated Price: ${price}\n\nPlease contact me to finalize.`);
+    window.location.href = `mailto:protechtsolutions.orders@gmail.com?subject=${subject}&body=${body}`;
+}
+
+// Render Products
 function renderShelf() {
+    if (!productGrid) return;
     productGrid.innerHTML = products.map(p => `
         <div class="product-item">
             ${p.stock < 20 ? '<span class="stock-badge">Low Stock</span>' : ''}
@@ -111,7 +156,7 @@ window.openModal = function (id) {
     document.getElementById('modal-desc').innerText = p.desc;
     document.getElementById('modal-material').innerText = p.material;
 
-    // Update stock info in shipping-info
+    // Update stock info
     const shippingInfo = document.querySelector('.shipping-info');
     if (p.stock < 20) {
         shippingInfo.innerHTML = `<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> <span style="color: #ef4444; font-weight: 600;">Only ${p.stock} units left!</span>`;
@@ -125,11 +170,11 @@ window.openModal = function (id) {
     document.getElementById('modal-add-btn').onclick = () => {
         addToCart(p);
         closeModal();
-        setTimeout(openCart, 300); // Wait for modal fade out
+        setTimeout(openCart, 300);
     };
 }
 
-function closeModal() {
+window.closeModal = function () {
     document.getElementById('product-modal').classList.remove('active');
 }
 
@@ -156,15 +201,14 @@ function saveCart() {
 }
 
 function updateCartUI() {
+    if (!cartCount || !cartTotal) return;
     const totalQty = cart.reduce((a, b) => a + b.qty, 0);
     cartCount.innerText = totalQty;
-
-    // Hide count if 0
     cartCount.style.display = totalQty > 0 ? 'inline-block' : 'none';
 
     if (cart.length === 0) {
         document.getElementById('cart-items').innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">Your bag is empty.</p>';
-        cartTotal.innerText = "$0.00";
+        cartTotal.innerText = "€0.00";
     } else {
         document.getElementById('cart-items').innerHTML = cart.map(item => `
             <div class="cart-item">
@@ -172,7 +216,39 @@ function updateCartUI() {
                 <div style="flex:1;">
                     <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
                         <span style="font-weight:600;">${item.title}</span>
-                        <span style="font-weight:600;">$${item.price}</span>
+                        <span style="font-weight:600;">€${item.price.toFixed(2)}</span>
+                    </div>
+                    <div style="font-size:0.9rem; color:#888;">Qty: ${item.qty}</div>
+                </div>
+                <div style="cursor:pointer; color:#4f46e5; font-size:0.9rem;" onclick="removeFromCart('${item.id}')">Remove</div>
+            </div>
+        `).join('');
+
+        const total = cart.reduce((a, b) => a + (item.price * item.qty), 0); // WAIT: error in mapping logic fixed below
+    }
+}
+
+// Re-write to fix mapping error in updateCartUI
+function updateCartUI() {
+    if (!cartCount || !cartTotal) return;
+    const totalQty = cart.reduce((a, b) => a + b.qty, 0);
+    cartCount.innerText = totalQty;
+    cartCount.style.display = totalQty > 0 ? 'inline-block' : 'none';
+
+    const itemsContainer = document.getElementById('cart-items');
+    if (!itemsContainer) return;
+
+    if (cart.length === 0) {
+        itemsContainer.innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">Your bag is empty.</p>';
+        cartTotal.innerText = "€0.00";
+    } else {
+        itemsContainer.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <img src="${item.image}">
+                <div style="flex:1;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                        <span style="font-weight:600;">${item.title}</span>
+                        <span style="font-weight:600;">€${item.price.toFixed(2)}</span>
                     </div>
                     <div style="font-size:0.9rem; color:#888;">Qty: ${item.qty}</div>
                 </div>
@@ -181,7 +257,7 @@ function updateCartUI() {
         `).join('');
 
         const total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-        cartTotal.innerText = `$${total.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+        cartTotal.innerText = `€${total.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
     }
 }
 
@@ -197,45 +273,53 @@ function closeCart() {
 
 // Listeners
 function setupListeners() {
-    document.querySelector('.close-modal').onclick = closeModal;
-    document.querySelector('.close-cart').onclick = closeCart;
-    cartOverlay.onclick = closeCart;
-    document.getElementById('cart-btn').onclick = (e) => { e.preventDefault(); openCart(); };
+    const closeBtn = document.querySelector('.close-modal');
+    if (closeBtn) closeBtn.onclick = closeModal;
 
+    const closeCartBtn = document.querySelector('.close-cart');
+    if (closeCartBtn) closeCartBtn.onclick = closeCart;
 
-    // Real Stripe Checkout
-    document.getElementById('checkout-btn').onclick = async () => {
-        if (cart.length === 0) return alert("Your bag is empty.");
-        const btn = document.getElementById('checkout-btn');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = 'Processing...';
-        btn.disabled = true;
+    if (cartOverlay) cartOverlay.onclick = closeCart;
 
-        try {
-            const response = await fetch('/create-checkout-session', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ cart: cart })
-            });
+    const cartBtn = document.getElementById('cart-btn');
+    if (cartBtn) {
+        cartBtn.onclick = (e) => { e.preventDefault(); openCart(); };
+    }
 
-            const data = await response.json();
+    // Checkout
+    const checkoutBtn = document.getElementById('checkout-btn');
+    if (checkoutBtn) {
+        checkoutBtn.onclick = async () => {
+            if (cart.length === 0) return alert("Your bag is empty.");
+            const originalText = checkoutBtn.innerHTML;
+            checkoutBtn.innerHTML = 'Processing...';
+            checkoutBtn.disabled = true;
 
-            if (data.url) {
-                window.location.href = data.url;
-            } else {
-                alert("Payment Error: " + (data.error || "Unknown Error"));
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+            try {
+                const response = await fetch('/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cart: cart })
+                });
+
+                const data = await response.json();
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    alert("Error: " + (data.error || "Please try again later."));
+                    checkoutBtn.innerHTML = originalText;
+                    checkoutBtn.disabled = false;
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Connection failed.");
+                checkoutBtn.innerHTML = originalText;
+                checkoutBtn.disabled = false;
             }
-        } catch (err) {
-            console.error(err);
-            alert("Could not connect to server. Is it running?");
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
+        };
     }
 }
 
-// Global
+// Global Exports
 window.removeFromCart = removeFromCart;
 document.addEventListener('DOMContentLoaded', init);

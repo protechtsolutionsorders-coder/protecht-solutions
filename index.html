@@ -69,6 +69,84 @@
         </div>
     </section>
 
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content glass success-content text-center">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Order Successful!</h2>
+            <p>Thank you for choosing Protecht Solutions. Your professional backsplash is being prepared for shipment.
+            </p>
+            <p class="small">A confirmation email has been sent to your inbox.</p>
+            <button class="btn-primary" onclick="closeSuccessModal()">Continue Browsing</button>
+        </div>
+    </div>
+
+    <!-- Buying Section (Moved Up) -->
+    <section id="products" class="buy-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-heading">Our Kitchen Backsplashes</h2>
+                <div class="trust-icons">
+                    <span><i class="fab fa-cc-stripe"></i> Secure Payment</span>
+                    <span><i class="fas fa-truck-fast"></i> EU Shipping</span>
+                    <span><i class="fas fa-check-circle"></i> Quality Guaranteed</span>
+                </div>
+            </div>
+
+            <div class="product-shelf" id="product-grid">
+                <!-- Products injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Customizer Ecosystem -->
+    <section id="customizer" class="content-section grey-bg">
+        <div class="container">
+            <div class="section-header text-center" style="display: block;">
+                <span class="eyebrow">Bespoke Design</span>
+                <h2>Customizer Ecosystem</h2>
+                <p>Design your perfect fit with real-time visual feedback.</p>
+            </div>
+
+            <div class="customizer-workspace glass">
+                <div class="visual-preview">
+                    <div id="plate-preview" class="plate-visual">
+                        <span class="dim-label-w" id="label-w">3000mm</span>
+                        <span class="dim-label-h" id="label-h">1500mm</span>
+                    </div>
+                </div>
+                <div class="customizer-controls">
+                    <div class="control-group">
+                        <label>Material</label>
+                        <select id="cust-material">
+                            <option value="304">AISI 304 - Standard</option>
+                            <option value="316">AISI 316 - Premium</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Width (mm)</label>
+                        <input type="range" id="cust-width" min="500" max="3000" value="1500">
+                        <span id="val-width">1500 mm</span>
+                    </div>
+                    <div class="control-group">
+                        <label>Height (mm)</label>
+                        <input type="range" id="cust-height" min="300" max="1500" value="750">
+                        <span id="val-height">750 mm</span>
+                    </div>
+                    <div class="quote-display">
+                        <span class="quote-label">Estimated Quote</span>
+                        <h2 id="cust-price">€184.50</h2>
+                        <p class="small">Excl. Shipping</p>
+                    </div>
+                    <button class="btn-primary full-width" onclick="requestCustomQuote()">Request This
+                        Configuration</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Feature Grid 1 -->
     <section class="feature-big">
         <div class="container">
@@ -81,7 +159,7 @@
     </section>
 
     <!-- Installation Guide -->
-    <section id="installation" class="content-section grey-bg">
+    <section id="installation" class="content-section">
         <div class="container grid-2-col">
             <div class="text-block">
                 <span class="eyebrow">Expert Advice</span>
@@ -119,26 +197,8 @@
         </div>
     </section>
 
-    <!-- Buying Section -->
-    <section id="products" class="buy-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-heading">Our Kitchen Backsplashes</h2>
-                <div class="trust-icons">
-                    <span><i class="fab fa-cc-stripe"></i> Secure Payment</span>
-                    <span><i class="fas fa-truck-fast"></i> EU Shipping</span>
-                    <span><i class="fas fa-check-circle"></i> Quality Guaranteed</span>
-                </div>
-            </div>
-
-            <div class="product-shelf" id="product-grid">
-                <!-- Products injected here -->
-            </div>
-        </div>
-    </section>
-
     <!-- FAQ Section -->
-    <section id="faq" class="content-section">
+    <section id="faq" class="content-section grey-bg">
         <div class="container">
             <h2 class="text-center">Frequently Asked Questions</h2>
             <div class="faq-grid">
@@ -166,39 +226,34 @@
         </div>
     </section>
 
-    <!-- Custom Quote Section -->
-    <section id="custom" class="custom-cta">
-        <div class="container text-center">
-            <h2>Need a custom size?</h2>
-            <p>We specialized in custom cuts for both residential and commercial projects. Get a professional quote
-                today.</p>
-            <a href="mailto:protechtsolutions.orders@gmail.com?subject=Custom Quote Request"
-                class="btn-secondary">Request Custom Quote</a>
-        </div>
-    </section>
-
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="container">
             <div class="footer-links">
                 <div class="col">
                     <h4>Products</h4>
-                    <a href="#">Aluminum Sheets</a>
-                    <a href="#">Steel Plates</a>
-                    <a href="#">Custom Cuts</a>
+                    <a href="#products">Aluminum Sheets</a>
+                    <a href="#products">Steel Plates</a>
+                    <a href="#customizer">Customizer Ecosystem</a>
                 </div>
                 <div class="col">
                     <h4>Support</h4>
-                    <a href="#">Delivery Info</a>
-                    <a href="#">Contact Us</a>
+                    <a href="#installation">Installation Guide</a>
+                    <a href="#faq">FAQ & Support</a>
                 </div>
                 <div class="col">
-                    <h4>Company</h4>
-                    <a href="#">About Protecht Solutions</a>
+                    <h4>Contact Business</h4>
+                    <a href="mailto:protechtsolutions.orders@gmail.com"><i class="fas fa-envelope"></i>
+                        protechtsolutions.orders@gmail.com</a>
+                    <p style="color: var(--text-secondary); margin-top: 10px;">Support Hours: L-V 9:00 - 18:00</p>
                 </div>
             </div>
             <div class="legal">
                 <p>Copyright &copy; 2026 Protecht Solutions. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>
