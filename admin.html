@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protecht Solutions - Project Handover</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent: #06b6d4;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            margin-bottom: 35px;
+            font-size: 1rem;
+        }
+
+        .link-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .status-pill {
+            background: #059669;
+            color: #ecfdf5;
+            padding: 3px 10px;
+            border-radius: 99px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .handover-info {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+
+        .handover-info h3 {
+            font-size: 0.95rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .handover-info p {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Protecht Solutions</h1>
+        <p class="subtitle">Official Project Delivery & Access Dashboard</p>
+
+        <div class="link-group">
+            <a href="https://protecht-solutions.onrender.com" target="_blank" class="btn">
+                <span>🌐 Public Website</span>
+                <span class="status-pill">LIVE</span>
+            </a>
+
+            <a href="https://dashboard.stripe.com/" target="_blank" class="btn">
+                <span>💳 Payments (Stripe Dashboard)</span>
+                <span>↗</span>
+            </a>
+
+            <a href="https://dashboard.render.com/" target="_blank" class="btn">
+                <span>⚙️ Hosting (Render Panel)</span>
+                <span>↗</span>
+            </a>
+
+            <a href="https://github.com/protechtsolutionsorders-coder/protecht-solutions" target="_blank" class="btn">
+                <span>📁 Source Code (GitHub)</span>
+                <span>↗</span>
+            </a>
+        </div>
+
+        <div class="handover-info">
+            <h3>Administrative Handover</h3>
+            <p>
+                <strong>Public Link:</strong> The website is currently live. You can share the public link with anyone
+                to start receiving orders immediately.<br><br>
+                <strong>Internal Management:</strong> To grant administrative access, please invite team members via the
+                <em>Team/Settings</em> section in Stripe and Render.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
