@@ -40,7 +40,7 @@ app.post('/create-checkout-session', async (req, res) => {
                 shipping_rate_data: {
                     type: 'fixed_amount',
                     fixed_amount: { amount: 0, currency: 'eur' },
-                    display_name: '🏪 Pickup: GGM Gastro (near Mechelen)',
+                    display_name: '🏪 Pickup: Blarenberglaan 6, 2800 Mechelen (GGM Gastro)',
                     delivery_estimate: {
                         minimum: { unit: 'business_day', value: 1 },
                         maximum: { unit: 'business_day', value: 2 },
@@ -52,7 +52,7 @@ app.post('/create-checkout-session', async (req, res) => {
                 shipping_rate_data: {
                     type: 'fixed_amount',
                     fixed_amount: { amount: 0, currency: 'eur' },
-                    display_name: '🏪 Pickup: Overpelterbaan 66, Hechtel-EKSEL',
+                    display_name: '🏪 Pickup: Overpelterbaan 66, 3941 Hechtel-EKSEL',
                     delivery_estimate: {
                         minimum: { unit: 'business_day', value: 1 },
                         maximum: { unit: 'business_day', value: 2 },
@@ -289,8 +289,8 @@ async function sendCustomerEmail(session) {
                         <div style="font-size: 20px; margin-right: 10px;">📍</div>
                         <div style="font-weight: 600; font-size: 16px; color: #166534;">Pickup Locations</div>
                     </div>
-                    <p style="margin: 0 0 8px 0; color: #166534; font-size: 14px; font-weight: 500;">• GGM Gastro (near Mechelen), Belgium</p>
-                    <p style="margin: 0; color: #166534; font-size: 14px; font-weight: 500;">• Overpelterbaan 66, Hechtel-EKSEL 3941, Belgium</p>
+                    <p style="margin: 0 0 8px 0; color: #166534; font-size: 14px; font-weight: 500;">• Blarenberglaan 6, 2800 Mechelen (GGM Gastro)</p>
+                    <p style="margin: 0; color: #166534; font-size: 14px; font-weight: 500;">• Overpelterbaan 66, 3941 Hechtel-EKSEL</p>
                 </div>
                 
                 <p style="margin-top: 40px; font-size: 14px; color: #888; text-align: center;">If you have any questions, simply reply to this email.</p>
