@@ -356,29 +356,6 @@ function updateCartUI() {
     }
 }
 
-if (cart.length === 0) {
-    itemsContainer.innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">Your bag is empty.</p>';
-    cartTotal.innerText = "€0.00";
-} else {
-    itemsContainer.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <img src="${item.image}">
-                <div style="flex:1;">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                        <span style="font-weight:600;">${item.title}</span>
-                        <span style="font-weight:600;">€${item.price.toFixed(2)}</span>
-                    </div>
-                    <div style="font-size:0.9rem; color:#888;">Qty: ${item.qty}</div>
-                </div>
-                <div style="cursor:pointer; color:#4f46e5; font-size:0.9rem;" onclick="removeFromCart('${item.id}')">Remove</div>
-            </div>
-        `).join('');
-
-    const total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-    cartTotal.innerText = `€${total.toFixed(2)}`;
-}
-}
-
 function openCart() {
     cartSidebar.classList.add('open');
     cartOverlay.classList.add('active');
