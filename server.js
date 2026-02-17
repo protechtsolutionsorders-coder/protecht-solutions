@@ -262,7 +262,22 @@ async function sendCustomerEmail(session) {
                     <p style="font-size: 14px; line-height: 1.5; color: #444; margin-bottom: 0;">Our craft team is now preparing your sheet. You will receive another update with a tracking number as soon as the courier picks up your package.</p>
                 </div>
                 
-                <p style="margin-top: 40px; font-size: 14px; color: #888; text-align: center;">If you have any questions, simply reply to this email.</p>
+                <div style="margin-top: 40px; padding: 30px; border: 1px solid #eee; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="font-size: 20px; margin-right: 10px;">🚚</div>
+                        <div style="font-weight: 600; font-size: 16px; color: #111;">Shipping Details</div>
+                    </div>
+                    <p style="margin: 0; color: #666; font-size: 14px; line-height: 1.6;">We ship within 1 business day. Free shipping on orders over €600. Your order will be carefully packaged and protected.</p>
+                </div>
+
+                <div style="margin-top: 20px; padding: 30px; background: #f0fff4; border: 1px solid #86efac; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="font-size: 20px; margin-right: 10px;">📍</div>
+                        <div style="font-weight: 600; font-size: 16px; color: #166534;">Pickup Locations</div>
+                    </div>
+                    <p style="margin: 0 0 8px 0; color: #166534; font-size: 14px; font-weight: 500;">• GGM Gastro (near Mechelen), Belgium</p>
+                    <p style="margin: 0; color: #166534; font-size: 14px; font-weight: 500;">• Overpelterbaan 66, Hechtel-EKSEL 3941, Belgium</p>
+                </div>    <p style="margin-top: 40px; font-size: 14px; color: #888; text-align: center;">If you have any questions, simply reply to this email.</p>
             </div>
             
             <div style="background-color: #f7f7f7; padding: 30px; text-align: center;">
