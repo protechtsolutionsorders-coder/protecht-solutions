@@ -447,6 +447,10 @@ function setupListeners() {
 
     if (cartOverlay) cartOverlay.onclick = closeCart;
 
+    // Modal overlay click-to-close
+    const modalOverlay = document.getElementById('modal-overlay');
+    if (modalOverlay) modalOverlay.onclick = closeModal;
+
     const cartBtn = document.getElementById('cart-btn');
     if (cartBtn) {
         cartBtn.onclick = (e) => { e.preventDefault(); openCart(); };

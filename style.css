@@ -470,6 +470,47 @@ h3 {
     align-items: center;
 }
 
+/* Modal Overlay (for click-outside-to-close) */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1999;
+    display: none;
+}
+
+.modal-overlay.active {
+    display: block;
+}
+
+/* Regulatory Note - Improved */
+.regulatory-note {
+    background: #f5f7ff;
+    border-left: 3px solid var(--accent);
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.regulatory-note i {
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.regulatory-note strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
 /* Cart */
 .cart-sidebar {
     position: fixed;
