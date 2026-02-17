@@ -619,6 +619,9 @@ h3 {
     height: 45px;
     width: auto;
     object-fit: contain;
+    background: transparent;
+    min-width: 120px;
+    display: block;
 }
 
 .trust-icons span {
@@ -833,13 +836,44 @@ footer {
     margin: 20px 0;
 }
 
-.variant-label {
-    display: block;
-    font-size: 0.85rem;
-    color: #666;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    font-weight: 600;
+.variant-box.active {
+    border-color: #000;
+    background: #000;
+    color: #fff;
+}
+
+/* Feature Highlights */
+.feature-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 15px 0 25px;
+}
+
+.feature-tag {
+    border: 1px solid #ddd;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.feature-tag i {
+    color: var(--accent);
+    font-size: 0.8rem;
+}
+
+.regulatory-note {
+    font-size: 0.7rem;
+    color: #999;
+    margin-top: 25px;
+    line-height: 1.4;
+    text-align: center;
+    padding: 0 40px;
 }
 
 .variant-options {

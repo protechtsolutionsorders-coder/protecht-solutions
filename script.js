@@ -5,7 +5,13 @@ const products = [
         price: 369.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "1 Side Brushed / 1 Side Polished Mirror",
-        desc: "Industrial-grade stainless steel with a versatile double finish. One side features a premium brushed texture, while the other is polished to a mirror shine. \n\n✨ Premium Laser Film: Both sides are protected with high-durability film at no extra cost to guarantee perfection upon delivery.",
+        desc: "Professional AISI 304 food-grade stainless steel sheet.\n\nFeatures a versatile dual finish: one side refined brushed texture, one side high-gloss mirror polish. Certified for professional kitchen environments and direct food contact.\n\nIncludes high-durability laser film protection on both surfaces.",
+        features: [
+            { icon: "fa-certificate", text: "ISO Standard" },
+            { icon: "fa-fire-burner", text: "Heat Resistant" },
+            { icon: "fa-utensils", text: "Food Certified" },
+            { icon: "fa-universal-access", text: "Dual Surface" }
+        ],
         sizes: [
             { label: "3000 x 1500 mm", area: "4.5 m²" },
             { label: "2000 x 1000 mm", area: "2.0 m²" }
@@ -46,6 +52,25 @@ function init() {
     initCustomizer();
     setupListeners();
     initScrollAnimations();
+    setupLogoFallback();
+}
+
+function setupLogoFallback() {
+    const logos = document.querySelectorAll('.brand-logo, .footer-brand img');
+    logos.forEach(img => {
+        img.onerror = () => {
+            img.style.display = 'none';
+            const parent = img.parentElement;
+            if (parent) {
+                const text = document.createElement('span');
+                text.innerHTML = '<i class="fas fa-shield-alt"></i> ProTech Solutions';
+                text.style.fontWeight = '600';
+                text.style.fontSize = parent.classList.contains('logo') ? '1.2rem' : '1rem';
+                if (parent.classList.contains('footer-brand')) text.style.color = '#fff';
+                parent.insertBefore(text, img);
+            }
+        };
+    });
 }
 
 function handleSuccess() {
