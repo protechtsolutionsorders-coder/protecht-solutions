@@ -152,11 +152,11 @@ async function sendOrderEmail(session) {
                             <img src="https://images.unsplash.com/photo-1556911220-e15023918c39?auto=format&fit=crop&q=80&w=200" alt="Product" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; background: #f3f4f6;">
                         </td>
                         <td>
-                            <p style="margin: 0; font-weight: 600; font-size: 16px;">Stainless Steel Kitchen Backsplash</p>
-                            <p style="margin: 5px 0 0 0; color: #6b7280; font-size: 14px;">AISI 304 - 3000 x 1500 mm</p>
+                            <p style="margin: 0; font-weight: 600; font-size: 16px;">Professional AISI 304 Stainless Steel Sheet</p>
+                            <p style="margin: 5px 0 0 0; color: #6b7280; font-size: 14px;">1 Side Brushed / 1 Side Polished Mirror</p>
                         </td>
                         <td style="text-align: right; vertical-align: top;">
-                            <span style="font-weight: 600;">$${amountTotal.toFixed(2)}</span>
+                            <span style="font-weight: 600;">€${amountTotal.toFixed(2)}</span>
                         </td>
                     </tr>
                 </table>
@@ -165,11 +165,11 @@ async function sendOrderEmail(session) {
                     <table style="width: 100%;">
                         <tr>
                             <td style="color: #666;">Standard Delivery</td>
-                            <td style="text-align: right; font-weight: 600;">$${shippingCost.toFixed(2)}</td>
+                            <td style="text-align: right; font-weight: 600;">€${shippingCost.toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td style="padding-top: 10px; font-size: 18px; font-weight: bold; color: #111827;">Total Amount</td>
-                            <td style="padding-top: 10px; text-align: right; font-size: 18px; font-weight: bold; color: #4f46e5;">$${amountTotal.toFixed(2)}</td>
+                            <td style="padding-top: 10px; text-align: right; font-size: 18px; font-weight: bold; color: #4f46e5;">€${amountTotal.toFixed(2)}</td>
                         </tr>
                     </table>
                 </div>
@@ -239,9 +239,9 @@ async function sendCustomerEmail(session) {
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr>
                             <td style="padding-bottom: 20px;">
-                                <div style="font-weight: 600; color: #111;">AISI 304 Double-Sided Plate</div>
+                                <div style="font-weight: 600; color: #111;">Professional AISI 304 Stainless Steel Sheet</div>
                                 <div style="font-size: 14px; color: #666; margin-top: 4px;">1 Side Brushed / 1 Side Polished Mirror</div>
-                                <div style="display: inline-block; background: #eefdf3; color: #166534; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-top: 8px;">✨ Premium Laser Film Included</div>
+                                <div style="display: inline-block; background: #eefdf3; color: #166534; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-top: 8px;">Premium Laser Film Included</div>
                             </td>
                             <td style="text-align: right; vertical-align: top; font-weight: 600;">€${amountTotal.toFixed(2)}</td>
                         </tr>
