@@ -54,8 +54,8 @@ app.post('/create-checkout-session', async (req, res) => {
                     fixed_amount: { amount: 0, currency: 'eur' },
                     display_name: '🏪 Pickup: Overpelterbaan 66, 3941 Hechtel-EKSEL',
                     delivery_estimate: {
-                        minimum: { unit: 'business_day', value: 1 },
-                        maximum: { unit: 'business_day', value: 2 },
+                        minimum: { unit: 'business_day', value: 3 },
+                        maximum: { unit: 'business_day', value: 5 },
                     },
                 },
             }
