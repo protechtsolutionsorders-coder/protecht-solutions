@@ -227,16 +227,26 @@ window.openModal = function (id) {
     const modal = document.getElementById('product-modal');
     modal.classList.add('active');
 
-    document.getElementById('modal-add-btn').onclick = () => {
+    const modalAddBtn = document.getElementById('modal-add-btn');
+    modalAddBtn.onclick = () => {
+        // Check if size is selected
+        const activeSize = document.querySelector('.variant-box.active');
+        if (!activeSize) {
+            // Scroll to size selector and highlight it
+            const sizeSelector = document.getElementById('modal-variant-selector');
+            if (sizeSelector) {
+                sizeSelector.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Add pulsing animation to draw attention
+                sizeSelector.style.animation = 'pulse 0.6s ease-in-out 2';
+                setTimeout(() => {
+                    sizeSelector.style.animation = '';
+                }, 1200);
+            }
+            return; // Don't add to cart yet
+        }
+        // Size is selected, proceed with adding to cart
         window.addToCart();
     };
-
-    // Disable button initially - require size selection
-    const addBtn = document.getElementById('modal-add-btn');
-    addBtn.disabled = true;
-    addBtn.style.opacity = '0.5';
-    addBtn.style.cursor = 'not-allowed';
-    addBtn.innerText = 'Select a size first';
 
     // Initialize Modal Spin
     initModal3D();
@@ -255,15 +265,6 @@ window.selectSize = function (idx) {
         if (i === idx) b.classList.add('active');
         else b.classList.remove('active');
     });
-
-    // Enable Add to Bag button after size selection
-    const addBtn = document.getElementById('modal-add-btn');
-    if (addBtn) {
-        addBtn.disabled = false;
-        addBtn.style.opacity = '1';
-        addBtn.style.cursor = 'pointer';
-        addBtn.innerText = 'Add to Bag';
-    }
 
     updateModalDimensions(products.find(p => p.id === currentOpenProductId));
 }
