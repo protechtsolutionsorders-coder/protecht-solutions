@@ -21,9 +21,23 @@ const products = [
 ];
 
 let selectedSizeIndex = 0;
+let currentOpenProductId = null;
 
-// State
+// Load cart and FIX any items with undefined uniqueId
 let cart = JSON.parse(localStorage.getItem('metallum_apple_cart')) || [];
+
+// MIGRATION: Fix old cart items without uniqueId
+cart = cart.map((item, index) => {
+    if (!item.uniqueId || item.uniqueId === 'undefined') {
+        const size = item.selectedSize || '3000x1500mm';
+        item.uniqueId = `${item.id || 'product'}-${size.replace(/\s+/g, '')}-${Date.now()}-${index}`;
+        console.log('Fixed cart item uniqueId:', item.uniqueId);
+    }
+    return item;
+});
+
+// Save fixed cart
+localStorage.setItem('metallum_apple_cart', JSON.stringify(cart));
 const stripe = Stripe('pk_live_51SzzzzQECx6xOqcU366GElFvHtQ2ZYIUpj1OCbBXcISlsV1CbOFEE1IEEU8AXpVIpuVBCWZIlOotOEFYIs0ojOSq00orS8vc5b');
 
 // DOM Elements
