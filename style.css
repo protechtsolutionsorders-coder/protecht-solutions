@@ -292,25 +292,30 @@ h3 {
 
 .product-item {
     padding: 40px;
-    background: var(--bg-body);
-    border-radius: var(--radius);
+    background: #ffffff;
+    border-radius: 24px;
     text-align: center;
-    transition: 0.3s;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
     position: relative;
+    border: 1px solid #f0f0f0;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 .product-item:hover {
-    background: #e8e8ed;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
 }
 
 .product-item img {
     height: 180px;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
     margin-bottom: 25px;
-    background: #fff;
+    background: #fbfbfd;
     padding: 10px;
+    transition: transform 0.5s ease;
+    transform: translateZ(20px);
 }
 
 .p-title {

@@ -290,6 +290,29 @@ function showToast(msg) {
     setTimeout(() => toast.classList.remove('active'), 2500);
 }
 
+function init3DEffects() {
+    const cards = document.querySelectorAll('.product-item');
+    cards.forEach(card => {
+        card.onmousemove = (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        };
+
+        card.onmouseleave = () => {
+            card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        };
+    });
+}
+
 function removeFromCart(id) {
     cart = cart.filter(x => x.uniqueId !== id); // Changed to uniqueId
     saveCart();
@@ -300,35 +323,6 @@ function saveCart() {
     localStorage.setItem('metallum_apple_cart', JSON.stringify(cart));
 }
 
-function updateCartUI() {
-    if (!cartCount || !cartTotal) return;
-    const totalQty = cart.reduce((a, b) => a + b.qty, 0);
-    cartCount.innerText = totalQty;
-    cartCount.style.display = totalQty > 0 ? 'inline-block' : 'none';
-
-    if (cart.length === 0) {
-        document.getElementById('cart-items').innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">Your bag is empty.</p>';
-        cartTotal.innerText = "€0.00";
-    } else {
-        document.getElementById('cart-items').innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <img src="${item.image}">
-                <div style="flex:1;">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                        <span style="font-weight:600;">${item.title}</span>
-                        <span style="font-weight:600;">€${item.price.toFixed(2)}</span>
-                    </div>
-                    <div style="font-size:0.9rem; color:#888;">Qty: ${item.qty}</div>
-                </div>
-                <div style="cursor:pointer; color:#4f46e5; font-size:0.9rem;" onclick="removeFromCart('${item.id}')">Remove</div>
-            </div>
-        `).join('');
-
-        const total = cart.reduce((a, b) => a + (item.price * item.qty), 0); // WAIT: error in mapping logic fixed below
-    }
-}
-
-// Re-write to fix mapping error in updateCartUI
 function updateCartUI() {
     if (!cartCount || !cartTotal) return;
     const totalQty = cart.reduce((a, b) => a + b.qty, 0);
@@ -350,15 +344,39 @@ function updateCartUI() {
                         <span style="font-weight:600;">${item.title}</span>
                         <span style="font-weight:600;">€${item.price.toFixed(2)}</span>
                     </div>
-                    <div style="font-size:0.9rem; color:#888;">Qty: ${item.qty}</div>
+                    <div style="font-size:0.85rem; color:#888;">Size: ${item.selectedSize}</div>
+                    <div style="font-size:0.85rem; color:#888; margin-top:4px;">Qty: ${item.qty}</div>
+                    <button class="remove-item" onclick="removeFromCart('${item.uniqueId}')">Remove</button>
                 </div>
-                <div style="cursor:pointer; color:#4f46e5; font-size:0.9rem;" onclick="removeFromCart('${item.id}')">Remove</div>
             </div>
         `).join('');
 
         const total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
         cartTotal.innerText = `€${total.toFixed(2)}`;
     }
+}
+
+if (cart.length === 0) {
+    itemsContainer.innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">Your bag is empty.</p>';
+    cartTotal.innerText = "€0.00";
+} else {
+    itemsContainer.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <img src="${item.image}">
+                <div style="flex:1;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                        <span style="font-weight:600;">${item.title}</span>
+                        <span style="font-weight:600;">€${item.price.toFixed(2)}</span>
+                    </div>
+                    <div style="font-size:0.9rem; color:#888;">Qty: ${item.qty}</div>
+                </div>
+                <div style="cursor:pointer; color:#4f46e5; font-size:0.9rem;" onclick="removeFromCart('${item.id}')">Remove</div>
+            </div>
+        `).join('');
+
+    const total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
+    cartTotal.innerText = `€${total.toFixed(2)}`;
+}
 }
 
 function openCart() {
