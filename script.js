@@ -89,20 +89,76 @@ function setupLogoFallback() {
 
 function handleSuccess() {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('success') === 'true') {
+    const sessionId = params.get('session_id');
+
+    if (params.get('success') === 'true' && sessionId) {
         // Clear cart
         localStorage.removeItem('metallum_apple_cart');
         cart = [];
         updateCartUI();
 
-        // Show Professional Modal
-        const successModal = document.getElementById('success-modal');
-        if (successModal) {
-            successModal.classList.add('active');
-        }
+        // Fetch session details to get shipping info
+        fetch(`/session-details/${sessionId}`)
+            .then(res => res.json())
+            .then(data => {
+                // Update shipping info in modal
+                updateShippingInfo(data.shipping);
+
+                // Show Professional Modal
+                const successModal = document.getElementById('success-modal');
+                if (successModal) {
+                    successModal.classList.add('active');
+                }
+            })
+            .catch(err => {
+                console.error('Error fetching session:', err);
+                // Show modal anyway, just without specific shipping details
+                const successModal = document.getElementById('success-modal');
+                if (successModal) {
+                    successModal.classList.add('active');
+                }
+            });
 
         // Clean URL
         window.history.replaceState({}, document.title, window.location.pathname);
+    }
+}
+
+function updateShippingInfo(shipping) {
+    const pickupBox = document.querySelector('.pickup-locations-box');
+    if (!pickupBox || !shipping) return;
+
+    const shippingName = shipping.name || '';
+    const address = shipping.address;
+
+    // Check if it's a pickup (no address or shipping option name contains "Pickup")
+    const isPickup = !address || (shippingName && shippingName.toLowerCase().includes('pickup'));
+
+    if (isPickup) {
+        // Show pickup location based on which one was selected
+        if (shippingName.includes('Mechelen') || shippingName.includes('Blarenberglaan')) {
+            pickupBox.innerHTML = `
+                <h3><i class="fas fa-location-dot"></i> Pickup Location</h3>
+                <p class="pickup-addr">📍 Blarenberglaan 6, 2800 Mechelen (GGM Gastro)</p>
+                <p style="margin-top: 10px; color: #666; font-size: 14px;">Your order will be ready for pickup in 3-5 business days.</p>
+            `;
+        } else if (shippingName.includes('Hechtel') || shippingName.includes('Overpelterbaan')) {
+            pickupBox.innerHTML = `
+                <h3><i class="fas fa-location-dot"></i> Pickup Location</h3>
+                <p class="pickup-addr">📍 Overpelterbaan 66, 3941 Hechtel-EKSEL</p>
+                <p style="margin-top: 10px; color: #666; font-size: 14px;">Your order will be ready for pickup in 3-5 business days.</p>
+            `;
+        }
+    } else {
+        // Show delivery address
+        const addr = address;
+        const fullAddress = `${addr.line1}${addr.line2 ? ', ' + addr.line2 : ''}, ${addr.postal_code} ${addr.city}, ${addr.country}`;
+
+        pickupBox.innerHTML = `
+            <h3><i class="fas fa-truck"></i> Delivery Address</h3>
+            <p class="pickup-addr">📦 ${fullAddress}</p>
+            <p style="margin-top: 10px; color: #666; font-size: 14px;">Your order will be delivered in 3-5 business days.</p>
+        `;
     }
 }
 

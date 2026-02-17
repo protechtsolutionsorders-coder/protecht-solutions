@@ -94,6 +94,21 @@ app.post('/create-checkout-session', async (req, res) => {
     }
 });
 
+// Endpoint to retrieve session details for success page
+app.get('/session-details/:sessionId', async (req, res) => {
+    try {
+        const session = await stripe.checkout.sessions.retrieve(req.params.sessionId);
+        res.json({
+            shipping: session.shipping_details,
+            shippingCost: session.shipping_cost?.shipping_rate || session.total_details?.amount_shipping || 0,
+            customerEmail: session.customer_details?.email
+        });
+    } catch (error) {
+        console.error('Error retrieving session:', error);
+        res.status(500).json({ error: 'Failed to retrieve session' });
+    }
+});
+
 // Email Notification Setup
 const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
