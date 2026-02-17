@@ -6,7 +6,7 @@ const products = [
         image: "images/rvs-spec-sheet.jpg",
         material: "Stainless Steel AISI 304 - Professional Brushed",
         area: "4.5 m² (3000x1500mm)",
-        desc: "Professional-grade stainless steel with a classic brushed texture. Heat-resistant and easy to clean. Includes free protective film to prevent damage during transport.\n\nMaterial: AISI 304\nFinish: Brushed\nThickness: 1.0 mm\nUnit: Professional Sheet",
+        desc: "Professional-grade stainless steel with a classic brushed texture. Heat-resistant and easy to clean. \n\n✨ Exclusive Bonus: We include a high-durability protective film on every sheet at no extra cost to guarantee it arrives in pristine condition.",
         stock: 50
     },
     {
@@ -16,17 +16,7 @@ const products = [
         image: "images/rvs-spec-sheet.jpg",
         material: "Stainless Steel AISI 304 - Mirror Polished",
         area: "4.5 m² (3000x1500mm)",
-        desc: "High-gloss mirror finish. Reflects light beautifully and creates a sense of space. Includes free protective film to prevent damage during transport.\n\nMaterial: AISI 304\nFinish: Polished\nThickness: 1.0 mm\nUnit: Professional Sheet",
-        stock: 50
-    },
-    {
-        id: "rvs-304-natural",
-        title: "AISI 304 - Satin Natural",
-        price: 369.99,
-        image: "images/rvs-spec-sheet.jpg",
-        material: "Stainless Steel AISI 304 - Natural Satin",
-        area: "4.5 m² (3000x1500mm)",
-        desc: "Softer, more muted finish for a modern architectural look. Includes free protective film to prevent damage during transport.\n\nMaterial: AISI 304\nFinish: Natural Satin\nThickness: 1.0 mm\nUnit: Professional Sheet",
+        desc: "High-gloss mirror finish. Reflects light beautifully and creates a sense of space. \n\n✨ Exclusive Bonus: We include a high-durability protective film on every sheet at no extra cost to guarantee it arrives in pristine condition.",
         stock: 50
     }
 ];
@@ -160,11 +150,14 @@ window.openModal = function (id) {
     document.getElementById('modal-desc').innerText = p.desc;
     document.getElementById('modal-material').innerText = p.material;
 
-    // Show dimensions with m2 and protective film info
+    // Show dimensions with m2 and protective film info as a bonus
     const dimsRow = document.getElementById('modal-dims')?.parentElement;
     if (dimsRow) {
         dimsRow.style.display = 'flex';
-        document.getElementById('modal-dims').innerHTML = `${p.area} <br> <span style="color: #059669; font-size: 0.8rem;">+ Free Protective Film</span>`;
+        document.getElementById('modal-dims').innerHTML = `
+            ${p.area} <br> 
+            <div class="bonus-tag"><i class="fas fa-gift"></i> Includes Free Protective Film</div>
+        `;
     }
 
     // Update stock info

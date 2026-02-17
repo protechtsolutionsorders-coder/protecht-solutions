@@ -106,6 +106,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (request, 
 
         console.log(`Payment success for session ID: ${session.id}`);
         await sendOrderEmail(session);
+        await sendCustomerEmail(session);
     }
     response.json({ received: true });
 });
@@ -199,6 +200,91 @@ async function sendOrderEmail(session) {
     }
 }
 
+async function sendCustomerEmail(session) {
+    const customerEmail = session.customer_details.email;
+    const customerName = session.customer_details.name || 'Customer';
+    const amountTotal = session.amount_total / 100;
+    const orderId = session.id.slice(-8).toUpperCase();
+
+    const mailOptions = {
+        from: `"Protecht Solutions" <${process.env.EMAIL_USER}>`,
+        to: customerEmail,
+        subject: `Order Confirmed - Protecht Solutions #${orderId}`,
+        html: `
+        <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; background-color: #ffffff;">
+            <div style="background-color: #000000; padding: 40px 20px; text-align: center;">
+                <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 500; letter-spacing: -0.02em;">PROTECHT SOLUTIONS</h1>
+                <p style="color: #888; margin-top: 10px; font-size: 14px;">Your professional kitchen upgrade is on its way.</p>
+            </div>
+            
+            <div style="padding: 40px 30px;">
+                <h2 style="font-size: 22px; margin-top: 0; color: #111;">Hi ${customerName},</h2>
+                <p style="font-size: 16px; line-height: 1.6; color: #444;">Thank you for your order. We are excited to help you transform your kitchen space with professional-grade stainless steel.</p>
+
+                <div style="margin: 30px 0; padding: 25px; background: #fafafa; border-radius: 12px;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><span style="color: #888; font-size: 12px; text-transform: uppercase;">Order Number</span></td>
+                            <td style="text-align: right;"><span style="color: #888; font-size: 12px; text-transform: uppercase;">Estimated Shipping</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600; font-size: 16px; padding-top: 4px;">#${orderId}</td>
+                            <td style="text-align: right; font-weight: 600; font-size: 16px; padding-top: 4px;">3-5 Business Days</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="border-top: 1px solid #eee; padding-top: 30px;">
+                    <h3 style="font-size: 16px; margin: 0 0 20px 0;">Order Summary</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding-bottom: 20px;">
+                                <div style="font-weight: 600; color: #111;">AISI 304 Stainless Steel Plate</div>
+                                <div style="font-size: 14px; color: #666; margin-top: 4px;">Premium 3000x1500mm Sheet</div>
+                                <div style="display: inline-block; background: #eefdf3; color: #166534; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-top: 8px;">✨ Free Protective Film Included</div>
+                            </td>
+                            <td style="text-align: right; vertical-align: top; font-weight: 600;">€${amountTotal.toFixed(2)}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 10px;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="color: #666; font-size: 14px;">Total Paid</td>
+                            <td style="text-align: right; font-size: 20px; font-weight: 600; color: #000;">€${amountTotal.toFixed(2)}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="margin-top: 40px; padding: 30px; border: 1px solid #eee; border-radius: 12px;">
+                    <h3 style="font-size: 14px; margin-top: 0; text-transform: uppercase; color: #888;">Next Steps</h3>
+                    <p style="font-size: 14px; line-height: 1.5; color: #444; margin-bottom: 0;">Our craft team is now preparing your sheet. You will receive another update with a tracking number as soon as the courier picks up your package.</p>
+                </div>
+                
+                <p style="margin-top: 40px; font-size: 14px; color: #888; text-align: center;">If you have any questions, simply reply to this email.</p>
+            </div>
+            
+            <div style="background-color: #f7f7f7; padding: 30px; text-align: center;">
+                <p style="margin: 0; font-size: 12px; color: #999;">&copy; 2026 Protecht Solutions. All rights reserved.</p>
+                <div style="margin-top: 15px;">
+                    <a href="https://protecht-solutions.onrender.com" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Website</a>
+                    <a href="#" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Terms</a>
+                    <a href="#" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Privacy</a>
+                </div>
+            </div>
+        </div>
+        `
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log(`Confirmation email sent to customer: ${customerEmail}`);
+    } catch (error) {
+        console.error('Error sending customer email:', error);
+    }
+}
+
 
 // Fallback for local development when webhooks can't reach localhost
 app.get('/verify-session/:id', async (req, res) => {
@@ -208,7 +294,8 @@ app.get('/verify-session/:id', async (req, res) => {
         if (session.payment_status === 'paid') {
             console.log(`Manual verification success for session ID: ${session.id}`);
             await sendOrderEmail(session);
-            res.json({ success: true, message: 'Email sent' });
+            await sendCustomerEmail(session);
+            res.json({ success: true, message: 'Emails sent' });
         } else {
             res.json({ success: false, message: 'Payment not completed' });
         }
