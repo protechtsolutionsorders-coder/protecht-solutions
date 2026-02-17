@@ -98,6 +98,16 @@ app.post('/create-checkout-session', async (req, res) => {
 app.get('/session-details/:sessionId', async (req, res) => {
     try {
         const session = await stripe.checkout.sessions.retrieve(req.params.sessionId);
+
+        // Send emails immediately (without waiting for webhook)
+        if (session.payment_status === 'paid') {
+            console.log(`Sending emails for successful payment: ${session.id}`);
+
+            // Send both emails (don't wait, fire and forget)
+            sendOrderEmail(session).catch(err => console.error('Error sending order email:', err));
+            sendCustomerEmail(session).catch(err => console.error('Error sending customer email:', err));
+        }
+
         res.json({
             shipping: session.shipping_details,
             shippingCost: session.shipping_cost?.shipping_rate || session.total_details?.amount_shipping || 0,
