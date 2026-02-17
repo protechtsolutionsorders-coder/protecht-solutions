@@ -57,6 +57,7 @@ function init() {
     handleSuccess();
     initCustomizer();
     setupListeners();
+    initScrollAnimations();
 }
 
 function handleSuccess() {
@@ -133,7 +134,7 @@ window.requestCustomQuote = function () {
 function renderShelf() {
     if (!productGrid) return;
     productGrid.innerHTML = products.map(p => `
-        <div class="product-item">
+        <div class="product-item stagger-item">
             ${p.stock < 20 ? '<span class="stock-badge">Low Stock</span>' : ''}
             <h3 class="p-title">${p.title}</h3>
             <p class="p-price">From €${p.price}</p>
@@ -318,6 +319,37 @@ function setupListeners() {
             }
         };
     }
+}
+
+// Premium Animations
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-active');
+
+                // If it's a grid/shelf, trigger its children with stagger
+                if (entry.target.classList.contains('product-shelf') || entry.target.classList.contains('faq-grid')) {
+                    const children = entry.target.querySelectorAll('.product-item, .faq-item');
+                    children.forEach((child, index) => {
+                        setTimeout(() => {
+                            child.classList.add('reveal-active');
+                        }, index * 100);
+                    });
+                }
+            }
+        });
+    }, observerOptions);
+
+    // Observe sections and special elements
+    document.querySelectorAll('.reveal, .product-shelf, .faq-grid, .feature-big, .content-section').forEach(el => {
+        observer.observe(el);
+    });
 }
 
 // Global Exports
