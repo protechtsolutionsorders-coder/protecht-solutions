@@ -5,7 +5,7 @@ const products = [
         price: 369.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "1 Side Brushed / 1 Side Polished Mirror",
-        desc: "Professional AISI 304 food-grade stainless steel sheet.\n\nFeatures a versatile dual finish: one side refined brushed texture, one side high-gloss mirror polish. Certified for professional kitchen environments and direct food contact.\n\nIncludes high-durability laser film protection on both surfaces.",
+        desc: "Premium AISI 304 stainless steel backsplash sheet with professional dual finish. One side features a refined brushed texture, the other a mirror-polished surface. Laser protection film applied on polished side for scratch-free delivery. Certified for professional kitchen environments and direct food contact.",
         features: [
             { icon: "fa-certificate", text: "ISO Standard" },
             { icon: "fa-fire-burner", text: "Heat Resistant" },

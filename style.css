@@ -416,10 +416,27 @@ h3 {
 }
 
 .modal-info {
-    flex: 0.8;
-    padding: 60px 40px;
+    flex: 1;
+    padding: 40px;
     display: flex;
     flex-direction: column;
+    max-height: 90vh;
+}
+
+.modal-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+
+.modal-sticky-footer {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin-top: auto;
 }
 
 .new-badge {
@@ -509,6 +526,38 @@ h3 {
 .regulatory-note strong {
     color: var(--text-primary);
     font-weight: 600;
+}
+
+/* Pickup Info */
+.pickup-info {
+    background: #f0fff4;
+    border-left: 3px solid #10b981;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.pickup-info i {
+    color: #10b981;
+    font-size: 1.2rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.pickup-info strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.pickup-address {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
 }
 
 /* Cart */

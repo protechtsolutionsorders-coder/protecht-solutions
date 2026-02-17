@@ -279,46 +279,59 @@
                     <img src="" id="modal-img">
                 </div>
                 <div class="modal-info">
-                    <span class="new-badge">New</span>
-                    <h2 id="modal-title">Product</h2>
-                    <p class="modal-price" id="modal-price">€0.00</p>
-                    <p class="modal-desc" id="modal-desc">Description</p>
+                    <div class="modal-scroll-content">
+                        <span class="new-badge">New</span>
+                        <h2 id="modal-title">Product</h2>
+                        <p class="modal-price" id="modal-price">€0.00</p>
+                        <p class="modal-desc" id="modal-desc">Description</p>
 
-                    <div class="feature-tags" id="modal-features">
-                        <!-- Dynamic tags injected by JS -->
-                    </div>
+                        <div class="feature-tags" id="modal-features">
+                            <!-- Dynamic tags injected by JS -->
+                        </div>
 
-                    <div class="variant-selector" id="modal-variant-selector">
-                        <span class="variant-label">Select Size</span>
-                        <div class="variant-options" id="size-options">
-                            <!-- Options injected by JS -->
+                        <div class="variant-selector" id="modal-variant-selector">
+                            <span class="variant-label">Select Size</span>
+                            <div class="variant-options" id="size-options">
+                                <!-- Options injected by JS -->
+                            </div>
+                        </div>
+
+                        <div class="specs-list">
+                            <div class="spec-row">
+                                <span>Material</span>
+                                <strong id="modal-material">Steel</strong>
+                            </div>
+                            <div class="spec-row">
+                                <span>Dimensions</span>
+                                <strong id="modal-dims">Professional Size</strong>
+                            </div>
+                        </div>
+
+                        <div class="regulatory-note">
+                            <i class="fas fa-certificate"></i>
+                            <div>
+                                <strong>Industry Certified</strong><br>
+                                AISI 304 stainless steel is the professional industry standard approved for food contact
+                                and
+                                high-hygiene environments (EU 1935/2004 compliance).
+                            </div>
+                        </div>
+
+                        <div class="pickup-info">
+                            <i class="fas fa-location-dot"></i>
+                            <div>
+                                <strong>Pickup Locations</strong><br>
+                                <span class="pickup-address">• GGM Gastro (near Mechelen), Belgium</span>
+                                <span class="pickup-address">• Overpelterbaan 66, Hechtel-EKSEL 3941, Belgium</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="specs-list">
-                        <div class="spec-row">
-                            <span>Material</span>
-                            <strong id="modal-material">Steel</strong>
+                    <div class="modal-sticky-footer">
+                        <button class="btn-primary full-width" id="modal-add-btn">Add to Bag</button>
+                        <div class="shipping-info">
+                            <i class="fas fa-box"></i> Ships: 1 business day
                         </div>
-                        <div class="spec-row">
-                            <span>Dimensions</span>
-                            <strong id="modal-dims">Professional Size</strong>
-                        </div>
-                    </div>
-
-                    <div class="regulatory-note">
-                        <i class="fas fa-certificate"></i>
-                        <div>
-                            <strong>Industry Certified</strong><br>
-                            AISI 304 stainless steel is the professional industry standard approved for food contact and
-                            high-hygiene environments (EU 1935/2004 compliance).
-                        </div>
-                    </div>
-
-                    <button class="btn-primary full-width" id="modal-add-btn" style="margin-top: 30px;">Add to
-                        Bag</button>
-                    <div class="shipping-info">
-                        <i class="fas fa-box"></i> Ships: 1 business day
                     </div>
                 </div>
             </div>
