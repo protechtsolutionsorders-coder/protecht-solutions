@@ -270,6 +270,16 @@ window.selectSize = function (idx) {
 }
 
 function updateModalDimensions(p) {
+    if (!p) return; // Guard clause
+
+    // If no size selected yet, show placeholder
+    if (selectedSizeIndex === -1 || !p.sizes[selectedSizeIndex]) {
+        document.getElementById('modal-dims').innerHTML = `
+            <span style="color: #888;">Select a size above</span>
+        `;
+        return;
+    }
+
     const size = p.sizes[selectedSizeIndex];
     document.getElementById('modal-dims').innerHTML = `
         ${size.area} (${size.label}) <br> 
