@@ -395,7 +395,7 @@ async function sendCustomerEmail(session) {
             <div style="background-color: #f7f7f7; padding: 30px; text-align: center;">
                 <p style="margin: 0; font-size: 12px; color: #999;">&copy; 2026 ProTech Solutions. All rights reserved.</p>
                 <div style="margin-top: 15px;">
-                    <a href="https://protech-solutions.onrender.com" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Website</a>
+                    <a href="https://protecht-solutions.onrender.com" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Website</a>
                     <a href="#" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Terms</a>
                     <a href="#" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Privacy</a>
                 </div>
