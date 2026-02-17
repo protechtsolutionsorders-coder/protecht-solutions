@@ -174,6 +174,7 @@ function renderShelf() {
 
 // Modal
 window.openModal = function (id) {
+    currentOpenProductId = id;
     const p = products.find(x => x.id === id);
     if (!p) return;
 
@@ -213,8 +214,7 @@ window.openModal = function (id) {
     modal.classList.add('active');
 
     document.getElementById('modal-add-btn').onclick = () => {
-        addToCart(p);
-        window.addToCart(); // Call the global addToCart function
+        window.addToCart();
     };
 }
 
