@@ -125,13 +125,19 @@
                     </div>
                     <div class="control-group">
                         <label>Width (mm)</label>
-                        <input type="range" id="cust-width" min="500" max="3000" value="1500">
-                        <span id="val-width">1500 mm</span>
+                        <div class="input-sync">
+                            <input type="range" id="cust-width" min="500" max="3000" value="1500">
+                            <input type="number" id="cust-width-num" min="500" max="3000" value="1500"
+                                class="num-input">
+                        </div>
                     </div>
                     <div class="control-group">
                         <label>Height (mm)</label>
-                        <input type="range" id="cust-height" min="300" max="1500" value="750">
-                        <span id="val-height">750 mm</span>
+                        <div class="input-sync">
+                            <input type="range" id="cust-height" min="300" max="1500" value="750">
+                            <input type="number" id="cust-height-num" min="300" max="1500" value="750"
+                                class="num-input">
+                        </div>
                     </div>
                     <div class="quote-display">
                         <span class="quote-label">Estimated Quote</span>
@@ -212,7 +218,7 @@
                 </div>
                 <div class="faq-item stagger-item">
                     <h4>Do you ship to my country?</h4>
-                    <p>We ship across the entire European Union. Delivery times typically range from 3 to 5 business
+                    <p>We ship across the entire European Union. Delivery times typically range from 3 to 6 business
                         days.</p>
                 </div>
                 <div class="faq-item stagger-item">

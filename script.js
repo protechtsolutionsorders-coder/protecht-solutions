@@ -36,8 +36,8 @@ const cartTotal = document.getElementById('cart-total-price');
 const custWidth = document.getElementById('cust-width');
 const custHeight = document.getElementById('cust-height');
 const custMaterial = document.getElementById('cust-material');
-const valWidth = document.getElementById('val-width');
-const valHeight = document.getElementById('val-height');
+const valWidth = document.getElementById('cust-width-num');
+const valHeight = document.getElementById('cust-height-num');
 const priceDisplay = document.getElementById('cust-price');
 const platePreview = document.getElementById('plate-preview');
 const labelW = document.getElementById('label-w');
@@ -79,37 +79,50 @@ window.closeSuccessModal = function () {
 // Visual Customizer
 function initCustomizer() {
     if (!custWidth) return;
+    const custWidthNum = document.getElementById('cust-width-num');
+    const custHeightNum = document.getElementById('cust-height-num');
 
-    const updateUI = () => {
-        const w = parseInt(custWidth.value);
-        const h = parseInt(custHeight.value);
+    const updateUI = (source) => {
+        let w, h;
+
+        if (source === 'range') {
+            w = parseInt(custWidth.value);
+            h = parseInt(custHeight.value);
+            custWidthNum.value = w;
+            custHeightNum.value = h;
+        } else {
+            w = parseInt(custWidthNum.value) || 500;
+            h = parseInt(custHeightNum.value) || 300;
+            custWidth.value = w;
+            custHeight.value = h;
+        }
+
         const material = custMaterial.value;
 
         // Visual labels
-        valWidth.innerText = `${w} mm`;
-        valHeight.innerText = `${h} mm`;
         labelW.innerText = `${w}mm`;
         labelH.innerText = `${h}mm`;
 
         // Scale Visual Plate
-        // Base max display area is ~300px width for 3000mm
         const scale = 0.1;
         platePreview.style.width = `${w * scale}px`;
         platePreview.style.height = `${h * scale}px`;
 
         // Price Calc (Aligned with Catalog: €85 per m2 for 304 Brushed + base €25 fee)
         const areaM2 = (w / 1000) * (h / 1000);
-        const rate = material === '304' ? 85 : 85; // Defaulting to 304 Brushed rate
-        const total = (areaM2 * rate) + 25; // €25 processing fee
+        const rate = material === '304' ? 85 : 85;
+        const total = (areaM2 * rate) + 25;
 
         priceDisplay.innerText = `€${total.toFixed(2)}`;
     };
 
-    custWidth.oninput = updateUI;
-    custHeight.oninput = updateUI;
-    custMaterial.onchange = updateUI;
+    custWidth.oninput = () => updateUI('range');
+    custHeight.oninput = () => updateUI('range');
+    custWidthNum.oninput = () => updateUI('num');
+    custHeightNum.oninput = () => updateUI('num');
+    custMaterial.onchange = () => updateUI('range');
 
-    updateUI(); // Init call
+    updateUI('range'); // Init call
 }
 
 window.requestCustomQuote = function () {

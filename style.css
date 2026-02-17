@@ -130,9 +130,17 @@ h3 {
     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
+.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.delay-2 {
+    animation-delay: 0.2s;
+}
+
+.delay-3 {
+    animation-delay: 0.3s;
+}
 
 /* Stagger Logic for JS */
 .stagger-item {
@@ -640,6 +648,26 @@ h3 {
     overflow: hidden;
 }
 
+.input-sync {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.input-sync input[type="range"] {
+    flex: 1;
+}
+
+.num-input {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    text-align: center;
+}
+
 .plate-visual {
     background: linear-gradient(135deg, #e5e7eb, #9ca3af);
     box-shadow: 20px 20px 60px #d1d5db, -20px -20px 60px #ffffff;
@@ -774,6 +802,20 @@ footer {
     font-weight: 700;
     text-transform: uppercase;
     z-index: 10;
+}
+
+.bonus-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f0fdf4;
+    color: #166534;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid #bbf7d0;
+    margin-top: 8px;
 }
 
 .text-center {

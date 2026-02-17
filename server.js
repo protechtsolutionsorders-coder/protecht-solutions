@@ -56,7 +56,7 @@ app.post('/create-checkout-session', async (req, res) => {
                 display_name: totalAmount >= 600 ? 'Free Delivery (Promo)' : 'Standard Delivery',
                 delivery_estimate: {
                     minimum: { unit: 'business_day', value: 3 },
-                    maximum: { unit: 'business_day', value: 5 },
+                    maximum: { unit: 'business_day', value: 6 },
                 },
             },
         });
@@ -229,7 +229,7 @@ async function sendCustomerEmail(session) {
                         </tr>
                         <tr>
                             <td style="font-weight: 600; font-size: 16px; padding-top: 4px;">#${orderId}</td>
-                            <td style="text-align: right; font-weight: 600; font-size: 16px; padding-top: 4px;">3-5 Business Days</td>
+                            <td style="text-align: right; font-weight: 600; font-size: 16px; padding-top: 4px;">3-6 Business Days</td>
                         </tr>
                     </table>
                 </div>
