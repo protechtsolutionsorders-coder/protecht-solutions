@@ -610,6 +610,17 @@ h3 {
     gap: 24px;
 }
 
+.trust-icons span.logo {
+    display: flex;
+    align-items: center;
+}
+
+.brand-logo {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+}
+
 .trust-icons span {
     font-size: 0.75rem;
     color: var(--text-secondary);
@@ -818,8 +829,68 @@ footer {
     margin-top: 8px;
 }
 
-.text-center {
+.variant-selector {
+    margin: 20px 0;
+}
+
+.variant-label {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.variant-options {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.variant-box {
+    border: 2px solid #eee;
+    padding: 10px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
     text-align: center;
+    min-width: 120px;
+}
+
+.variant-box:hover {
+    border-color: #ddd;
+    background: #fafafa;
+}
+
+.variant-box.active {
+    border-color: #000;
+    background: #000;
+    color: #fff;
+}
+
+.footer-logo {
+    height: 35px;
+    width: auto;
+    margin-bottom: 20px;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
+
+.watermark {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.watermark img {
+    height: 80px;
+    width: auto;
 }
 
 @media (max-width: 768px) {

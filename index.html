@@ -17,7 +17,9 @@
 
     <nav class="navbar glass">
         <div class="container nav-content">
-            <a href="#" class="logo"><i class="fas fa-shield-alt"></i> Protecht Solutions</a>
+            <a href="#" class="logo">
+                <img src="images/logo.jpg" alt="ProTech Solutions Logo" class="brand-logo">
+            </a>
             <ul class="nav-links">
                 <li><a href="#overview">Overview</a></li>
                 <li><a href="#products">Products</a></li>
@@ -114,6 +116,9 @@
                     <div id="plate-preview" class="plate-visual">
                         <span class="dim-label-w" id="label-w">3000mm</span>
                         <span class="dim-label-h" id="label-h">1500mm</span>
+                    </div>
+                    <div class="watermark">
+                        <img src="images/logo.jpg" alt="ProTech Solutions Watermark">
                     </div>
                 </div>
                 <div class="customizer-controls">
@@ -234,9 +239,12 @@
     <footer id="contact">
         <div class="container">
             <div class="footer-links">
+                <div class="footer-brand">
+                    <img src="images/logo.jpg" alt="ProTech Solutions Logo" class="footer-logo">
+                    <p>Professional kitchen solutions for the modern home and industry.</p>
+                </div>
                 <div class="col">
                     <h4>Products</h4>
-                    <a href="#products">Aluminum Sheets</a>
                     <a href="#products">Steel Plates</a>
                     <a href="#customizer">Customizer Ecosystem</a>
                 </div>
@@ -275,6 +283,13 @@
                     <h2 id="modal-title">Product</h2>
                     <p class="modal-price" id="modal-price">€0.00</p>
                     <p class="modal-desc" id="modal-desc">Description</p>
+
+                    <div class="variant-selector" id="modal-variant-selector">
+                        <span class="variant-label">Select Size</span>
+                        <div class="variant-options" id="size-options">
+                            <!-- Options injected by JS -->
+                        </div>
+                    </div>
 
                     <div class="specs-list">
                         <div class="spec-row">

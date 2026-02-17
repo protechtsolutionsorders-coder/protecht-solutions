@@ -1,25 +1,20 @@
 const products = [
     {
-        id: "rvs-304-double-large",
-        title: "AISI 304 - Professional Double-Sided",
+        id: "rvs-304-premium",
+        title: "Professional AISI 304 Stainless Steel Sheet",
         price: 369.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "1 Side Brushed / 1 Side Polished Mirror",
-        area: "4.5 m² (3000x1500mm)",
-        desc: "The ultimate professional plate. Features a reversible design with one high-end brushed side and one mirror-polished side. \n\n✨ Premium Protection: Includes high-durability laser-protective film on both sides to guarantee a flawless finish upon arrival.",
-        stock: 50
-    },
-    {
-        id: "rvs-304-double-medium",
-        title: "AISI 304 - Professional Double-Sided",
-        price: 369.99, // Keeping same price as requested for all articles
-        image: "images/rvs-spec-sheet.jpg",
-        material: "1 Side Brushed / 1 Side Polished Mirror",
-        area: "2.0 m² (2000x1000mm)",
-        desc: "The ultimate professional plate. Features a reversible design with one high-end brushed side and one mirror-polished side. \n\n✨ Premium Protection: Includes high-durability laser-protective film on both sides to guarantee a flawless finish upon arrival.",
+        desc: "Industrial-grade stainless steel with a versatile double finish. One side features a premium brushed texture, while the other is polished to a mirror shine. \n\n✨ Premium Laser Film: Both sides are protected with high-durability film at no extra cost to guarantee perfection upon delivery.",
+        sizes: [
+            { label: "3000 x 1500 mm", area: "4.5 m²" },
+            { label: "2000 x 1000 mm", area: "2.0 m²" }
+        ],
         stock: 50
     }
 ];
+
+let selectedSizeIndex = 0;
 
 // State
 let cart = JSON.parse(localStorage.getItem('metallum_apple_cart')) || [];
@@ -163,15 +158,15 @@ window.openModal = function (id) {
     document.getElementById('modal-desc').innerText = p.desc;
     document.getElementById('modal-material').innerText = p.material;
 
-    // Show dimensions with m2 and protective film info as a bonus
-    const dimsRow = document.getElementById('modal-dims')?.parentElement;
-    if (dimsRow) {
-        dimsRow.style.display = 'flex';
-        document.getElementById('modal-dims').innerHTML = `
-            ${p.area} <br> 
-            <div class="bonus-tag"><i class="fas fa-gift"></i> Includes Free Protective Film</div>
-        `;
-    }
+    // Render Size Options
+    const sizeOptions = document.getElementById('size-options');
+    sizeOptions.innerHTML = p.sizes.map((s, idx) => `
+        <div class="variant-box ${idx === selectedSizeIndex ? 'active' : ''}" onclick="selectSize(${idx})">
+            ${s.label}
+        </div>
+    `).join('');
+
+    updateModalDimensions(p);
 
     // Update stock info
     const shippingInfo = document.querySelector('.shipping-info');
@@ -186,8 +181,7 @@ window.openModal = function (id) {
 
     document.getElementById('modal-add-btn').onclick = () => {
         addToCart(p);
-        closeModal();
-        setTimeout(openCart, 300);
+        window.addToCart(); // Call the global addToCart function
     };
 }
 
@@ -195,20 +189,54 @@ window.closeModal = function () {
     document.getElementById('product-modal').classList.remove('active');
 }
 
+window.selectSize = function (idx) {
+    selectedSizeIndex = idx;
+    const boxes = document.querySelectorAll('.variant-box');
+    boxes.forEach((b, i) => {
+        if (i === idx) b.classList.add('active');
+        else b.classList.remove('active');
+    });
+
+    const p = products.find(prod => prod.id === currentOpenProductId);
+    updateModalDimensions(p);
+}
+
+function updateModalDimensions(p) {
+    const size = p.sizes[selectedSizeIndex];
+    document.getElementById('modal-dims').innerHTML = `
+        ${size.area} (${size.label}) <br> 
+        <div class="bonus-tag"><i class="fas fa-gift"></i> Includes Free Laser Film</div>
+    `;
+}
+
 // Cart Logic
-function addToCart(product) {
-    const existing = cart.find(x => x.id === product.id);
+window.addToCart = function () {
+    const p = products.find(prod => prod.id === currentOpenProductId);
+    const size = p.sizes[selectedSizeIndex];
+
+    // Add size to the item
+    const cartItem = {
+        ...p,
+        selectedSize: size.label,
+        uniqueId: `${p.id}-${size.label.replace(/\s+/g, '')}`
+    };
+
+    const existing = cart.find(item => item.uniqueId === cartItem.uniqueId);
     if (existing) {
         existing.qty++;
     } else {
-        cart.push({ ...product, qty: 1 });
+        cartItem.qty = 1;
+        cart.push(cartItem);
     }
-    saveCart();
+
+    localStorage.setItem('metallum_apple_cart', JSON.stringify(cart));
     updateCartUI();
-}
+    closeModal();
+    openCart();
+};
 
 function removeFromCart(id) {
-    cart = cart.filter(x => x.id !== id);
+    cart = cart.filter(x => x.uniqueId !== id); // Changed to uniqueId
     saveCart();
     updateCartUI();
 }
