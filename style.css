@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --bg-body: #f7f7f9;
     --bg-white: #ffffff;
     --text-primary: #111827;
@@ -1000,6 +1000,7 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
  / *   P r e m i u m   V i s u a l s   &   F e e d b a c k   * / 
  @ k e y f r a m e s   p u l s e   { 
          0 %   {   t r a n s f o r m :   s c a l e ( 1 ) ;   } 
@@ -1036,7 +1037,6 @@ footer {
          d i s p l a y :   f l e x ; 
          a l i g n - i t e m s :   c e n t e r ; 
          g a p :   1 2 p x ; 
-         m a r g i n - t o p :   1 0 p x ; 
  } 
  
  . q t y - b t n   { 
