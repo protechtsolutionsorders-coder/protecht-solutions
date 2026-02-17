@@ -266,7 +266,29 @@ window.addToCart = function () {
     updateCartUI();
     closeModal();
     openCart();
+
+    // Feedback Animation
+    showToast('Added to bag');
+    const badge = document.getElementById('cart-count');
+    if (badge) {
+        badge.classList.remove('pulse');
+        void badge.offsetWidth; // Trigger reflow
+        badge.classList.add('pulse');
+    }
 };
+
+function showToast(msg) {
+    let toast = document.getElementById('toast-feedback');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-feedback';
+        toast.className = 'toast-feedback';
+        document.body.appendChild(toast);
+    }
+    toast.innerText = msg;
+    toast.classList.add('active');
+    setTimeout(() => toast.classList.remove('active'), 2500);
+}
 
 function removeFromCart(id) {
     cart = cart.filter(x => x.uniqueId !== id); // Changed to uniqueId

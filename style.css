@@ -510,6 +510,21 @@ h3 {
     object-fit: contain;
 }
 
+.remove-item {
+    background: none;
+    border: none;
+    color: #ff3b30;
+    font-size: 0.75rem;
+    padding: 0;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.remove-item:hover {
+    text-decoration: underline;
+}
+
 .cart-footer {
     padding: 30px;
     background: #fbfbfd;
