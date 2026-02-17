@@ -715,15 +715,31 @@ h3 {
 }
 
 .visual-preview {
-    background: #f0f0f4;
-    border-radius: 16px;
+    flex: 1;
+    background: #f0f0f2;
+    border-radius: 10px;
+    padding: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 400px;
     position: relative;
-    padding: 40px;
     overflow: hidden;
+}
+
+/* Watermark logo in customizer */
+.watermark {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.watermark img {
+    max-width: 80px;
+    max-height: 80px;
+    object-fit: contain;
 }
 
 .input-sync {
