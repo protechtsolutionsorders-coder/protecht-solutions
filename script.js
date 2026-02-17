@@ -302,14 +302,21 @@ function init3DEffects() {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            const rotateX = ((y - centerY) / centerY) * -10;
-            const rotateY = ((x - centerX) / centerX) * 10;
+            const rotateX = ((y - centerY) / centerY) * -15;
+            const rotateY = ((x - centerX) / centerX) * 15;
 
             card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+            const img = card.querySelector('img');
+            if (img) {
+                img.style.transform = `translateZ(60px) rotateX(${rotateX * 0.5}deg) rotateY(${rotateY * 0.5}deg)`;
+            }
         };
 
         card.onmouseleave = () => {
             card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            const img = card.querySelector('img');
+            if (img) img.style.transform = `translateZ(0px) rotateX(0deg) rotateY(0deg)`;
         };
     });
 }
