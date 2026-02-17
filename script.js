@@ -368,11 +368,11 @@ function updateCartUI() {
                     </div>
                     <div style="font-size:0.85rem; color:#888;">Size: ${item.selectedSize}</div>
                     <div class="qty-controls" style="margin-top:8px;">
-                        <button class="qty-btn" onclick="window.updateQty('${item.uniqueId}', -1)">-</button>
+                        <button class="qty-btn" data-action="minus" data-id="${item.uniqueId}">-</button>
                         <span style="font-weight:600; min-width:20px; text-align:center;">${item.qty}</span>
-                        <button class="qty-btn" onclick="window.updateQty('${item.uniqueId}', 1)">+</button>
+                        <button class="qty-btn" data-action="plus" data-id="${item.uniqueId}">+</button>
                     </div>
-                    <button class="remove-item" onclick="window.removeFromCart('${item.uniqueId}')">Remove</button>
+                    <button class="remove-item" data-action="remove" data-id="${item.uniqueId}">Remove</button>
                 </div>
             </div>
         `).join('');
@@ -405,6 +405,20 @@ function setupListeners() {
     const cartBtn = document.getElementById('cart-btn');
     if (cartBtn) {
         cartBtn.onclick = (e) => { e.preventDefault(); openCart(); };
+    }
+
+    // Event Delegation for Cart (Fixes First Item Bug)
+    const cartItemsContainer = document.getElementById('cart-items');
+    if (cartItemsContainer) {
+        cartItemsContainer.onclick = (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            const id = btn.dataset.id;
+            const action = btn.dataset.action;
+            if (action === 'plus') window.updateQty(id, 1);
+            else if (action === 'minus') window.updateQty(id, -1);
+            else if (action === 'remove') window.removeFromCart(id);
+        };
     }
 
     // Checkout

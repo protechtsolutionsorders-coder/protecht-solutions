@@ -942,3 +942,64 @@ footer {
     opacity: 1 !important;
     transform: translateY(0) !important;
 }
+
+/* Feature Tags (Boxes) */
+.feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.feature-tag {
+    background: #f5f5f7;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #eee;
+}
+
+/* Variant/Size Boxes */
+.variant-selector {
+    margin-bottom: 25px;
+}
+
+.variant-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #888;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.variant-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.variant-box {
+    border: 1px solid #e5e5e5;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.variant-box.active {
+    border-color: var(--accent);
+    background: #f5f7ff;
+    color: var(--accent);
+}
+
+.variant-box:hover {
+    background: #fafafa;
+}
