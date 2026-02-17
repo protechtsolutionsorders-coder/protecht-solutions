@@ -180,8 +180,22 @@ h3 {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.brand-logo {
+    height: 28px;
+    width: auto;
+}
+
+.brand-name {
+    font-size: 1.1rem;
     font-weight: 600;
-    font-size: 1.2rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
 }
 
 .nav-links {

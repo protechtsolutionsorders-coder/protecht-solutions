@@ -20,7 +20,7 @@ const products = [
     }
 ];
 
-let selectedSizeIndex = 0;
+let selectedSizeIndex = -1; // No preselection - user must choose
 let currentOpenProductId = null;
 
 // Load cart and FIX any items with undefined uniqueId

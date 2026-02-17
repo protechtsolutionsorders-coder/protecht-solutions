@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.static('.')); // Serve static files (html, css, js)
 app.use(express.json());
 
-const DOMAIN = process.env.DOMAIN || 'https://protecht-solutions.onrender.com';
+const DOMAIN = process.env.DOMAIN || 'https://protech-solutions.onrender.com';
 
 app.post('/create-checkout-session', async (req, res) => {
     try {
@@ -118,13 +118,13 @@ async function sendOrderEmail(session) {
     const orderId = session.id.slice(-8).toUpperCase();
 
     const mailOptions = {
-        from: `"Protecht Solutions Orders" <${process.env.EMAIL_USER}>`,
+        from: `"ProTech Solutions Orders" <${process.env.EMAIL_USER}>`,
         to: 'protechtsolutions.orders@gmail.com',
-        subject: `[SALES] New Order #${orderId} - Protecht Solutions`,
+        subject: `[SALES] New Order #${orderId} - ProTech Solutions`,
         html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; color: #333;">
             <div style="background-color: #111827; padding: 30px; text-align: center;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 24px; letter-spacing: 1px;">PROTECHT SOLUTIONS</h1>
+                <h1 style="color: #ffffff; margin: 0; font-size: 24px; letter-spacing: 1px;">PROTECH SOLUTIONS</h1>
             </div>
             <div style="padding: 40px;">
                 <h2 style="margin-top: 0; color: #111827;">New Order Received!</h2>
@@ -185,7 +185,7 @@ async function sendOrderEmail(session) {
                 </div>
             </div>
             <div style="background-color: #f9fafb; padding: 20px; text-align: center; color: #9ca3af; font-size: 12px;">
-                <p style="margin: 0;">&copy; 2026 Protecht Solutions. All rights reserved.</p>
+                <p style="margin: 0;">&copy; 2026 ProTech Solutions. All rights reserved.</p>
                 <p style="margin: 5px 0 0 0;">This is an automated order notification.</p>
             </div>
         </div>
@@ -207,13 +207,13 @@ async function sendCustomerEmail(session) {
     const orderId = session.id.slice(-8).toUpperCase();
 
     const mailOptions = {
-        from: `"Protecht Solutions" <${process.env.EMAIL_USER}>`,
+        from: `"ProTech Solutions" <${process.env.EMAIL_USER}>`,
         to: customerEmail,
-        subject: `Order Confirmed - Protecht Solutions #${orderId}`,
+        subject: `Order Confirmed - ProTech Solutions #${orderId}`,
         html: `
         <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; background-color: #ffffff;">
             <div style="background-color: #000000; padding: 40px 20px; text-align: center;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 500; letter-spacing: -0.02em;">PROTECHT SOLUTIONS</h1>
+                <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 500; letter-spacing: -0.02em;">PROTECH SOLUTIONS</h1>
                 <p style="color: #888; margin-top: 10px; font-size: 14px;">Your professional kitchen upgrade is on its way.</p>
             </div>
             
@@ -266,9 +266,9 @@ async function sendCustomerEmail(session) {
             </div>
             
             <div style="background-color: #f7f7f7; padding: 30px; text-align: center;">
-                <p style="margin: 0; font-size: 12px; color: #999;">&copy; 2026 Protecht Solutions. All rights reserved.</p>
+                <p style="margin: 0; font-size: 12px; color: #999;">&copy; 2026 ProTech Solutions. All rights reserved.</p>
                 <div style="margin-top: 15px;">
-                    <a href="https://protecht-solutions.onrender.com" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Website</a>
+                    <a href="https://protech-solutions.onrender.com" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Website</a>
                     <a href="#" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Terms</a>
                     <a href="#" style="color: #666; font-size: 12px; text-decoration: none; margin: 0 10px;">Privacy</a>
                 </div>
