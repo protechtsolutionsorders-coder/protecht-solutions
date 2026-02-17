@@ -496,19 +496,27 @@ h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    /* Explicit positioning */
+    z-index: 1;
+    /* Low z-index to stay behind items */
 }
 
 .cart-items {
     flex: 1;
     padding: 20px;
-    padding-top: 0;
-    /* Prevent overlap with header */
+    padding-top: 10px;
+    /* Reduce top padding */
     overflow-y: auto;
+    position: relative;
+    /* Ensure stacking context */
+    z-index: 2;
+    /* Higher than header */
 }
 
 .cart-item:first-child {
-    margin-top: 15px;
-    /* Extra spacing for first item to clear header */
+    margin-top: 30px !important;
+    /* Force spacing to clear header completely */
 }
 
 .cart-item {
