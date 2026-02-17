@@ -150,6 +150,56 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (request, 
     response.json({ received: true });
 });
 
+// Helper function to generate shipping section based on customer choice
+function generateShippingSection(session) {
+    const shippingName = session.shipping_details?.name || '';
+    const address = session.shipping_details?.address;
+
+    // Check if pickup (contains "Pickup" in name or no address)
+    if (shippingName.toLowerCase().includes('pickup') || !address) {
+        // Determine which pickup location
+        if (shippingName.includes('Mechelen') || shippingName.includes('Blarenberglaan')) {
+            return `
+                <div style="margin-top: 20px; padding: 30px; background: #f0fff4; border: 1px solid #86efac; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="font-size: 20px; margin-right: 10px;">📍</div>
+                        <div style="font-weight: 600; font-size: 16px; color: #166534;">Your Pickup Location</div>
+                    </div>
+                    <p style="margin: 0; color: #166534; font-size: 14px; font-weight: 500;">Blarenberglaan 6, 2800 Mechelen (GGM Gastro)</p>
+                    <p style="margin-top: 10px; color: #166534; font-size: 13px;">Your order will be ready for pickup in 3-5 business days. We'll notify you when it's ready.</p>
+                </div>
+            `;
+        } else if (shippingName.includes('Hechtel') || shippingName.includes('Overpelterbaan')) {
+            return `
+                <div style="margin-top: 20px; padding: 30px; background: #f0fff4; border: 1px solid #86efac; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="font-size: 20px; margin-right: 10px;">📍</div>
+                        <div style="font-weight: 600; font-size: 16px; color: #166534;">Your Pickup Location</div>
+                    </div>
+                    <p style="margin: 0; color: #166534; font-size: 14px; font-weight: 500;">Overpelterbaan 66, 3941 Hechtel-EKSEL</p>
+                    <p style="margin-top: 10px; color: #166534; font-size: 13px;">Your order will be ready for pickup in 3-5 business days. We'll notify you when it's ready.</p>
+                </div>
+            `;
+        }
+    } else if (address) {
+        // Delivery address
+        const fullAddress = `${address.line1}${address.line2 ? ', ' + address.line2 : ''}, ${address.postal_code} ${address.city}, ${address.country}`;
+        return `
+            <div style="margin-top: 20px; padding: 30px; background: #eff6ff; border: 1px solid #93c5fd; border-radius: 12px;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <div style="font-size: 20px; margin-right: 10px;">🚚</div>
+                    <div style="font-weight: 600; font-size: 16px; color: #1e40af;">Delivery Address</div>
+                </div>
+                <p style="margin: 0; color: #1e40af; font-size: 14px; font-weight: 500;">${fullAddress}</p>
+                <p style="margin-top: 10px; color: #1e40af; font-size: 13px;">Your order will be delivered in 3-5 business days. You'll receive tracking information soon.</p>
+            </div>
+        `;
+    }
+
+    // Fallback if neither pickup nor delivery detected
+    return '';
+}
+
 // Helper function to send professional HTML email
 async function sendOrderEmail(session) {
     const amountTotal = session.amount_total / 100;
