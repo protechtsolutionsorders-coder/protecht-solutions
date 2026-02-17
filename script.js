@@ -183,6 +183,14 @@ window.openModal = function (id) {
     document.getElementById('modal-desc').innerText = p.desc;
     document.getElementById('modal-material').innerText = p.material;
 
+    // Features
+    const featureContainer = document.getElementById('modal-features');
+    if (p.features) {
+        featureContainer.innerHTML = p.features.map(f => `
+            <div class="feature-tag"><i class="fas ${f.icon}"></i> ${f.text}</div>
+        `).join('');
+    }
+
     // Render Size Options
     const sizeOptions = document.getElementById('size-options');
     sizeOptions.innerHTML = p.sizes.map((s, idx) => `
@@ -222,7 +230,7 @@ window.selectSize = function (idx) {
         else b.classList.remove('active');
     });
 
-    const p = products.find(prod => prod.id === currentOpenProductId);
+    const p = products[0]; // Restoring for single product
     updateModalDimensions(p);
 }
 
@@ -230,7 +238,7 @@ function updateModalDimensions(p) {
     const size = p.sizes[selectedSizeIndex];
     document.getElementById('modal-dims').innerHTML = `
         ${size.area} (${size.label}) <br> 
-        <div class="bonus-tag"><i class="fas fa-gift"></i> Includes Free Laser Film</div>
+        <div class="bonus-tag">Includes Free Laser Film</div>
     `;
 }
 
