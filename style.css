@@ -501,7 +501,14 @@ h3 {
 .cart-items {
     flex: 1;
     padding: 20px;
+    padding-top: 0;
+    /* Prevent overlap with header */
     overflow-y: auto;
+}
+
+.cart-item:first-child {
+    margin-top: 15px;
+    /* Extra spacing for first item to clear header */
 }
 
 .cart-item {
