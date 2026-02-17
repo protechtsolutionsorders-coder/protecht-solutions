@@ -35,11 +35,24 @@ app.post('/create-checkout-session', async (req, res) => {
         const totalAmount = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
 
         const shippingOptions = [
+            // Pickup Location 1: GGM Gastro (Mechelen)
             {
                 shipping_rate_data: {
                     type: 'fixed_amount',
                     fixed_amount: { amount: 0, currency: 'eur' },
-                    display_name: 'Store Pickup',
+                    display_name: '🏪 Pickup: GGM Gastro (near Mechelen)',
+                    delivery_estimate: {
+                        minimum: { unit: 'business_day', value: 1 },
+                        maximum: { unit: 'business_day', value: 2 },
+                    },
+                },
+            },
+            // Pickup Location 2: Hechtel-EKSEL
+            {
+                shipping_rate_data: {
+                    type: 'fixed_amount',
+                    fixed_amount: { amount: 0, currency: 'eur' },
+                    display_name: '🏪 Pickup: Overpelterbaan 66, Hechtel-EKSEL',
                     delivery_estimate: {
                         minimum: { unit: 'business_day', value: 1 },
                         maximum: { unit: 'business_day', value: 2 },
@@ -48,12 +61,13 @@ app.post('/create-checkout-session', async (req, res) => {
             }
         ];
 
+        // Delivery option (free if >= 599.99€)
         const standardShippingRate = totalAmount >= 599.99 ? 0 : 10000; // 100€ if < 599.99
         shippingOptions.push({
             shipping_rate_data: {
                 type: 'fixed_amount',
                 fixed_amount: { amount: standardShippingRate, currency: 'eur' },
-                display_name: totalAmount >= 599.99 ? 'Free Delivery (Promo)' : 'Standard Delivery',
+                display_name: totalAmount >= 599.99 ? '🚚 Free Delivery (Order >€599.99)' : '🚚 Standard Delivery (€100)',
                 delivery_estimate: {
                     minimum: { unit: 'business_day', value: 3 },
                     maximum: { unit: 'business_day', value: 5 },
