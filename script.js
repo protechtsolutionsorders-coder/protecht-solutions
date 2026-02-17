@@ -359,7 +359,11 @@ function updateCartUI() {
                         <span style="font-weight:600;">€${item.price.toFixed(2)}</span>
                     </div>
                     <div style="font-size:0.85rem; color:#888;">Size: ${item.selectedSize}</div>
-                    <div style="font-size:0.85rem; color:#888; margin-top:4px;">Qty: ${item.qty}</div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty('${item.uniqueId}', -1)">-</button>
+                        <span style="font-weight:600;">${item.qty}</span>
+                        <button class="qty-btn" onclick="updateQty('${item.uniqueId}', 1)">+</button>
+                    </div>
                     <button class="remove-item" onclick="removeFromCart('${item.uniqueId}')">Remove</button>
                 </div>
             </div>
