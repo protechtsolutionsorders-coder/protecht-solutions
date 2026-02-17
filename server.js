@@ -277,7 +277,9 @@ async function sendCustomerEmail(session) {
                     </div>
                     <p style="margin: 0 0 8px 0; color: #166534; font-size: 14px; font-weight: 500;">• GGM Gastro (near Mechelen), Belgium</p>
                     <p style="margin: 0; color: #166534; font-size: 14px; font-weight: 500;">• Overpelterbaan 66, Hechtel-EKSEL 3941, Belgium</p>
-                </div>    <p style="margin-top: 40px; font-size: 14px; color: #888; text-align: center;">If you have any questions, simply reply to this email.</p>
+                </div>
+                
+                <p style="margin-top: 40px; font-size: 14px; color: #888; text-align: center;">If you have any questions, simply reply to this email.</p>
             </div>
             
             <div style="background-color: #f7f7f7; padding: 30px; text-align: center;">
