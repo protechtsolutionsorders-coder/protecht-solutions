@@ -366,13 +366,13 @@ function updateCartUI() {
                         <span style="font-weight:600;">${item.title}</span>
                         <span style="font-weight:600;">€${item.price.toFixed(2)}</span>
                     </div>
-                    <div style="font-size:0.85rem; color:#888;">Size: ${item.selectedSize}</div>
+                    <div style="font-size:0.85rem; color:#888;">Size: ${item.selectedSize || 'Standard'}</div>
                     <div class="qty-controls" style="margin-top:8px;">
-                        <button class="qty-btn" data-action="minus" data-id="${item.uniqueId}">-</button>
+                        <button class="qty-btn" data-action="minus" data-id="${item.uniqueId}" type="button">-</button>
                         <span style="font-weight:600; min-width:20px; text-align:center;">${item.qty}</span>
-                        <button class="qty-btn" data-action="plus" data-id="${item.uniqueId}">+</button>
+                        <button class="qty-btn" data-action="plus" data-id="${item.uniqueId}" type="button">+</button>
                     </div>
-                    <button class="remove-item" data-action="remove" data-id="${item.uniqueId}">Remove</button>
+                    <button class="remove-item" data-action="remove" data-id="${item.uniqueId}" type="button">Remove</button>
                 </div>
             </div>
         `).join('');
@@ -410,15 +410,22 @@ function setupListeners() {
     // Event Delegation for Cart (Fixes First Item Bug)
     const cartItemsContainer = document.getElementById('cart-items');
     if (cartItemsContainer) {
-        cartItemsContainer.onclick = (e) => {
+        cartItemsContainer.addEventListener('click', (e) => {
             const btn = e.target.closest('button');
             if (!btn) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
             const id = btn.dataset.id;
             const action = btn.dataset.action;
+
+            console.log('Cart button clicked:', action, id); // Debug
+
             if (action === 'plus') window.updateQty(id, 1);
             else if (action === 'minus') window.updateQty(id, -1);
             else if (action === 'remove') window.removeFromCart(id);
-        };
+        });
     }
 
     // Checkout
