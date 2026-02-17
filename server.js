@@ -48,15 +48,15 @@ app.post('/create-checkout-session', async (req, res) => {
             }
         ];
 
-        const standardShippingRate = totalAmount >= 600 ? 0 : 10000; // 100€ if < 600
+        const standardShippingRate = totalAmount >= 599.99 ? 0 : 10000; // 100€ if < 599.99
         shippingOptions.push({
             shipping_rate_data: {
                 type: 'fixed_amount',
                 fixed_amount: { amount: standardShippingRate, currency: 'eur' },
-                display_name: totalAmount >= 600 ? 'Free Delivery (Promo)' : 'Standard Delivery',
+                display_name: totalAmount >= 599.99 ? 'Free Delivery (Promo)' : 'Standard Delivery',
                 delivery_estimate: {
                     minimum: { unit: 'business_day', value: 3 },
-                    maximum: { unit: 'business_day', value: 6 },
+                    maximum: { unit: 'business_day', value: 5 },
                 },
             },
         });
@@ -229,7 +229,7 @@ async function sendCustomerEmail(session) {
                         </tr>
                         <tr>
                             <td style="font-weight: 600; font-size: 16px; padding-top: 4px;">#${orderId}</td>
-                            <td style="text-align: right; font-weight: 600; font-size: 16px; padding-top: 4px;">3-6 Business Days</td>
+                            <td style="text-align: right; font-weight: 600; font-size: 16px; padding-top: 4px;">3-5 Business Days</td>
                         </tr>
                     </table>
                 </div>
@@ -239,9 +239,9 @@ async function sendCustomerEmail(session) {
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr>
                             <td style="padding-bottom: 20px;">
-                                <div style="font-weight: 600; color: #111;">AISI 304 Stainless Steel Plate</div>
-                                <div style="font-size: 14px; color: #666; margin-top: 4px;">Premium 3000x1500mm Sheet</div>
-                                <div style="display: inline-block; background: #eefdf3; color: #166534; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-top: 8px;">✨ Free Protective Film Included</div>
+                                <div style="font-weight: 600; color: #111;">AISI 304 Double-Sided Plate</div>
+                                <div style="font-size: 14px; color: #666; margin-top: 4px;">1 Side Brushed / 1 Side Polished Mirror</div>
+                                <div style="display: inline-block; background: #eefdf3; color: #166534; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-top: 8px;">✨ Premium Laser Film Included</div>
                             </td>
                             <td style="text-align: right; vertical-align: top; font-weight: 600;">€${amountTotal.toFixed(2)}</td>
                         </tr>

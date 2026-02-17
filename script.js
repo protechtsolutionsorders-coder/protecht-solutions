@@ -1,22 +1,22 @@
 const products = [
     {
-        id: "rvs-304-brushed",
-        title: "AISI 304 - Brushed Finish",
+        id: "rvs-304-double-large",
+        title: "AISI 304 - Professional Double-Sided",
         price: 369.99,
         image: "images/rvs-spec-sheet.jpg",
-        material: "Stainless Steel AISI 304 - Professional Brushed",
+        material: "1 Side Brushed / 1 Side Polished Mirror",
         area: "4.5 m² (3000x1500mm)",
-        desc: "Professional-grade stainless steel with a classic brushed texture. Heat-resistant and easy to clean. \n\n✨ Exclusive Bonus: We include a high-durability protective film on every sheet at no extra cost to guarantee it arrives in pristine condition.",
+        desc: "The ultimate professional plate. Features a reversible design with one high-end brushed side and one mirror-polished side. \n\n✨ Premium Protection: Includes high-durability laser-protective film on both sides to guarantee a flawless finish upon arrival.",
         stock: 50
     },
     {
-        id: "rvs-304-polished",
-        title: "AISI 304 - Polished Mirror",
-        price: 369.99,
+        id: "rvs-304-double-medium",
+        title: "AISI 304 - Professional Double-Sided",
+        price: 369.99, // Keeping same price as requested for all articles
         image: "images/rvs-spec-sheet.jpg",
-        material: "Stainless Steel AISI 304 - Mirror Polished",
-        area: "4.5 m² (3000x1500mm)",
-        desc: "High-gloss mirror finish. Reflects light beautifully and creates a sense of space. \n\n✨ Exclusive Bonus: We include a high-durability protective film on every sheet at no extra cost to guarantee it arrives in pristine condition.",
+        material: "1 Side Brushed / 1 Side Polished Mirror",
+        area: "2.0 m² (2000x1000mm)",
+        desc: "The ultimate professional plate. Features a reversible design with one high-end brushed side and one mirror-polished side. \n\n✨ Premium Protection: Includes high-durability laser-protective film on both sides to guarantee a flawless finish upon arrival.",
         stock: 50
     }
 ];
