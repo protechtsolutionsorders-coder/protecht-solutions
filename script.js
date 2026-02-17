@@ -2,28 +2,28 @@ const products = [
     {
         id: "rvs-304-brushed",
         title: "AISI 304 - Brushed Finish",
-        price: 85.00, // Price per m2 for the base product
+        price: 369.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "Stainless Steel AISI 304 - Professional Brushed",
-        desc: "Professional-grade stainless steel with a classic brushed texture. Perfect for high-end kitchen backsplashes.\n\nMaterial: AISI 304\nFinish: Brushed\nThickness: 1.0 mm\nPrice: Per Square Meter (Base)",
+        desc: "Professional-grade stainless steel with a classic brushed texture. Heat-resistant and easy to clean. Includes free protective film to prevent damage during transport.\n\nMaterial: AISI 304\nFinish: Brushed\nThickness: 1.0 mm\nUnit: Professional Sheet",
         stock: 50
     },
     {
         id: "rvs-304-polished",
         title: "AISI 304 - Polished Mirror",
-        price: 115.00,
+        price: 499.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "Stainless Steel AISI 304 - Mirror Polished",
-        desc: "High-gloss mirror finish. Reflects light beautifully and creates a sense of space.\n\nMaterial: AISI 304\nFinish: Polished\nThickness: 1.0 mm\nPrice: Per Square Meter (Base)",
+        desc: "High-gloss mirror finish. Reflects light beautifully and creates a sense of space. Includes free protective film to prevent damage during transport.\n\nMaterial: AISI 304\nFinish: Polished\nThickness: 1.0 mm\nUnit: Professional Sheet",
         stock: 50
     },
     {
         id: "rvs-304-natural",
         title: "AISI 304 - Satin Natural",
-        price: 75.00,
+        price: 249.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "Stainless Steel AISI 304 - Natural Satin",
-        desc: "Softer, more muted finish for a modern architectural look.\n\nMaterial: AISI 304\nFinish: Natural Satin\nThickness: 1.0 mm\nPrice: Per Square Meter (Base)",
+        desc: "Softer, more muted finish for a modern architectural look. Includes free protective film to prevent damage during transport.\n\nMaterial: AISI 304\nFinish: Natural Satin\nThickness: 1.0 mm\nUnit: Professional Sheet",
         stock: 50
     }
 ];
@@ -157,6 +157,10 @@ window.openModal = function (id) {
     document.getElementById('modal-desc').innerText = p.desc;
     document.getElementById('modal-material').innerText = p.material;
 
+    // Remove or update the size/dims display since they are sheet-based now
+    const dimsRow = document.getElementById('modal-dims')?.parentElement;
+    if (dimsRow) dimsRow.style.display = 'none';
+
     // Update stock info
     const shippingInfo = document.querySelector('.shipping-info');
     if (p.stock < 20) {
@@ -258,16 +262,7 @@ function updateCartUI() {
         `).join('');
 
         const total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-        const shipping = total >= 600 ? 0 : 100;
-        const grandTotal = total + shipping;
-
-        cartTotal.innerHTML = `
-            <div style="font-size: 0.9rem; color: #666; font-weight: 400; margin-bottom: 5px;">
-                Subtotal: €${total.toFixed(2)}<br>
-                Shipping: ${shipping === 0 ? '<span style="color: #059669; font-weight: 600;">FREE</span>' : '€' + shipping.toFixed(2)}
-            </div>
-            <div style="font-size: 1.4rem;">Total: €${grandTotal.toFixed(2)}</div>
-        `;
+        cartTotal.innerText = `€${total.toFixed(2)}`;
     }
 }
 

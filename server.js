@@ -34,42 +34,39 @@ app.post('/create-checkout-session', async (req, res) => {
         // Shipping Options Logic
         const totalAmount = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
 
-        const shippingOptions = [];
-
-        if (totalAmount >= 600) {
-            // Free Shipping for orders >= 600€
-            shippingOptions.push({
+        const shippingOptions = [
+            {
                 shipping_rate_data: {
                     type: 'fixed_amount',
                     fixed_amount: { amount: 0, currency: 'eur' },
-                    display_name: 'Free Delivery (Order > €600)',
+                    display_name: 'Store Pickup',
                     delivery_estimate: {
-                        minimum: { unit: 'business_day', value: 3 },
-                        maximum: { unit: 'business_day', value: 5 },
+                        minimum: { unit: 'business_day', value: 1 },
+                        maximum: { unit: 'business_day', value: 2 },
                     },
                 },
-            });
-        } else {
-            // 100€ Shipping for orders < 600€
-            shippingOptions.push({
-                shipping_rate_data: {
-                    type: 'fixed_amount',
-                    fixed_amount: { amount: 10000, currency: 'eur' }, // €100.00
-                    display_name: 'Standard Delivery',
-                    delivery_estimate: {
-                        minimum: { unit: 'business_day', value: 3 },
-                        maximum: { unit: 'business_day', value: 5 },
-                    },
+            }
+        ];
+
+        const standardShippingRate = totalAmount >= 600 ? 0 : 10000; // 100€ if < 600
+        shippingOptions.push({
+            shipping_rate_data: {
+                type: 'fixed_amount',
+                fixed_amount: { amount: standardShippingRate, currency: 'eur' },
+                display_name: totalAmount >= 600 ? 'Free Delivery (Promo)' : 'Standard Delivery',
+                delivery_estimate: {
+                    minimum: { unit: 'business_day', value: 3 },
+                    maximum: { unit: 'business_day', value: 5 },
                 },
-            });
-        }
+            },
+        });
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
             shipping_address_collection: {
-                allowed_countries: ['ES', 'US', 'CA', 'GB', 'DE', 'FR', 'NL', 'BE'], // Added ES and common EU countries
+                allowed_countries: ['ES', 'BE', 'FR', 'NL', 'DE', 'GB', 'CA', 'US'],
             },
             shipping_options: shippingOptions,
             success_url: `${DOMAIN}/index.html?success=true&session_id={CHECKOUT_SESSION_ID}`,
