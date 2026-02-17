@@ -52,6 +52,7 @@ function init() {
     initCustomizer();
     setupListeners();
     initScrollAnimations();
+    init3DEffects();
     setupLogoFallback();
 }
 
@@ -314,9 +315,22 @@ function init3DEffects() {
 }
 
 function removeFromCart(id) {
-    cart = cart.filter(x => x.uniqueId !== id); // Changed to uniqueId
+    cart = cart.filter(x => x.uniqueId !== id);
     saveCart();
     updateCartUI();
+}
+
+window.updateQty = function (id, delta) {
+    const item = cart.find(x => x.uniqueId === id);
+    if (!item) return;
+
+    item.qty += delta;
+    if (item.qty <= 0) {
+        removeFromCart(id);
+    } else {
+        saveCart();
+        updateCartUI();
+    }
 }
 
 function saveCart() {
