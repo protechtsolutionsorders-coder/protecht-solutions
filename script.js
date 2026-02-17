@@ -379,7 +379,38 @@ function updateCartUI() {
 
         const total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
         cartTotal.innerText = `€${total.toFixed(2)}`;
+
+        // RE-ATTACH event listeners after HTML update (CRITICAL FIX)
+        attachCartListeners();
     }
+}
+
+// Separate function to attach cart listeners
+function attachCartListeners() {
+    const itemsContainer = document.getElementById('cart-items');
+    if (!itemsContainer) return;
+
+    // Remove old listener if exists
+    const newContainer = itemsContainer.cloneNode(true);
+    itemsContainer.parentNode.replaceChild(newContainer, itemsContainer);
+
+    // Add fresh listener
+    newContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const id = btn.dataset.id;
+        const action = btn.dataset.action;
+
+        console.log('Cart action:', action, id);
+
+        if (action === 'plus') window.updateQty(id, 1);
+        else if (action === 'minus') window.updateQty(id, -1);
+        else if (action === 'remove') window.removeFromCart(id);
+    });
 }
 
 function openCart() {
