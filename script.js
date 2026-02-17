@@ -231,6 +231,13 @@ window.openModal = function (id) {
         window.addToCart();
     };
 
+    // Disable button initially - require size selection
+    const addBtn = document.getElementById('modal-add-btn');
+    addBtn.disabled = true;
+    addBtn.style.opacity = '0.5';
+    addBtn.style.cursor = 'not-allowed';
+    addBtn.innerText = 'Select a size first';
+
     // Initialize Modal Spin
     initModal3D();
 }
@@ -249,8 +256,16 @@ window.selectSize = function (idx) {
         else b.classList.remove('active');
     });
 
-    const p = products[0]; // Restoring for single product
-    updateModalDimensions(p);
+    // Enable Add to Bag button after size selection
+    const addBtn = document.getElementById('modal-add-btn');
+    if (addBtn) {
+        addBtn.disabled = false;
+        addBtn.style.opacity = '1';
+        addBtn.style.cursor = 'pointer';
+        addBtn.innerText = 'Add to Bag';
+    }
+
+    updateModalDimensions(products.find(p => p.id === currentOpenProductId));
 }
 
 function updateModalDimensions(p) {
