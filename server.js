@@ -31,31 +31,38 @@ app.post('/create-checkout-session', async (req, res) => {
             quantity: item.qty,
         }));
 
-        // Shipping Options
-        const shippingOptions = [
-            {
+        // Shipping Options Logic
+        const totalAmount = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+        const shippingOptions = [];
+
+        if (totalAmount >= 600) {
+            // Free Shipping for orders >= 600€
+            shippingOptions.push({
                 shipping_rate_data: {
                     type: 'fixed_amount',
                     fixed_amount: { amount: 0, currency: 'eur' },
-                    display_name: 'Store Pickup',
+                    display_name: 'Free Delivery (Order > €600)',
                     delivery_estimate: {
-                        minimum: { unit: 'business_day', value: 1 },
-                        maximum: { unit: 'business_day', value: 2 },
+                        minimum: { unit: 'business_day', value: 3 },
+                        maximum: { unit: 'business_day', value: 5 },
                     },
                 },
-            },
-            {
+            });
+        } else {
+            // 100€ Shipping for orders < 600€
+            shippingOptions.push({
                 shipping_rate_data: {
                     type: 'fixed_amount',
-                    fixed_amount: { amount: 2500, currency: 'eur' }, // €25.00
+                    fixed_amount: { amount: 10000, currency: 'eur' }, // €100.00
                     display_name: 'Standard Delivery',
                     delivery_estimate: {
                         minimum: { unit: 'business_day', value: 3 },
                         maximum: { unit: 'business_day', value: 5 },
                     },
                 },
-            },
-        ];
+            });
+        }
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -115,7 +122,7 @@ async function sendOrderEmail(session) {
     const mailOptions = {
         from: `"Protecht Solutions Orders" <${process.env.EMAIL_USER}>`,
         to: 'protechtsolutions.orders@gmail.com',
-        subject: `Order Confirmation #${orderId} - Protecht Solutions`,
+        subject: `[SALES] New Order #${orderId} - Protecht Solutions`,
         html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; color: #333;">
             <div style="background-color: #111827; padding: 30px; text-align: center;">

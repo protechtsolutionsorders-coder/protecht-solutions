@@ -1,30 +1,30 @@
 const products = [
     {
-        id: "rvs-304-3000x1500",
-        title: "Standard Backsplash AISI 304",
-        price: 369.99,
+        id: "rvs-304-brushed",
+        title: "AISI 304 - Brushed Finish",
+        price: 85.00, // Price per m2 for the base product
         image: "images/rvs-spec-sheet.jpg",
-        material: "Stainless Steel AISI 304 - Brushed Finish",
-        desc: "Professional-grade stainless steel backsplash. Heat-resistant, corrosion-resistant, and easy to clean.\n\nSize: 3000 x 1500 mm\nThickness: 1.0 mm\nFinish: Brushed",
-        stock: 15
+        material: "Stainless Steel AISI 304 - Professional Brushed",
+        desc: "Professional-grade stainless steel with a classic brushed texture. Perfect for high-end kitchen backsplashes.\n\nMaterial: AISI 304\nFinish: Brushed\nThickness: 1.0 mm\nPrice: Per Square Meter (Base)",
+        stock: 50
     },
     {
-        id: "rvs-316-3000x1500",
-        title: "Premium Backsplash AISI 316",
-        price: 499.99,
+        id: "rvs-304-polished",
+        title: "AISI 304 - Polished Mirror",
+        price: 115.00,
         image: "images/rvs-spec-sheet.jpg",
-        material: "Stainless Steel AISI 316 - Marine Grade",
-        desc: "Highest corrosion resistance. Ideal for coastal areas or high-humidity environments.\n\nSize: 3000 x 1500 mm\nThickness: 1.0 mm\nFinish: Brushed",
-        stock: 5
+        material: "Stainless Steel AISI 304 - Mirror Polished",
+        desc: "High-gloss mirror finish. Reflects light beautifully and creates a sense of space.\n\nMaterial: AISI 304\nFinish: Polished\nThickness: 1.0 mm\nPrice: Per Square Meter (Base)",
+        stock: 50
     },
     {
-        id: "rvs-304-2000x1000",
-        title: "Compact Backsplash AISI 304",
-        price: 249.99,
+        id: "rvs-304-natural",
+        title: "AISI 304 - Satin Natural",
+        price: 75.00,
         image: "images/rvs-spec-sheet.jpg",
-        material: "Stainless Steel AISI 304 - Brushed Finish",
-        desc: "Perfect for smaller kitchens or accents. Same industrial quality in a compact size.\n\nSize: 2000 x 1000 mm\nThickness: 1.0 mm\nFinish: Brushed",
-        stock: 25
+        material: "Stainless Steel AISI 304 - Natural Satin",
+        desc: "Softer, more muted finish for a modern architectural look.\n\nMaterial: AISI 304\nFinish: Natural Satin\nThickness: 1.0 mm\nPrice: Per Square Meter (Base)",
+        stock: 50
     }
 ];
 
@@ -104,9 +104,9 @@ function initCustomizer() {
         platePreview.style.width = `${w * scale}px`;
         platePreview.style.height = `${h * scale}px`;
 
-        // Price Calc (Simplified: €80 per m2 for 304, €110 for 316 + base €20 fee)
+        // Price Calc (Aligned with Catalog: €85 per m2 for 304 Brushed + base €25 fee)
         const areaM2 = (w / 1000) * (h / 1000);
-        const rate = material === '304' ? 82 : 115;
+        const rate = material === '304' ? 85 : 85; // Defaulting to 304 Brushed rate
         const total = (areaM2 * rate) + 25; // €25 processing fee
 
         priceDisplay.innerText = `€${total.toFixed(2)}`;
@@ -258,7 +258,16 @@ function updateCartUI() {
         `).join('');
 
         const total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-        cartTotal.innerText = `€${total.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+        const shipping = total >= 600 ? 0 : 100;
+        const grandTotal = total + shipping;
+
+        cartTotal.innerHTML = `
+            <div style="font-size: 0.9rem; color: #666; font-weight: 400; margin-bottom: 5px;">
+                Subtotal: €${total.toFixed(2)}<br>
+                Shipping: ${shipping === 0 ? '<span style="color: #059669; font-weight: 600;">FREE</span>' : '€' + shipping.toFixed(2)}
+            </div>
+            <div style="font-size: 1.4rem;">Total: €${grandTotal.toFixed(2)}</div>
+        `;
     }
 }
 
