@@ -184,6 +184,35 @@ async function sendOrderEmail(session) {
                     </table>
                 </div>
 
+                <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">Customer Information</h3>
+                <table style="width: 100%; margin-bottom: 30px; background-color: #f9fafb; border-radius: 8px; padding: 20px;">
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <strong style="display: block; font-size: 12px; color: #9ca3af; text-transform: uppercase;">Name</strong>
+                            <span>${session.customer_details.name || 'N/A'}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <strong style="display: block; font-size: 12px; color: #9ca3af; text-transform: uppercase;">Email</strong>
+                            <span>${session.customer_details.email || 'N/A'}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <strong style="display: block; font-size: 12px; color: #9ca3af; text-transform: uppercase;">Phone</strong>
+                            <span>${session.customer_details.phone || 'Not provided'}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong style="display: block; font-size: 12px; color: #9ca3af; text-transform: uppercase; margin-bottom: 5px;">Shipping Choice</strong>
+                            <span>${session.shipping_details?.name || 'Not specified'}</span>
+                            ${session.shipping_details?.address ? `<br><span style="color: #666; font-size: 14px;">${session.shipping_details.address.line1}${session.shipping_details.address.line2 ? ', ' + session.shipping_details.address.line2 : ''}, ${session.shipping_details.address.postal_code} ${session.shipping_details.address.city}, ${session.shipping_details.address.country}</span>` : ''}
+                        </td>
+                    </tr>
+                </table>
+
                 <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">Order Summary</h3>
                 <table style="width: 100%; margin-bottom: 30px;">
                     <tr>
@@ -308,16 +337,8 @@ async function sendCustomerEmail(session) {
                     </div>
                     <p style="margin: 0; color: #666; font-size: 14px; line-height: 1.6;">We ship within 1 business day. Free shipping on orders over €600. Your order will be carefully packaged and protected.</p>
                 </div>
-
-                <div style="margin-top: 20px; padding: 30px; background: #f0fff4; border: 1px solid #86efac; border-radius: 12px;">
-                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                        <div style="font-size: 20px; margin-right: 10px;">📍</div>
-                        <div style="font-weight: 600; font-size: 16px; color: #166534;">Pickup Locations</div>
-                    </div>
-                    <p style="margin: 0 0 8px 0; color: #166534; font-size: 14px; font-weight: 500;">• Blarenberglaan 6, 2800 Mechelen (GGM Gastro)</p>
-                    <p style="margin: 0; color: #166534; font-size: 14px; font-weight: 500;">• Overpelterbaan 66, 3941 Hechtel-EKSEL</p>
-                </div>
                 
+                ${generateShippingSection(session)}
                 <p style="margin-top: 40px; font-size: 14px; color: #888; text-align: center;">If you have any questions, simply reply to this email.</p>
             </div>
             
