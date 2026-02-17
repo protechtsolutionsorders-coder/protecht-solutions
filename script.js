@@ -52,7 +52,6 @@ function init() {
     initCustomizer();
     setupListeners();
     initScrollAnimations();
-    init3DEffects();
     setupLogoFallback();
 }
 
@@ -217,6 +216,9 @@ window.openModal = function (id) {
     document.getElementById('modal-add-btn').onclick = () => {
         window.addToCart();
     };
+
+    // Initialize Modal Spin
+    initModal3D();
 }
 
 window.closeModal = function () {
@@ -291,34 +293,33 @@ function showToast(msg) {
     setTimeout(() => toast.classList.remove('active'), 2500);
 }
 
+function initModal3D() {
+    const visual = document.querySelector('.modal-visual');
+    const img = document.getElementById('modal-img');
+    if (!visual || !img) return;
+
+    // Reset transform on start
+    img.style.transform = `rotateY(0deg)`;
+
+    visual.onmousemove = (e) => {
+        const rect = visual.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+
+        // Calculate rotation based on horizontal position (Nike-style spin)
+        // Mapping horizontal position to a -180 to 180 or -90 to 90 spin
+        const percent = x / rect.width;
+        const rotateY = (percent - 0.5) * 60; // 60 degree total swing for subtlety
+
+        img.style.transform = `rotateY(${rotateY}deg) scale(1.05)`;
+    };
+
+    visual.onmouseleave = () => {
+        img.style.transform = `rotateY(0deg) scale(1)`;
+    };
+}
+
 function init3DEffects() {
-    const cards = document.querySelectorAll('.product-item');
-    cards.forEach(card => {
-        card.onmousemove = (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = ((y - centerY) / centerY) * -15;
-            const rotateY = ((x - centerX) / centerX) * 15;
-
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-            const img = card.querySelector('img');
-            if (img) {
-                img.style.transform = `translateZ(60px) rotateX(${rotateX * 0.5}deg) rotateY(${rotateY * 0.5}deg)`;
-            }
-        };
-
-        card.onmouseleave = () => {
-            card.style.transform = `rotateX(0deg) rotateY(0deg)`;
-            const img = card.querySelector('img');
-            if (img) img.style.transform = `translateZ(0px) rotateX(0deg) rotateY(0deg)`;
-        };
-    });
+    // Legacy removed for stability
 }
 
 function removeFromCart(id) {
@@ -357,7 +358,7 @@ function updateCartUI() {
         itemsContainer.innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">Your bag is empty.</p>';
         cartTotal.innerText = "€0.00";
     } else {
-        itemsContainer.innerHTML = cart.map(item => `
+        itemsContainer.innerHTML = cart.map((item, idx) => `
             <div class="cart-item">
                 <img src="${item.image}">
                 <div style="flex:1;">
@@ -366,12 +367,12 @@ function updateCartUI() {
                         <span style="font-weight:600;">€${item.price.toFixed(2)}</span>
                     </div>
                     <div style="font-size:0.85rem; color:#888;">Size: ${item.selectedSize}</div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateQty('${item.uniqueId}', -1)">-</button>
-                        <span style="font-weight:600;">${item.qty}</span>
-                        <button class="qty-btn" onclick="updateQty('${item.uniqueId}', 1)">+</button>
+                    <div class="qty-controls" style="margin-top:8px;">
+                        <button class="qty-btn" onclick="window.updateQty('${item.uniqueId}', -1)">-</button>
+                        <span style="font-weight:600; min-width:20px; text-align:center;">${item.qty}</span>
+                        <button class="qty-btn" onclick="window.updateQty('${item.uniqueId}', 1)">+</button>
                     </div>
-                    <button class="remove-item" onclick="removeFromCart('${item.uniqueId}')">Remove</button>
+                    <button class="remove-item" onclick="window.removeFromCart('${item.uniqueId}')">Remove</button>
                 </div>
             </div>
         `).join('');
