@@ -237,6 +237,8 @@ window.openModal = function (id) {
 
 window.closeModal = function () {
     document.getElementById('product-modal').classList.remove('active');
+    const overlay = document.getElementById('modal-overlay');
+    if (overlay) overlay.classList.remove('active');
 }
 
 window.selectSize = function (idx) {
