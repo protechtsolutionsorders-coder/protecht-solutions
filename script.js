@@ -25,7 +25,27 @@ const translations = {
         feat_heat: "Heat Resistant",
         feat_food: "Food Certified",
         feat_dual: "Dual Surface",
-        mat_desc: "1 Side Brushed / 1 Side Polished Mirror"
+        mat_desc: "1 Side Brushed / 1 Side Polished Mirror",
+        // Dynamic & Sections
+        btn_buy_small: "Buy",
+        price_from: "From",
+        stock_low: "Only {n} units left!",
+        stock_ok: "In stock, ships: 1 business day",
+        modal_add_btn: "Add to Bag",
+        cust_eyebrow: "Bespoke Design",
+        cust_title: "Customizer Ecosystem",
+        cust_desc: "Design your perfect fit with real-time visual feedback.",
+        cust_width: "Width (mm)",
+        cust_height: "Height (mm)",
+        cust_quote_label: "Estimated Quote",
+        cust_excl_ship: "Excl. Shipping",
+        cust_req_btn: "Request This Configuration",
+        mat_304: "AISI 304 - Professional",
+        inst_eyebrow: "Expert Advice",
+        inst_title: "How to Install",
+        faq_title: "Frequently Asked Questions",
+        cart_empty: "Your cart is empty",
+        cart_remove: "Remove"
     },
     es: {
         nav_overview: "Inicio",
@@ -53,7 +73,27 @@ const translations = {
         feat_heat: "Resistente al Calor",
         feat_food: "Certificado Alimentario",
         feat_dual: "Doble Acabado",
-        mat_desc: "1 Cara Cepillada / 1 Cara Espejo"
+        mat_desc: "1 Cara Cepillada / 1 Cara Espejo",
+        // Dynamic & Sections
+        btn_buy_small: "Comprar",
+        price_from: "Desde",
+        stock_low: "¡Solo quedan {n} unidades!",
+        stock_ok: "En stock, envío: 1 día laborable",
+        modal_add_btn: "Añadir a la Cesta",
+        cust_eyebrow: "Diseño a Medida",
+        cust_title: "Personalizador Real",
+        cust_desc: "Diseña tu medida perfecta con vista previa en tiempo real.",
+        cust_width: "Ancho (mm)",
+        cust_height: "Alto (mm)",
+        cust_quote_label: "Presupuesto Estimado",
+        cust_excl_ship: "Excl. Envío",
+        cust_req_btn: "Solicitar esta Configuración",
+        mat_304: "AISI 304 - Profesional",
+        inst_eyebrow: "Consejo Experto",
+        inst_title: "Cómo Instalar",
+        faq_title: "Preguntas Frecuentes",
+        cart_empty: "Tu carrito está vacío",
+        cart_remove: "Eliminar"
     },
     nl: {
         nav_overview: "Overzicht",
@@ -81,7 +121,27 @@ const translations = {
         feat_heat: "Hittebestendig",
         feat_food: "Voedselveilig",
         feat_dual: "Dubbel Oppervlak",
-        mat_desc: "1 Zijde Geborsteld / 1 Zijde Spiegel"
+        mat_desc: "1 Zijde Geborsteld / 1 Zijde Spiegel",
+        // Dynamic & Sections
+        btn_buy_small: "Kopen",
+        price_from: "Vanaf",
+        stock_low: "Nog maar {n} stuks over!",
+        stock_ok: "Op voorraad, verzending: 1 werkdag",
+        modal_add_btn: "In Winkelwagen",
+        cust_eyebrow: "Maatwerk Design",
+        cust_title: "Live Customizer",
+        cust_desc: "Ontwerp uw perfecte pasvorm met real-time voorbeeld.",
+        cust_width: "Breedte (mm)",
+        cust_height: "Hoogte (mm)",
+        cust_quote_label: "Geschatte Prijs",
+        cust_excl_ship: "Excl. Verzending",
+        cust_req_btn: "Deze Configuratie Aanvragen",
+        mat_304: "AISI 304 - Professioneel",
+        inst_eyebrow: "Experttip",
+        inst_title: "Installatiegids",
+        faq_title: "Veelgestelde Vragen",
+        cart_empty: "Uw winkelwagen is leeg",
+        cart_remove: "Verwijderen"
     }
 };
 
@@ -350,16 +410,18 @@ window.requestCustomQuote = function () {
 }
 
 // Render Products
+// Render Products
 function renderShelf() {
     if (!productGrid) return;
+    const t = translations[currentLang]; // Get current translations
     productGrid.innerHTML = products.map(p => `
         <div class="product-item stagger-item">
-            ${p.stock < 20 ? '<span class="stock-badge">Low Stock</span>' : ''}
+            ${p.stock < 20 ? `<span class="stock-badge">${t.stock_low.replace('{n}', p.stock)}</span>` : ''}
             <h3 class="p-title">${p.title}</h3>
-            <p class="p-price">From €${p.price}</p>
+            <p class="p-price">${t.price_from} €${p.price}</p>
             <img src="${p.image}" alt="${p.title}">
             <div>
-                <button class="btn-buy-small" onclick="openModal('${p.id}')">Buy</button>
+                <button class="btn-buy-small" onclick="openModal('${p.id}')">${t.btn_buy_small}</button>
             </div>
         </div>
     `).join('');
@@ -397,10 +459,11 @@ window.openModal = function (id) {
 
     // Update stock info
     const shippingInfo = document.querySelector('.shipping-info');
+    const t = translations[currentLang];
     if (p.stock < 20) {
-        shippingInfo.innerHTML = `<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> <span style="color: #ef4444; font-weight: 600;">Only ${p.stock} units left!</span>`;
+        shippingInfo.innerHTML = `<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> <span style="color: #ef4444; font-weight: 600;">${t.stock_low.replace('{n}', p.stock)}</span>`;
     } else {
-        shippingInfo.innerHTML = `<i class="fas fa-box"></i> In stock, ships: 1 business day`;
+        shippingInfo.innerHTML = `<i class="fas fa-box"></i> ${t.stock_ok}`;
     }
 
     const modal = document.getElementById('product-modal');
