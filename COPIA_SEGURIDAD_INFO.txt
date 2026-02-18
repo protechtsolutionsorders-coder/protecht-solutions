@@ -1,0 +1,28 @@
+# PROYECTO: Protech Solutions - Industrial Kitchen Plates
+# VERSIÓN: v1.0-live (Despliegue Inicial)
+# FECHA: 18 Febrero 2026
+
+ESTADO: COMPLETO Y FUNCIONAL (LIVE)
+
+---
+
+TU COPIA DE SEGURIDAD EN LA NUBE (GITHUB):
+Este enlace te lleva exáctamente a la versión de hoy, con todo configurado:
+
+🔗 https://github.com/MenorMm/industrial-kitchen-plates/releases/tag/v1.0-live
+
+(Si el enlace no funciona, es porque tu repositorio es privado, pero la etiqueta 'v1.0-live' está ahí guardada para siempre).
+
+---
+
+ULTIMO COMMIT:
+Hash: 683ac99
+Mensaje: fix: correct website URL in email footer
+
+CLAVES USA (Solo referencia):
+- Stripe: LIVE MODE (sk_live_...)
+- Email: Gmail App Password
+
+---
+Guarda este archivo. Si algún día se rompe la web, dile al programador:
+"Vuelve a la etiqueta v1.0-live"

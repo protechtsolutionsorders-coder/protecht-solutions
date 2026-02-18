@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://protecht-solutions.onrender.com/sitemap.xml
