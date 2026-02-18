@@ -243,7 +243,7 @@ const labelH = document.getElementById('label-h');
 
 // Initialize
 function init() {
-    renderShelf();
+    renderProducts();
     updateCartUI();
     handleSuccess();
     initCustomizer();
