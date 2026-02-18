@@ -411,7 +411,7 @@ window.requestCustomQuote = function () {
 
 // Render Products
 // Render Products
-function renderShelf() {
+function renderProducts() {
     if (!productGrid) return;
     const t = translations[currentLang]; // Get current translations
     productGrid.innerHTML = products.map(p => `
