@@ -185,7 +185,7 @@ const products = [
         id: "rvs-304-premium",
         title: "Professional AISI 304 Stainless Steel Sheet", // Will be overwritten by init
 
-        price: 369.99,
+        price: 329.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "1 Side Brushed / 1 Side Polished Mirror",
         desc: "Premium AISI 304 stainless steel backsplash sheet with professional dual finish. One side features a refined brushed texture, the other a mirror-polished surface. Laser protection film applied on polished side for scratch-free delivery. Certified for professional kitchen environments and direct food contact.",
@@ -196,8 +196,8 @@ const products = [
             { icon: "fa-universal-access", text: "Dual Surface" }
         ],
         sizes: [
-            { label: "3000 x 1500 mm", area: "4.5 m²" },
-            { label: "2000 x 1000 mm", area: "2.0 m²" }
+            { label: "3000 x 1500 mm", area: "4.5 m²", price: 369.99 },
+            { label: "2000 x 1000 mm", area: "2.0 m²", price: 329.99 }
         ],
         stock: 50
     }
@@ -508,6 +508,12 @@ window.selectSize = function (idx) {
         else b.classList.remove('active');
     });
 
+    // Update Price based on size
+    const p = products.find(prod => prod.id === currentOpenProductId);
+    if (p && p.sizes[idx] && p.sizes[idx].price) {
+        document.getElementById('modal-price').innerText = `€${p.sizes[idx].price.toFixed(2)}`;
+    }
+
     updateModalDimensions(products.find(p => p.id === currentOpenProductId));
 }
 
@@ -538,6 +544,7 @@ window.addToCart = function () {
     const cartItem = {
         ...p,
         selectedSize: size.label,
+        price: size.price || p.price, // Use size specific price
         uniqueId: `${p.id}-${size.label.replace(/\s+/g, '')}`
     };
 
