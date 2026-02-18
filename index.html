@@ -79,13 +79,18 @@
                 <span class="brand-name">ProTech Solutions</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#overview">Overview</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#installation">Installation</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#overview" data-i18n="nav_overview">Overview</a></li>
+                <li><a href="#products" data-i18n="nav_products">Products</a></li>
+                <li><a href="#installation" data-i18n="nav_installation">Installation</a></li>
+                <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
             </ul>
-            <div class="nav-right">
+            <div class="nav-right" style="display: flex; align-items: center; gap: 15px;">
+                <div class="lang-selector">
+                    <button onclick="changeLanguage('en')" title="English" class="lang-btn">🇬🇧</button>
+                    <button onclick="changeLanguage('es')" title="Español" class="lang-btn">🇪🇸</button>
+                    <button onclick="changeLanguage('nl')" title="Nederlands" class="lang-btn">🇳🇱</button>
+                </div>
                 <a href="#" id="cart-btn" class="cart-icon">
                     <i class="fas fa-shopping-bag"></i>
                     <span id="cart-count">0</span>
@@ -93,6 +98,21 @@
             </div>
         </div>
     </nav>
+    <!-- ... existing code ... -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; <span id="year">2026</span> ProTech Solutions. <span data-i18n="footer_rights">All rights
+                    reserved.</span></p>
+            <div class="footer-links" style="margin-top: 10px; font-size: 0.9em;">
+                <a href="#" style="color: #888; text-decoration: none; margin: 0 10px;"
+                    data-i18n="footer_privacy">Privacy Policy</a>
+                <a href="#" style="color: #888; text-decoration: none; margin: 0 10px;" data-i18n="footer_terms">Terms
+                    of Service</a>
+                <a href="#" style="color: #888; text-decoration: none; margin: 0 10px;" data-i18n="footer_legal">Legal
+                    Notice</a>
+            </div>
+        </div>
+    </footer>
 
     <!-- Cart Sidebar -->
     <div id="cart-sidebar" class="cart-sidebar glass">

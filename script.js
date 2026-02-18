@@ -1,7 +1,130 @@
+const translations = {
+    en: {
+        nav_overview: "Overview",
+        nav_products: "Products",
+        nav_installation: "Installation",
+        nav_faq: "FAQ",
+        nav_contact: "Contact",
+        hero_title: "ProTech Solutions<br><span style='font-size: 0.7em; font-weight: 300;'>Premium Stainless Steel</span>",
+        hero_subtitle: "Professional-grade stainless steel backsplashes for modern kitchens.",
+        hero_cta: "View Products <i class='fas fa-chevron-right'></i>",
+        hero_desc: "High-quality AISI 304 brushed finish for professional kitchens.",
+        footer_rights: "All rights reserved.",
+        footer_privacy: "Privacy Policy",
+        footer_terms: "Terms of Service",
+        footer_legal: "Legal Notice",
+        cart_title: "Your Order",
+        cart_total: "Total",
+        checkout_btn: "Proceed to Checkout",
+        size_label: "Size",
+        material_label: "Material",
+        // Product specific
+        product_title: "Professional AISI 304 Stainless Steel Sheet",
+        product_desc: "Premium AISI 304 stainless steel backsplash sheet with professional dual finish. One side features a refined brushed texture, the other a mirror-polished surface. Laser protection film applied on polished side for scratch-free delivery. Certified for professional kitchen environments and direct food contact.",
+        feat_iso: "ISO Standard",
+        feat_heat: "Heat Resistant",
+        feat_food: "Food Certified",
+        feat_dual: "Dual Surface",
+        mat_desc: "1 Side Brushed / 1 Side Polished Mirror"
+    },
+    es: {
+        nav_overview: "Inicio",
+        nav_products: "Productos",
+        nav_installation: "Instalación",
+        nav_faq: "Preguntas",
+        nav_contact: "Contacto",
+        hero_title: "ProTech Solutions<br><span style='font-size: 0.7em; font-weight: 300;'>Acero Inox Premium</span>",
+        hero_subtitle: "Planchas de acero inoxidable profesional para cocinas modernas.",
+        hero_cta: "Ver Productos <i class='fas fa-chevron-right'></i>",
+        hero_desc: "Acabado cepillado AISI 304 de alta calidad para cocinas profesionales.",
+        footer_rights: "Todos los derechos reservados.",
+        footer_privacy: "Política de Privacidad",
+        footer_terms: "Términos de Servicio",
+        footer_legal: "Aviso Legal",
+        cart_title: "Tu Pedido",
+        cart_total: "Total",
+        checkout_btn: "Finalizar Compra",
+        size_label: "Medida",
+        material_label: "Material",
+        // Product specific
+        product_title: "Plancha Inox AISI 304 Profesional",
+        product_desc: "Plancha antisalpicaduras de acero inoxidable AISI 304 premium con doble acabado profesional. Una cara con textura cepillada refinada, la otra pulida espejo. Film protector láser en la cara pulida. Certificado para entornos de cocina profesional y contacto con alimentos.",
+        feat_iso: "Estándar ISO",
+        feat_heat: "Resistente al Calor",
+        feat_food: "Certificado Alimentario",
+        feat_dual: "Doble Acabado",
+        mat_desc: "1 Cara Cepillada / 1 Cara Espejo"
+    },
+    nl: {
+        nav_overview: "Overzicht",
+        nav_products: "Producten",
+        nav_installation: "Installatie",
+        nav_faq: "FAQ",
+        nav_contact: "Contact",
+        hero_title: "ProTech Solutions<br><span style='font-size: 0.7em; font-weight: 300;'>Premium RVS Staal</span>",
+        hero_subtitle: "Professionele RVS achterwanden voor moderne keukens.",
+        hero_cta: "Bekijk Producten <i class='fas fa-chevron-right'></i>",
+        hero_desc: "Hoogwaardige AISI 304 geborstelde afwerking voor professionele keukens.",
+        footer_rights: "Alle rechten voorbehouden.",
+        footer_privacy: "Privacybeleid",
+        footer_terms: "Algemene Voorwaarden",
+        footer_legal: "Wettelijke Vermelding",
+        cart_title: "Uw Bestelling",
+        cart_total: "Totaal",
+        checkout_btn: "Afrekenen",
+        size_label: "Afmeting",
+        material_label: "Materiaal",
+        // Product specific
+        product_title: "Professionele AISI 304 RVS Plaat",
+        product_desc: "Premium AISI 304 RVS achterwand met professionele dubbele afwerking. Eén zijde met verfijnde geborstelde structuur, de andere spiegelgepolijst. Laserbeschermfolie aangebracht op gepolijste zijde. Gecertificeerd voor professionele keukens en voedselcontact.",
+        feat_iso: "ISO Standaard",
+        feat_heat: "Hittebestendig",
+        feat_food: "Voedselveilig",
+        feat_dual: "Dubbel Oppervlak",
+        mat_desc: "1 Zijde Geborsteld / 1 Zijde Spiegel"
+    }
+};
+
+let currentLang = localStorage.getItem('protech_lang') || 'en';
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('protech_lang', lang);
+    document.documentElement.lang = lang;
+
+    // Update active flag
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(lang));
+    });
+
+    // Update simple text elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+            el.innerHTML = translations[lang][key];
+        }
+    });
+
+    // Update Product Data (Live)
+    // We update the product array in memory so re-renders pick it up
+    products[0].title = translations[lang].product_title;
+    products[0].desc = translations[lang].product_desc;
+    products[0].material = translations[lang].mat_desc;
+    products[0].features[0].text = translations[lang].feat_iso;
+    products[0].features[1].text = translations[lang].feat_heat;
+    products[0].features[2].text = translations[lang].feat_food;
+    products[0].features[3].text = translations[lang].feat_dual;
+
+    // Refresh Views
+    renderProducts();
+    updateCart(); // Update cart text if needed (checkout button)
+}
+
 const products = [
     {
         id: "rvs-304-premium",
-        title: "Professional AISI 304 Stainless Steel Sheet",
+        title: "Professional AISI 304 Stainless Steel Sheet", // Will be overwritten by init
+
         price: 369.99,
         image: "images/rvs-spec-sheet.jpg",
         material: "1 Side Brushed / 1 Side Polished Mirror",
@@ -628,4 +751,7 @@ function initScrollAnimations() {
 
 // Global Exports
 window.removeFromCart = removeFromCart;
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+    changeLanguage(currentLang);
+});
