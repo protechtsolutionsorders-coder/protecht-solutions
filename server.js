@@ -174,11 +174,13 @@ function generateShippingSection(session) {
     const shippingName = session.shipping_details?.name || '';
     const address = session.shipping_details?.address;
 
-    // Check if pickup (contains "Pickup" in name or no address)
-    if (shippingName.toLowerCase().includes('pickup') || !address) {
-        // Determine which pickup location
+    // Check if pickup (contains "Pickup" in name)
+    const isPickup = shippingName.toLowerCase().includes('pickup');
+
+    if (isPickup) {
+        let pickupInfo = '';
         if (shippingName.includes('Mechelen') || shippingName.includes('Blarenberglaan')) {
-            return `
+            pickupInfo = `
                 <div style="margin-top: 20px; padding: 30px; background: #f0fff4; border: 1px solid #86efac; border-radius: 12px;">
                     <div style="display: flex; align-items: center; margin-bottom: 15px;">
                         <div style="font-size: 20px; margin-right: 10px;">📍</div>
@@ -189,7 +191,7 @@ function generateShippingSection(session) {
                 </div>
             `;
         } else if (shippingName.includes('Hechtel') || shippingName.includes('Overpelterbaan')) {
-            return `
+            pickupInfo = `
                 <div style="margin-top: 20px; padding: 30px; background: #f0fff4; border: 1px solid #86efac; border-radius: 12px;">
                     <div style="display: flex; align-items: center; margin-bottom: 15px;">
                         <div style="font-size: 20px; margin-right: 10px;">📍</div>
@@ -200,6 +202,7 @@ function generateShippingSection(session) {
                 </div>
             `;
         }
+        return pickupInfo;
     } else if (address) {
         // Delivery address
         const fullAddress = `${address.line1}${address.line2 ? ', ' + address.line2 : ''}, ${address.postal_code} ${address.city}, ${address.country}`;
@@ -275,9 +278,10 @@ async function sendOrderEmail(session) {
                     </tr>
                     <tr>
                         <td>
-                            <strong style="display: block; font-size: 12px; color: #9ca3af; text-transform: uppercase; margin-bottom: 5px;">Shipping Choice</strong>
-                            <span>${session.shipping_details?.name || 'Not specified'}</span>
-                            ${session.shipping_details?.address ? `<br><span style="color: #666; font-size: 14px;">${session.shipping_details.address.line1}${session.shipping_details.address.line2 ? ', ' + session.shipping_details.address.line2 : ''}, ${session.shipping_details.address.postal_code} ${session.shipping_details.address.city}, ${session.shipping_details.address.country}</span>` : ''}
+                            <strong style="display: block; font-size: 12px; color: #9ca3af; text-transform: uppercase; margin-bottom: 5px;">Shipping Method</strong>
+                            <span>${session.shipping_details?.name || 'Standard Delivery'}</span>
+                            ${(!session.shipping_details?.name?.toLowerCase().includes('pickup') && session.shipping_details?.address) ? `<br><span style="color: #666; font-size: 14px;">${session.shipping_details.address.line1}${session.shipping_details.address.line2 ? ', ' + session.shipping_details.address.line2 : ''}, ${session.shipping_details.address.postal_code} ${session.shipping_details.address.city}, ${session.shipping_details.address.country}</span>` : ''}
+                            ${(session.shipping_details?.name?.toLowerCase().includes('pickup')) ? `<br><span style="color: #166534; font-weight: 600;">Store Pickup (Customer will collect)</span>` : ''}
                         </td>
                     </tr>
                 </table>
@@ -312,13 +316,16 @@ async function sendOrderEmail(session) {
                 </div>
 
                 <div style="margin-top: 40px;">
-                    <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">Shipping Address</h3>
+                    <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+                        ${session.shipping_details?.name?.toLowerCase().includes('pickup') ? 'Billing Address' : 'Shipping Address'}
+                    </h3>
                     <p style="margin: 0; color: #4b5563; line-height: 1.6;">
                         <strong>${session.shipping_details?.name || session.customer_details.name}</strong><br>
                         ${session.shipping_details?.address?.line1 || 'N/A'}<br>
                         ${session.shipping_details?.address?.city || ''}, ${session.shipping_details?.address?.state || ''} ${session.shipping_details?.address?.postal_code || ''}<br>
                         ${session.shipping_details?.address?.country || ''}
                     </p>
+                    ${session.shipping_details?.name?.toLowerCase().includes('pickup') ? `<p style="margin-top: 15px; padding: 10px; background: #fffbeb; color: #92400e; border: 1px solid #fde68a; border-radius: 6px; font-size: 13px;"><strong>Note:</strong> Customer selected Store Pickup. Do not ship to this address.</p>` : ''}
                 </div>
             </div>
             <div style="background-color: #f9fafb; padding: 20px; text-align: center; color: #9ca3af; font-size: 12px;">
@@ -330,15 +337,21 @@ async function sendOrderEmail(session) {
     };
 
     try {
+        console.log(`Attempting to send order notification to admin...`);
         await transporter.sendMail(mailOptions);
-        console.log(`Order notification email sent for session: ${session.id}`);
+        console.log(`✅ Order notification email sent to admin for session: ${session.id}`);
     } catch (error) {
-        console.error('Error sending email:', error);
+        console.error('❌ Error sending order email to admin:', error);
     }
 }
 
 async function sendCustomerEmail(session) {
-    const customerEmail = session.customer_details.email;
+    const customerEmail = session.customer_details?.email;
+    if (!customerEmail) {
+        console.error('❌ No customer email found in session. Cannot send confirmation.');
+        return;
+    }
+
     const customerName = session.customer_details.name || 'Customer';
     const amountTotal = session.amount_total / 100;
     const orderId = session.id.slice(-8).toUpperCase();
@@ -424,10 +437,11 @@ async function sendCustomerEmail(session) {
     };
 
     try {
+        console.log(`Attempting to send confirmation to customer: ${customerEmail}`);
         await transporter.sendMail(mailOptions);
-        console.log(`Confirmation email sent to customer: ${customerEmail}`);
+        console.log(`✅ Confirmation email sent to customer: ${customerEmail}`);
     } catch (error) {
-        console.error('Error sending customer email:', error);
+        console.error('❌ Error sending customer email:', error);
     }
 }
 
