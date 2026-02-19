@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.static('.')); // Serve static files (html, css, js)
 app.use(express.json());
 
-const DOMAIN = process.env.DOMAIN || 'https://protech-solutions.onrender.com';
+const DOMAIN = process.env.DOMAIN || 'https://rvsplaten.com';
 
 // Dynamic SEO Files
 app.get('/sitemap.xml', (req, res) => {

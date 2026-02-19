@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://protecht-solutions.onrender.com/sitemap.xml
+Sitemap: https://rvsplaten.com/sitemap.xml
