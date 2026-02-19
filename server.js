@@ -116,7 +116,9 @@ app.post('/create-checkout-session', async (req, res) => {
 // Endpoint to retrieve session details for success page
 app.get('/session-details/:sessionId', async (req, res) => {
     try {
-        const session = await stripe.checkout.sessions.retrieve(req.params.sessionId);
+        const session = await stripe.checkout.sessions.retrieve(req.params.sessionId, {
+            expand: ['shipping_cost.shipping_rate']
+        });
 
         // Send emails immediately (without waiting for webhook)
         if (session.payment_status === 'paid') {
@@ -129,7 +131,8 @@ app.get('/session-details/:sessionId', async (req, res) => {
 
         res.json({
             shipping: session.shipping_details,
-            shippingCost: session.shipping_cost?.shipping_rate || session.total_details?.amount_shipping || 0,
+            shippingMethodName: session.shipping_cost?.shipping_rate?.display_name || '',
+            shippingCost: session.shipping_cost?.amount_total / 100 || 0,
             customerEmail: session.customer_details?.email
         });
     } catch (error) {
@@ -204,15 +207,15 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (request, 
 
 // Helper function to generate shipping section based on customer choice
 function generateShippingSection(session) {
-    const shippingName = session.shipping_details?.name || '';
+    const shippingMethodName = session.shipping_cost?.shipping_rate?.display_name || '';
     const address = session.shipping_details?.address;
 
-    // Check if pickup (contains "Pickup" in name)
-    const isPickup = shippingName.toLowerCase().includes('pickup');
+    // Check if pickup (contains "Pickup" in the shipping rate name)
+    const isPickup = shippingMethodName.toLowerCase().includes('pickup');
 
     if (isPickup) {
         let pickupInfo = '';
-        if (shippingName.includes('Mechelen') || shippingName.includes('Blarenberglaan')) {
+        if (shippingMethodName.includes('Mechelen') || shippingMethodName.includes('Blarenberglaan')) {
             pickupInfo = `
                 <div style="margin-top: 20px; padding: 30px; background: #f0fff4; border: 1px solid #86efac; border-radius: 12px;">
                     <div style="display: flex; align-items: center; margin-bottom: 15px;">
@@ -223,7 +226,7 @@ function generateShippingSection(session) {
                     <p style="margin-top: 10px; color: #166534; font-size: 13px;">Your order will be ready for pickup in 3-5 business days. We'll notify you when it's ready.</p>
                 </div>
             `;
-        } else if (shippingName.includes('Hechtel') || shippingName.includes('Overpelterbaan')) {
+        } else if (shippingMethodName.includes('Hechtel') || shippingMethodName.includes('Overpelterbaan')) {
             pickupInfo = `
                 <div style="margin-top: 20px; padding: 30px; background: #f0fff4; border: 1px solid #86efac; border-radius: 12px;">
                     <div style="display: flex; align-items: center; margin-bottom: 15px;">
@@ -309,15 +312,8 @@ async function sendOrderEmail(session) {
                             <span>${session.customer_details.phone || 'Not provided'}</span>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <strong style="display: block; font-size: 12px; color: #9ca3af; text-transform: uppercase; margin-bottom: 5px;">Shipping Method</strong>
-                            <span>${session.shipping_details?.name || 'Standard Delivery'}</span>
-                            ${(!session.shipping_details?.name?.toLowerCase().includes('pickup') && session.shipping_details?.address) ? `<br><span style="color: #666; font-size: 14px;">${session.shipping_details.address.line1}${session.shipping_details.address.line2 ? ', ' + session.shipping_details.address.line2 : ''}, ${session.shipping_details.address.postal_code} ${session.shipping_details.address.city}, ${session.shipping_details.address.country}</span>` : ''}
-                            ${(session.shipping_details?.name?.toLowerCase().includes('pickup')) ? `<br><span style="color: #166534; font-weight: 600;">Store Pickup (Customer will collect)</span>` : ''}
-                        </td>
-                    </tr>
-                </table>
+                <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">Shipping & Logistics</h3>
+                ${generateShippingSection(session)}
 
                 <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">Order Summary</h3>
                 <table style="width: 100%; margin-bottom: 30px;">
@@ -350,7 +346,7 @@ async function sendOrderEmail(session) {
 
                 <div style="margin-top: 40px;">
                     <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
-                        ${session.shipping_details?.name?.toLowerCase().includes('pickup') ? 'Billing Address' : 'Shipping Address'}
+                        ${session.shipping_cost?.shipping_rate?.display_name?.toLowerCase().includes('pickup') ? 'Billing Address' : 'Shipping Address'}
                     </h3>
                     <p style="margin: 0; color: #4b5563; line-height: 1.6;">
                         <strong>${session.shipping_details?.name || session.customer_details.name}</strong><br>
@@ -358,7 +354,7 @@ async function sendOrderEmail(session) {
                         ${session.shipping_details?.address?.city || ''}, ${session.shipping_details?.address?.state || ''} ${session.shipping_details?.address?.postal_code || ''}<br>
                         ${session.shipping_details?.address?.country || ''}
                     </p>
-                    ${session.shipping_details?.name?.toLowerCase().includes('pickup') ? `<p style="margin-top: 15px; padding: 10px; background: #fffbeb; color: #92400e; border: 1px solid #fde68a; border-radius: 6px; font-size: 13px;"><strong>Note:</strong> Customer selected Store Pickup. Do not ship to this address.</p>` : ''}
+                    ${session.shipping_cost?.shipping_rate?.display_name?.toLowerCase().includes('pickup') ? `<p style="margin-top: 15px; padding: 10px; background: #fffbeb; color: #92400e; border: 1px solid #fde68a; border-radius: 6px; font-size: 13px;"><strong>Note:</strong> Customer selected Store Pickup. Do not ship to this address.</p>` : ''}
                 </div>
             </div>
             <div style="background-color: #f9fafb; padding: 20px; text-align: center; color: #9ca3af; font-size: 12px;">
@@ -431,18 +427,17 @@ async function sendCustomerEmail(session) {
                     </table>
                 </div>
 
-                <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 10px;">
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="color: #666; font-size: 14px;">Total Paid</td>
-                            <td style="text-align: right; font-size: 20px; font-weight: 600; color: #000;">€${amountTotal.toFixed(2)}</td>
-                        </tr>
-                    </table>
+                <div style="margin-top: 30px;">
+                    ${generateShippingSection(session)}
                 </div>
 
                 <div style="margin-top: 40px; padding: 30px; border: 1px solid #eee; border-radius: 12px;">
                     <h3 style="font-size: 14px; margin-top: 0; text-transform: uppercase; color: #888;">Next Steps</h3>
-                    <p style="font-size: 14px; line-height: 1.5; color: #444; margin-bottom: 0;">Our craft team is now preparing your sheet. You will receive another update with a tracking number as soon as the courier picks up your package.</p>
+                    <p style="font-size: 14px; line-height: 1.5; color: #444; margin-bottom: 0;">
+                        ${session.shipping_cost?.shipping_rate?.display_name?.toLowerCase().includes('pickup') ?
+                "Your order will be prepared and ready at the chosen location in 3-5 business days. We'll email you once it's available for collection." :
+                "Our craft team is now preparing your sheet. You will receive another update with a tracking number as soon as the courier picks up your package."}
+                    </p>
                 </div>
                 
                 <div style="margin-top: 40px; padding: 30px; border: 1px solid #eee; border-radius: 12px;">

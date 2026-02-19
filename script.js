@@ -300,7 +300,7 @@ function handleSuccess() {
             .then(res => res.json())
             .then(data => {
                 // Update shipping info in modal
-                updateShippingInfo(data.shipping);
+                updateShippingInfo(data);
 
                 // Show Professional Modal
                 const successModal = document.getElementById('success-modal');
@@ -322,32 +322,33 @@ function handleSuccess() {
     }
 }
 
-function updateShippingInfo(shipping) {
+function updateShippingInfo(data) {
     const pickupBox = document.querySelector('.pickup-locations-box');
-    if (!pickupBox || !shipping) return;
+    if (!pickupBox || !data) return;
 
-    const shippingName = shipping.name || '';
-    const address = shipping.address;
+    const shipping = data.shipping;
+    const methodName = data.shippingMethodName || '';
+    const address = shipping?.address;
 
-    // Check if it's a pickup (no address or shipping option name contains "Pickup")
-    const isPickup = !address || (shippingName && shippingName.toLowerCase().includes('pickup'));
+    // Check if it's a pickup (Stripe rate name contains "Pickup")
+    const isPickup = methodName.toLowerCase().includes('pickup');
 
     if (isPickup) {
         // Show pickup location based on which one was selected
-        if (shippingName.includes('Mechelen') || shippingName.includes('Blarenberglaan')) {
+        if (methodName.includes('Mechelen') || methodName.includes('Blarenberglaan')) {
             pickupBox.innerHTML = `
                 <h3><i class="fas fa-location-dot"></i> Pickup Location</h3>
                 <p class="pickup-addr">📍 Blarenberglaan 6, 2800 Mechelen (GGM Gastro)</p>
                 <p style="margin-top: 10px; color: #666; font-size: 14px;">Your order will be ready for pickup in 3-5 business days.</p>
             `;
-        } else if (shippingName.includes('Hechtel') || shippingName.includes('Overpelterbaan')) {
+        } else if (methodName.includes('Hechtel') || methodName.includes('Overpelterbaan')) {
             pickupBox.innerHTML = `
                 <h3><i class="fas fa-location-dot"></i> Pickup Location</h3>
                 <p class="pickup-addr">📍 Overpelterbaan 66, 3941 Hechtel-EKSEL</p>
                 <p style="margin-top: 10px; color: #666; font-size: 14px;">Your order will be ready for pickup in 3-5 business days.</p>
             `;
         }
-    } else {
+    } else if (address) {
         // Show delivery address
         const addr = address;
         const fullAddress = `${addr.line1}${addr.line2 ? ', ' + addr.line2 : ''}, ${addr.postal_code} ${addr.city}, ${addr.country}`;
