@@ -139,6 +139,7 @@ app.get('/session-details/:sessionId', async (req, res) => {
 });
 
 // Email Notification Setup
+const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST || 'smtp.ethereal.email',
     port: parseInt(process.env.EMAIL_PORT) || 587,
