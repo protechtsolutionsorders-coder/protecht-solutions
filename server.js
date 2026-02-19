@@ -139,13 +139,45 @@ app.get('/session-details/:sessionId', async (req, res) => {
 });
 
 // Email Notification Setup
-const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST || 'smtp.ethereal.email',
-    port: process.env.EMAIL_PORT || 587,
+    port: parseInt(process.env.EMAIL_PORT) || 587,
+    secure: process.env.EMAIL_PORT == 465, // true for 465, false for other ports
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
+    },
+    tls: {
+        rejectUnauthorized: false // Helps with some hosting providers
+    }
+});
+
+// Verify transporter on start
+transporter.verify(function (error, success) {
+    if (error) {
+        console.log("❌ SMTP Verification Error:", error);
+    } else {
+        console.log("✅ Server is ready to take our messages");
+    }
+});
+
+// Endpoint to test email configuration without a purchase
+app.get('/test-email', async (req, res) => {
+    const testEmail = req.query.email || process.env.EMAIL_USER;
+    if (!testEmail) return res.status(400).send("No email provided and EMAIL_USER not set");
+
+    try {
+        await transporter.sendMail({
+            from: `"ProTech Test" <${process.env.EMAIL_USER}>`,
+            to: testEmail,
+            subject: "Verification: ProTech Email System Working",
+            text: "If you receive this, your SMTP configuration on Render is CORRECT.",
+            html: "<b>If you receive this, your SMTP configuration on Render is CORRECT.</b>"
+        });
+        res.send(`✅ Test email sent to ${testEmail}. Please check your inbox (and SPAM).`);
+    } catch (error) {
+        console.error("❌ Test Email Failed:", error);
+        res.status(500).send(`❌ Email failed: ${error.message}`);
     }
 });
 
