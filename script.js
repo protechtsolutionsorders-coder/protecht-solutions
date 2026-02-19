@@ -182,21 +182,6 @@ function changeLanguage(lang) {
 
 const products = [
     {
-        id: "test-item-live",
-        title: "Live Payment Test",
-        price: 0.50,
-        image: "images/logo.jpg",
-        material: "Test Material",
-        desc: "This is a temporary item for live payment verification (Minimum Stripe amount). It will be removed once testing is confirmed.",
-        features: [
-            { icon: "fa-vial", text: "Test Mode" }
-        ],
-        sizes: [
-            { label: "Standard Test", area: "1x1", price: 0.50 }
-        ],
-        stock: 999
-    },
-    {
         id: "rvs-304-premium",
         title: "Professional AISI 304 Stainless Steel Sheet", // Will be overwritten by init
 
