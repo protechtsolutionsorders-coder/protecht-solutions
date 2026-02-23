@@ -5,7 +5,8 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
-app.use(express.static('.')); // Serve static files (html, css, js)
+const path = require('path');
+app.use(express.static(path.join(__dirname, '.'))); // Serve static files
 app.use(express.json());
 
 const DOMAIN = process.env.DOMAIN || 'https://rvsplaten.com';
@@ -27,6 +28,11 @@ app.get('/sitemap.xml', (req, res) => {
 app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
     res.send(`User-agent: *\nAllow: /\n\nSitemap: ${DOMAIN}/sitemap.xml`);
+});
+
+// Explicit Google Verification Route
+app.get('/google5fdb2e360bc9c1ef.html', (req, res) => {
+    res.send('google-site-verification: google5fdb2e360bc9c1ef.html');
 });
 
 app.post('/create-checkout-session', async (req, res) => {
@@ -165,25 +171,6 @@ transporter.verify(function (error, success) {
     }
 });
 
-// Endpoint to test email configuration without a purchase
-app.get('/test-email', async (req, res) => {
-    const testEmail = req.query.email || process.env.EMAIL_USER;
-    if (!testEmail) return res.status(400).send("No email provided and EMAIL_USER not set");
-
-    try {
-        await transporter.sendMail({
-            from: `"ProTech Test" <${process.env.EMAIL_USER}>`,
-            to: testEmail,
-            subject: "Verification: ProTech Email System Working",
-            text: "If you receive this, your SMTP configuration on Render is CORRECT.",
-            html: "<b>If you receive this, your SMTP configuration on Render is CORRECT.</b>"
-        });
-        res.send(`✅ Test email sent to ${testEmail}. Please check your inbox (and SPAM).`);
-    } catch (error) {
-        console.error("❌ Test Email Failed:", error);
-        res.status(500).send(`❌ Email failed: ${error.message}`);
-    }
-});
 
 // Webhook for Order Notifications
 // NOTE: For local dev without Stripe CLI, this webhook won't receive events from real Stripe.

@@ -19,6 +19,10 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     background-color: var(--bg-body);
     font-family: var(--font);
@@ -877,7 +881,7 @@ h3 {
 /* FAQ */
 .faq-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 60px 40px;
     margin-top: 60px;
 }
@@ -957,7 +961,33 @@ footer {
 
 @media (max-width: 768px) {
     h1 {
-        font-size: 2.8rem;
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero {
+        padding: 80px 0 40px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .trust-icons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .trust-icons span {
+        font-size: 0.7rem;
+    }
+
+    .product-shelf {
+        grid-template-columns: 1fr;
     }
 
     .modal-split {
@@ -980,12 +1010,17 @@ footer {
 
     .customizer-workspace {
         grid-template-columns: 1fr;
-        padding: 20px;
+        padding: 15px;
     }
 
     .visual-preview {
-        min-height: 250px;
-        padding: 20px;
+        min-height: 200px;
+        padding: 15px;
+    }
+
+    .dim-label-h {
+        right: -30px;
+        font-size: 0.6rem;
     }
 
     .section-header {
@@ -997,6 +1032,46 @@ footer {
 
     .faq-grid {
         grid-template-columns: 1fr;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .legal {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .legal-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .cart-sidebar {
+        width: 100vw;
+        right: -100vw;
+    }
+
+    .cart-sidebar.open {
+        right: 0;
+    }
+
+    .buy-section,
+    .feature-big,
+    .content-section {
+        padding: 60px 0;
+    }
+
+    footer {
+        padding: 40px 0 25px;
+    }
+
+    .container {
+        padding: 0 15px;
     }
 }
 

@@ -45,7 +45,61 @@ const translations = {
         inst_title: "How to Install",
         faq_title: "Frequently Asked Questions",
         cart_empty: "Your cart is empty",
-        cart_remove: "Remove"
+        cart_remove: "Remove",
+        // Section headings
+        section_heading: "Professional AISI 304 Series",
+        trust_secure: "Secure Payment",
+        trust_delivery: "FREE Delivery > €599.99",
+        trust_quality: "Quality Guaranteed",
+        // Feature Big
+        feat_big_title: "Industrial Grade.",
+        feat_big_desc: "Sourced from the finest materials to ensure durability and strength.",
+        // Installation steps
+        inst_desc: "Mounting your professional backsplash is a straightforward process. For the best result, we recommend using high-quality transparent silicone adhesive.",
+        inst_step1_title: "Clean the Wall",
+        inst_step1_desc: "Ensure the surface is dry and free of grease.",
+        inst_step2_title: "Apply Silicone",
+        inst_step2_desc: "Apply vertical strips of transparent silicone on the back of the sheet.",
+        inst_step3_title: "Press and Secure",
+        inst_step3_desc: "Place against the wall and press firmly. Use masking tape to hold it in place while it cures.",
+        // FAQ
+        faq_q1: "Is AISI 304 heat resistant?",
+        faq_a1: "Yes, our stainless steel is highly heat resistant, making it perfect for use behind gas cooktops and stoves.",
+        faq_q2: "How do I clean the brushed finish?",
+        faq_a2: "Simply use a damp cloth with mild soap or a specialized stainless steel cleaner. Always wipe in the direction of the grain.",
+        faq_q3: "Do you ship to my country?",
+        faq_a3: "We ship across the entire European Union. Delivery times typically range from 3 to 5 business days.",
+        faq_q4: "Can I get a custom size?",
+        faq_a4: "Absolutely. We offer custom cutting services for projects that require non-standard dimensions.",
+        // Footer
+        footer_brand_desc: "Professional kitchen solutions for the modern home and industry.",
+        footer_col_products: "Products",
+        footer_steel: "Steel Plates",
+        footer_customizer: "Customizer Ecosystem",
+        footer_col_support: "Support",
+        footer_install_guide: "Installation Guide",
+        footer_faq_link: "FAQ & Support",
+        footer_contact_title: "Contact Business",
+        footer_hours: "Support Hours: Mon-Fri 9:00 - 18:00",
+        // Modal
+        modal_new: "New",
+        modal_select_size: "Select Size",
+        modal_material_label: "Material",
+        modal_dims_label: "Dimensions",
+        modal_dims_placeholder: "Select a size above",
+        modal_cert_title: "Industry Certified",
+        modal_cert_desc: "AISI 304 stainless steel is the professional industry standard approved for food contact and high-hygiene environments (EU 1935/2004 compliance).",
+        modal_ships: "Ships: 1 business day",
+        modal_laser_bonus: "Includes Free Laser Film",
+        // Success modal
+        success_title: "Order Successful!",
+        success_desc: "Thank you for choosing ProTech Solutions. Your professional backsplash is being prepared for shipment.",
+        success_email_note: "A confirmation email has been sent to your inbox.",
+        success_pickup_title: "Pickup Locations",
+        success_continue: "Continue Browsing",
+        // Cart
+        cart_empty_msg: "Your bag is empty.",
+        toast_added: "Added to bag"
     },
     es: {
         nav_overview: "Inicio",
@@ -93,7 +147,61 @@ const translations = {
         inst_title: "Cómo Instalar",
         faq_title: "Preguntas Frecuentes",
         cart_empty: "Tu carrito está vacío",
-        cart_remove: "Eliminar"
+        cart_remove: "Eliminar",
+        // Section headings
+        section_heading: "Serie Profesional AISI 304",
+        trust_secure: "Pago Seguro",
+        trust_delivery: "Envío GRATIS > €599.99",
+        trust_quality: "Calidad Garantizada",
+        // Feature Big
+        feat_big_title: "Calidad Industrial.",
+        feat_big_desc: "Materiales de primera calidad para garantizar durabilidad y resistencia.",
+        // Installation steps
+        inst_desc: "Montar tu plancha antisalpicaduras es un proceso sencillo. Para el mejor resultado, recomendamos usar silicona transparente de alta calidad.",
+        inst_step1_title: "Limpiar la Pared",
+        inst_step1_desc: "Asegúrate de que la superficie esté seca y libre de grasa.",
+        inst_step2_title: "Aplicar Silicona",
+        inst_step2_desc: "Aplica tiras verticales de silicona transparente en la parte trasera de la plancha.",
+        inst_step3_title: "Presionar y Fijar",
+        inst_step3_desc: "Coloca contra la pared y presiona firmemente. Usa cinta de carrocero para sujetarla mientras seca.",
+        // FAQ
+        faq_q1: "¿El AISI 304 es resistente al calor?",
+        faq_a1: "Sí, nuestro acero inoxidable es altamente resistente al calor, ideal para usar detrás de cocinas de gas y hornos.",
+        faq_q2: "¿Cómo limpio el acabado cepillado?",
+        faq_a2: "Simplemente usa un paño húmedo con jabón suave o un limpiador especializado para acero inoxidable. Siempre limpia en la dirección del grano.",
+        faq_q3: "¿Envían a mi país?",
+        faq_a3: "Enviamos a toda la Unión Europea. Los plazos de entrega son normalmente de 3 a 5 días laborables.",
+        faq_q4: "¿Puedo pedir un tamaño personalizado?",
+        faq_a4: "Por supuesto. Ofrecemos servicios de corte a medida para proyectos que requieran dimensiones no estándar.",
+        // Footer
+        footer_brand_desc: "Soluciones profesionales de cocina para el hogar moderno y la industria.",
+        footer_col_products: "Productos",
+        footer_steel: "Planchas de Acero",
+        footer_customizer: "Personalizador",
+        footer_col_support: "Soporte",
+        footer_install_guide: "Guía de Instalación",
+        footer_faq_link: "Preguntas Frecuentes",
+        footer_contact_title: "Contacto Comercial",
+        footer_hours: "Horario: L-V 9:00 - 18:00",
+        // Modal
+        modal_new: "Nuevo",
+        modal_select_size: "Seleccionar Tamaño",
+        modal_material_label: "Material",
+        modal_dims_label: "Dimensiones",
+        modal_dims_placeholder: "Selecciona un tamaño arriba",
+        modal_cert_title: "Certificado Industrial",
+        modal_cert_desc: "El acero inoxidable AISI 304 es el estándar profesional aprobado para contacto con alimentos y entornos de alta higiene (cumplimiento EU 1935/2004).",
+        modal_ships: "Envío: 1 día laborable",
+        modal_laser_bonus: "Incluye Film Láser Gratis",
+        // Success modal
+        success_title: "¡Pedido Realizado!",
+        success_desc: "Gracias por elegir ProTech Solutions. Tu plancha profesional se está preparando para el envío.",
+        success_email_note: "Se ha enviado un email de confirmación a tu bandeja de entrada.",
+        success_pickup_title: "Puntos de Recogida",
+        success_continue: "Seguir Comprando",
+        // Cart
+        cart_empty_msg: "Tu cesta está vacía.",
+        toast_added: "Añadido a la cesta"
     },
     nl: {
         nav_overview: "Overzicht",
@@ -141,7 +249,61 @@ const translations = {
         inst_title: "Installatiegids",
         faq_title: "Veelgestelde Vragen",
         cart_empty: "Uw winkelwagen is leeg",
-        cart_remove: "Verwijderen"
+        cart_remove: "Verwijderen",
+        // Section headings
+        section_heading: "Professionele AISI 304 Serie",
+        trust_secure: "Veilig Betalen",
+        trust_delivery: "GRATIS Bezorging > €599.99",
+        trust_quality: "Kwaliteit Gegarandeerd",
+        // Feature Big
+        feat_big_title: "Industriële Kwaliteit.",
+        feat_big_desc: "Afkomstig van de beste materialen voor duurzaamheid en sterkte.",
+        // Installation steps
+        inst_desc: "Het monteren van uw professionele achterwand is een eenvoudig proces. Voor het beste resultaat raden wij transparante siliconenkit van hoge kwaliteit aan.",
+        inst_step1_title: "Muur Schoonmaken",
+        inst_step1_desc: "Zorg ervoor dat het oppervlak droog en vetvrij is.",
+        inst_step2_title: "Siliconen Aanbrengen",
+        inst_step2_desc: "Breng verticale strepen transparante siliconen aan op de achterkant van de plaat.",
+        inst_step3_title: "Aandrukken en Bevestigen",
+        inst_step3_desc: "Plaats tegen de muur en druk stevig aan. Gebruik afplaktape om het op zijn plaats te houden terwijl het uithardt.",
+        // FAQ
+        faq_q1: "Is AISI 304 hittebestendig?",
+        faq_a1: "Ja, ons roestvrij staal is zeer hittebestendig en perfect voor gebruik achter gaskookplaten en fornuizen.",
+        faq_q2: "Hoe reinig ik de geborstelde afwerking?",
+        faq_a2: "Gebruik een vochtige doek met milde zeep of een gespecialiseerde RVS-reiniger. Veeg altijd in de richting van de structuur.",
+        faq_q3: "Leveren jullie in mijn land?",
+        faq_a3: "Wij leveren in de hele Europese Unie. Levertijden zijn doorgaans 3 tot 5 werkdagen.",
+        faq_q4: "Kan ik een maat op maat krijgen?",
+        faq_a4: "Absoluut. Wij bieden maatwerksnijdiensten aan voor projecten die niet-standaard afmetingen vereisen.",
+        // Footer
+        footer_brand_desc: "Professionele keukenoplossingen voor het moderne huis en de industrie.",
+        footer_col_products: "Producten",
+        footer_steel: "RVS Platen",
+        footer_customizer: "Live Customizer",
+        footer_col_support: "Ondersteuning",
+        footer_install_guide: "Installatiegids",
+        footer_faq_link: "FAQ & Ondersteuning",
+        footer_contact_title: "Zakelijk Contact",
+        footer_hours: "Bereikbaar: Ma-Vr 9:00 - 18:00",
+        // Modal
+        modal_new: "Nieuw",
+        modal_select_size: "Kies Afmeting",
+        modal_material_label: "Materiaal",
+        modal_dims_label: "Afmetingen",
+        modal_dims_placeholder: "Kies eerst een afmeting hierboven",
+        modal_cert_title: "Industrieel Gecertificeerd",
+        modal_cert_desc: "AISI 304 roestvrij staal is de professionele industriestandaard, goedgekeurd voor voedselcontact en omgevingen met hoge hygiëne-eisen (EU 1935/2004).",
+        modal_ships: "Verzending: 1 werkdag",
+        modal_laser_bonus: "Gratis Laserfolie Inbegrepen",
+        // Success modal
+        success_title: "Bestelling Gelukt!",
+        success_desc: "Bedankt voor uw keuze voor ProTech Solutions. Uw professionele achterwand wordt voorbereid voor verzending.",
+        success_email_note: "Een bevestigingsmail is naar uw inbox gestuurd.",
+        success_pickup_title: "Afhaalpunten",
+        success_continue: "Verder Winkelen",
+        // Cart
+        cart_empty_msg: "Uw winkelwagen is leeg.",
+        toast_added: "Toegevoegd aan winkelwagen"
     }
 };
 
@@ -520,11 +682,12 @@ window.selectSize = function (idx) {
 
 function updateModalDimensions(p) {
     if (!p) return; // Guard clause
+    const t = translations[currentLang];
 
     // If no size selected yet, show placeholder
     if (selectedSizeIndex === -1 || !p.sizes[selectedSizeIndex]) {
         document.getElementById('modal-dims').innerHTML = `
-            <span style="color: #888;">Select a size above</span>
+            <span style="color: #888;">${t.modal_dims_placeholder}</span>
         `;
         return;
     }
@@ -532,7 +695,7 @@ function updateModalDimensions(p) {
     const size = p.sizes[selectedSizeIndex];
     document.getElementById('modal-dims').innerHTML = `
         ${size.area} (${size.label}) <br> 
-        <div class="bonus-tag">Includes Free Laser Film</div>
+        <div class="bonus-tag">${t.modal_laser_bonus}</div>
     `;
 }
 
@@ -563,7 +726,7 @@ window.addToCart = function () {
     openCart();
 
     // Feedback Animation
-    showToast('Added to bag');
+    showToast(translations[currentLang].toast_added);
     const badge = document.getElementById('cart-count');
     if (badge) {
         badge.classList.remove('pulse');
@@ -647,7 +810,7 @@ function updateCartUI() {
     if (!itemsContainer) return;
 
     if (cart.length === 0) {
-        itemsContainer.innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">Your bag is empty.</p>';
+        itemsContainer.innerHTML = `<p style="text-align:center; color:#999; margin-top:20px;">${translations[currentLang].cart_empty_msg}</p>`;
         cartTotal.innerText = "€0.00";
     } else {
         itemsContainer.innerHTML = cart.map((item, idx) => `
