@@ -114,8 +114,10 @@ const translations = {
         why_custom_title: "Precision Cut",
         why_custom_desc: "Using state-of-the-art fiber lasers, we ensure your backsplash fits perfectly.",
         // SEO
-        seo_title: "RVS Platen (Stainless Steel Sheets) | ProTech Solutions - Professional Backsplashes",
-        seo_desc: "Order custom RVS Platen (AISI 304 Stainless Steel Sheets) for your kitchen. Professional grade, heat resistant, and food certified. Made to measure in Belgium & Spain."
+        seo_desc: "Order custom RVS Platen (AISI 304 Stainless Steel Sheets) for your kitchen. Professional grade, heat resistant, and food certified. Made to measure in Belgium & Spain.",
+        shipping_free_unlocked: "Free shipping unlocked!",
+        shipping_away_prefix: "Only",
+        shipping_away_suffix: "away from FREE shipping!"
     },
     es: {
         nav_overview: "Inicio",
@@ -232,8 +234,10 @@ const translations = {
         why_custom_title: "Corte de Precisión",
         why_custom_desc: "Corte láser de fibra para un ajuste perfecto al milímetro.",
         // SEO
-        seo_title: "RVS Platen (Planchas de Acero Inox) | ProTech Solutions - Crédence sur Mesure",
-        seo_desc: "Pida sus RVS Platen (Planchas Inox AISI 304) a medida. Calidad profesional, resistentes al calor y certificadas para alimentos. Envío a toda Europa."
+        seo_desc: "Pida sus RVS Platen (Planchas Inox AISI 304) a medida. Calidad profesional, resistentes al calor y certificadas para alimentos. Envío a toda Europa.",
+        shipping_free_unlocked: "¡Envío gratuito desbloqueado!",
+        shipping_away_prefix: "¡Solo",
+        shipping_away_suffix: "más para envío GRATIS!"
     },
     nl: {
         nav_overview: "Overzicht",
@@ -350,8 +354,10 @@ const translations = {
         why_custom_title: "Precisie Snijwerk",
         why_custom_desc: "Dankzij onze fiberlasers past uw achterwand tot op de millimeter.",
         // SEO
-        seo_title: "RVS Platen op Maat | ProTech Solutions - Uw Professionele RVS Achterwand",
-        seo_desc: "Beste prijs voor RVS Platen op maat! Professionele AISI 304 roestvrijstalen achterwanden en spatwanden. Hittebestendig, voedselveilig en duurzaam. Gratis verzending > €599.99."
+        seo_desc: "Beste prijs voor RVS Platen op maat! Professionele AISI 304 roestvrijstalen achterwanden en spatwanden. Hittebestendig, voedselveilig en duurzaam. Gratis verzending > €599.99.",
+        shipping_free_unlocked: "Gratis verzending ontgrendeld!",
+        shipping_away_prefix: "Nog maar",
+        shipping_away_suffix: "verwijderd van GRATIS verzending!"
     },
     fr: {
         nav_overview: "Aperçu",
@@ -467,23 +473,9 @@ const translations = {
         why_packaging_desc: "Chaque RVS Platen est livrée avec un film laser haute résistance.",
         why_custom_title: "Coupe de Précision",
         why_custom_desc: "Découpe laser fibre pour un ajustement parfait au millimètre près.",
-        // Legal
-        footer_privacy: "Privacy Policy",
-        footer_terms: "Terms of Service",
-        footer_legal: "Legal Notice",
         shipping_free_unlocked: "Livraison gratuite débloquée !",
         shipping_away_prefix: "Plus que",
         shipping_away_suffix: "pour la livraison GRATUITE !"
-    },
-    nl: {
-        shipping_free_unlocked: "Gratis verzending ontgrendeld!",
-        shipping_away_prefix: "Nog maar",
-        shipping_away_suffix: "verwijderd van GRATIS verzending!"
-    },
-    es: {
-        shipping_free_unlocked: "¡Envío gratuito desbloqueado!",
-        shipping_away_prefix: "¡Solo",
-        shipping_away_suffix: "más para envío GRATIS!"
     }
 };
 
