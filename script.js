@@ -5,10 +5,10 @@ const translations = {
         nav_installation: "Installation",
         nav_faq: "FAQ",
         nav_contact: "Contact",
-        hero_title: "ProTech Solutions<br><span style='font-size: 0.7em; font-weight: 300;'>Premium Stainless Steel</span>",
-        hero_subtitle: "Professional-grade stainless steel backsplashes for modern kitchens.",
+        hero_title: "RVS Platen & Stainless Steel<br><span style='font-size: 0.7em; font-weight: 300;'>Professional Solutions</span>",
+        hero_subtitle: "Custom RVS Platen (AISI 304) for modern professional kitchens.",
         hero_cta: "View Products <i class='fas fa-chevron-right'></i>",
-        hero_desc: "High-quality AISI 304 brushed finish for professional kitchens.",
+        hero_desc: "High-quality RVS Platen (AISI 304) brushed finish.",
         footer_rights: "All rights reserved.",
         footer_privacy: "Privacy Policy",
         footer_terms: "Terms of Service",
@@ -99,7 +99,23 @@ const translations = {
         success_continue: "Continue Browsing",
         // Cart
         cart_empty_msg: "Your bag is empty.",
-        toast_added: "Added to bag"
+        toast_added: "Added to bag",
+        // Trust & Why
+        trust_food_safe: "Food Safe (EU 1935/2004)",
+        trust_iso: "ISO 9001 Certified Quality",
+        trust_fast_ship: "Fast 24h Preparation",
+        trust_best_price: "Best Price Guarantee",
+        why_eyebrow: "The ProTech Difference",
+        why_title: "Why choose ProTech Solutions?",
+        why_direct_title: "Direct from Factory",
+        why_direct_desc: "No middlemen. We manufacture every sheet in our local facilities to ensure the highest quality.",
+        why_packaging_title: "Premium Protection",
+        why_packaging_desc: "Every RVS Platen comes with a heavy-duty laser film for scratch-free arrival.",
+        why_custom_title: "Precision Cut",
+        why_custom_desc: "Using state-of-the-art fiber lasers, we ensure your backsplash fits perfectly.",
+        // SEO
+        seo_title: "RVS Platen (Stainless Steel Sheets) | ProTech Solutions - Professional Backsplashes",
+        seo_desc: "Order custom RVS Platen (AISI 304 Stainless Steel Sheets) for your kitchen. Professional grade, heat resistant, and food certified. Made to measure in Belgium & Spain."
     },
     es: {
         nav_overview: "Inicio",
@@ -107,10 +123,10 @@ const translations = {
         nav_installation: "Instalación",
         nav_faq: "Preguntas",
         nav_contact: "Contacto",
-        hero_title: "ProTech Solutions<br><span style='font-size: 0.7em; font-weight: 300;'>Acero Inox Premium</span>",
-        hero_subtitle: "Planchas de acero inoxidable profesional para cocinas modernas.",
+        hero_title: "RVS Platen & Acero Inox<br><span style='font-size: 0.7em; font-weight: 300;'>Soluciones Profesionales</span>",
+        hero_subtitle: "RVS Platen (Acero Inox AISI 304) a medida para cocinas modernas.",
         hero_cta: "Ver Productos <i class='fas fa-chevron-right'></i>",
-        hero_desc: "Acabado cepillado AISI 304 de alta calidad para cocinas profesionales.",
+        hero_desc: "RVS Platen AISI 304 de alta calidad con acabado cepillado.",
         footer_rights: "Todos los derechos reservados.",
         footer_privacy: "Política de Privacidad",
         footer_terms: "Términos de Servicio",
@@ -201,7 +217,23 @@ const translations = {
         success_continue: "Seguir Comprando",
         // Cart
         cart_empty_msg: "Tu cesta está vacía.",
-        toast_added: "Añadido a la cesta"
+        toast_added: "Añadido a la cesta",
+        // Trust & Why
+        trust_food_safe: "Certificado Alimentario",
+        trust_iso: "Calidad ISO 9001",
+        trust_fast_ship: "Preparación en 24h",
+        trust_best_price: "Mejor Precio Garantizado",
+        why_eyebrow: "La Diferencia ProTech",
+        why_title: "¿Por qué elegir ProTech?",
+        why_direct_title: "Directo de Fábrica",
+        why_direct_desc: "Sin intermediarios. Fabricamos cada plancha para garantizar la máxima calidad.",
+        why_packaging_title: "Protección Premium",
+        why_packaging_desc: "Cada RVS Platen incluye film láser reforzado para evitar arañazos.",
+        why_custom_title: "Corte de Precisión",
+        why_custom_desc: "Corte láser de fibra para un ajuste perfecto al milímetro.",
+        // SEO
+        seo_title: "RVS Platen (Planchas de Acero Inox) | ProTech Solutions - Crédence sur Mesure",
+        seo_desc: "Pida sus RVS Platen (Planchas Inox AISI 304) a medida. Calidad profesional, resistentes al calor y certificadas para alimentos. Envío a toda Europa."
     },
     nl: {
         nav_overview: "Overzicht",
@@ -209,10 +241,10 @@ const translations = {
         nav_installation: "Installatie",
         nav_faq: "FAQ",
         nav_contact: "Contact",
-        hero_title: "ProTech Solutions<br><span style='font-size: 0.7em; font-weight: 300;'>Premium RVS Staal</span>",
-        hero_subtitle: "Professionele RVS achterwanden voor moderne keukens.",
+        hero_title: "RVS Platen & RVS Staal<br><span style='font-size: 0.7em; font-weight: 300;'>Professionele Oplossingen</span>",
+        hero_subtitle: "Professionele RVS Platen (AISI 304) voor moderne keukens.",
         hero_cta: "Bekijk Producten <i class='fas fa-chevron-right'></i>",
-        hero_desc: "Hoogwaardige AISI 304 geborstelde afwerking voor professionele keukens.",
+        hero_desc: "Hoogwaardige RVS Platen AISI 304 met geborstelde afwerking.",
         footer_rights: "Alle rechten voorbehouden.",
         footer_privacy: "Privacybeleid",
         footer_terms: "Algemene Voorwaarden",
@@ -303,7 +335,155 @@ const translations = {
         success_continue: "Verder Winkelen",
         // Cart
         cart_empty_msg: "Uw winkelwagen is leeg.",
-        toast_added: "Toegevoegd aan winkelwagen"
+        toast_added: "Toegevoegd aan winkelwagen",
+        // Trust & Why
+        trust_food_safe: "Voedselveilig (EU 1935/2004)",
+        trust_iso: "ISO 9001 Gecertificeerd",
+        trust_fast_ship: "24u Voorbereiding",
+        trust_best_price: "Laagste Prijsgarantie",
+        why_eyebrow: "Het ProTech Verschil",
+        why_title: "Waarom kiezen voor ProTech?",
+        why_direct_title: "Direct van de Fabriek",
+        why_direct_desc: "Geen tussenpersonen. Wij produceren alles zelf voor de beste prijs.",
+        why_packaging_title: "Premium Bescherming",
+        why_packaging_desc: "Elke RVS Plaat komt met dikke laserfolie voor krasvrije levering.",
+        why_custom_title: "Precisie Snijwerk",
+        why_custom_desc: "Dankzij onze fiberlasers past uw achterwand tot op de millimeter.",
+        // SEO
+        seo_title: "RVS Platen op Maat | ProTech Solutions - Uw Professionele RVS Achterwand",
+        seo_desc: "Beste prijs voor RVS Platen op maat! Professionele AISI 304 roestvrijstalen achterwanden en spatwanden. Hittebestendig, voedselveilig en duurzaam. Gratis verzending > €599.99."
+    },
+    fr: {
+        nav_overview: "Aperçu",
+        nav_products: "Produits",
+        nav_installation: "Installation",
+        nav_faq: "FAQ",
+        nav_contact: "Contact",
+        hero_title: "RVS Platen & Inox Premium<br><span style='font-size: 0.7em; font-weight: 300;'>Solutions Professionnelles</span>",
+        hero_subtitle: "RVS Platen (Inox AISI 304) sur mesure pour cuisines modernes.",
+        hero_cta: "Voir les Produits <i class='fas fa-chevron-right'></i>",
+        hero_desc: "RVS Platen (Inox AISI 304) de haute qualité, finition brossée.",
+        footer_rights: "Tous droits réservés.",
+        footer_privacy: "Politique de Confidentialité",
+        footer_terms: "Conditions d'Utilisation",
+        footer_legal: "Mentions Légales",
+        cart_title: "Votre Commande",
+        cart_total: "Total",
+        checkout_btn: "Passer à la Caisse",
+        size_label: "Taille",
+        material_label: "Matériau",
+        // Product specific
+        product_title: "Plaque Inox AISI 304 Professionnelle",
+        product_desc: "Plaque de crédence en acier inoxydable AISI 304 premium avec double finition professionnelle. Une face présente une texture brossée raffinée, l'autre une surface polie miroir. Film de protection laser appliqué sur la face polie. Certifié pour les environnements de cuisine professionnelle et le contact alimentaire direct.",
+        feat_iso: "Norme ISO",
+        feat_heat: "Résistant à la Chaleur",
+        feat_food: "Certifié Alimentaire",
+        feat_dual: "Double Surface",
+        mat_desc: "1 Face Brossée / 1 Face Polie Miroir",
+        // Dynamic & Sections
+        btn_buy_small: "Acheter",
+        price_from: "À partir de",
+        stock_low: "Plus que {n} unités !",
+        stock_ok: "En stock, expédition : 1 jour ouvré",
+        modal_add_btn: "Ajouter au Panier",
+        cust_eyebrow: "Design sur Mesure",
+        cust_title: "Ecosystème de Personnalisation",
+        cust_desc: "Concevez votre ajustement parfait avec un retour visuel en temps réel.",
+        cust_width: "Largeur (mm)",
+        cust_height: "Hauteur (mm)",
+        cust_quote_label: "Devis Estimé",
+        cust_excl_ship: "Hors Livraison",
+        cust_req_btn: "Demander cette Configuration",
+        mat_304: "AISI 304 - Professionnel",
+        inst_eyebrow: "Conseils d'Experts",
+        inst_title: "Comment Installer",
+        faq_title: "Questions Fréquemment Posées",
+        cart_empty: "Votre panier est vide",
+        cart_remove: "Supprimer",
+        // Section headings
+        section_heading: "Série Professionnelle AISI 304",
+        trust_secure: "Paiement Sécurisé",
+        trust_delivery: "Livraison GRATUITE > 599,99 €",
+        trust_quality: "Qualité Garantie",
+        // Feature Big
+        feat_big_title: "Qualité Industrielle.",
+        feat_big_desc: "Issu des meilleurs matériaux pour garantir durabilité et résistance.",
+        // Installation steps
+        inst_desc: "Le montage de votre crédence professionnelle est un processus simple. Pour un résultat optimal, nous recommandons l'utilisation d'un adhésif silicone transparent de haute qualité.",
+        inst_step1_title: "Nettoyer le Mur",
+        inst_step1_desc: "Assurez-vous que la surface est sèche et exempte de graisse.",
+        inst_step2_title: "Appliquer le Silicone",
+        inst_step2_desc: "Appliquez des bandes verticales de silicone transparent au dos de la plaque.",
+        inst_step3_title: "Presser et Fixer",
+        inst_step3_desc: "Placez contre le mur et pressez fermement. Utilisez du ruban de masquage pour maintenir en place pendant le séchage.",
+        // FAQ
+        faq_q1: "L'AISI 304 est-il résistant à la chaleur ?",
+        faq_a1: "Oui, notre acier inoxydable est très résistant à la chaleur, ce qui le rend parfait pour une utilisation derrière les plaques de cuisson à gaz.",
+        faq_q2: "Comment nettoyer la finition brossée ?",
+        faq_a2: "Utilisez simplement un chiffon humide avec du savon doux ou un nettoyant spécialisé pour inox. Essuyez toujours dans le sens du grain.",
+        faq_q3: "Livrez-vous dans mon pays ?",
+        faq_a3: "Nous livrons dans toute l'Union Européenne. Les délais de livraison varient généralement de 3 à 5 jours ouvrés.",
+        faq_q4: "Puis-je obtenir une taille personnalisée ?",
+        faq_a4: "Absolument. Nous proposons des services de découpe sur mesure pour les projets nécessitant des dimensions non standard.",
+        // Footer
+        footer_brand_desc: "Solutions de cuisine professionnelle pour la maison moderne et l'industrie.",
+        footer_col_products: "Produits",
+        footer_steel: "Plaques d'Acier",
+        footer_customizer: "Personnalisation en Direct",
+        footer_col_support: "Support",
+        footer_install_guide: "Guide d'Installation",
+        footer_faq_link: "FAQ & Support",
+        footer_contact_title: "Contact Professionnel",
+        footer_hours: "Heures de Support : Lun-Ven 9:00 - 18:00",
+        // Modal
+        modal_new: "Nouveau",
+        modal_select_size: "Choisir la Taille",
+        modal_material_label: "Matériau",
+        modal_dims_label: "Dimensions",
+        modal_dims_placeholder: "Choisissez une taille ci-dessus",
+        modal_cert_title: "Certifié Industriel",
+        modal_cert_desc: "L'acier inoxydable AISI 304 est la norme industrielle professionnelle approuvée pour le contact alimentaire et les environnements à haute hygiène (conformité UE 1935/2004).",
+        modal_ships: "Expédition : 1 jour ouvré",
+        modal_laser_bonus: "Comprend un Film Laser Gratuit",
+        // Success modal
+        success_title: "Commande Réussie !",
+        success_desc: "Merci d'avoir choisi ProTech Solutions. Votre crédence professionnelle est en cours de préparation pour l'expédition.",
+        success_email_note: "Un e-mail de confirmation a été envoyé dans votre boîte de réception.",
+        success_pickup_title: "Points de Retrait",
+        success_continue: "Continuer vos Achats",
+        // Cart
+        cart_empty_msg: "Votre panier est vide.",
+        toast_added: "Ajouté au panier",
+        // Trust & Why
+        trust_food_safe: "Certifié Alimentaire",
+        trust_iso: "Qualité Certifiée ISO 9001",
+        trust_fast_ship: "Préparation Rapide 24h",
+        trust_best_price: "Meilleur Prix Garanti",
+        why_eyebrow: "La Différence ProTech",
+        why_title: "Pourquoi choisir ProTech ?",
+        why_direct_title: "Direct d'Usine",
+        why_direct_desc: "Pas d'intermédiaires. Nous fabriquons chaque plaque pour garantir la meilleure qualité.",
+        why_packaging_title: "Protection Premium",
+        why_packaging_desc: "Chaque RVS Platen est livrée avec un film laser haute résistance.",
+        why_custom_title: "Coupe de Précision",
+        why_custom_desc: "Découpe laser fibre pour un ajustement parfait au millimètre près.",
+        // Legal
+        footer_privacy: "Privacy Policy",
+        footer_terms: "Terms of Service",
+        footer_legal: "Legal Notice",
+        shipping_free_unlocked: "Livraison gratuite débloquée !",
+        shipping_away_prefix: "Plus que",
+        shipping_away_suffix: "pour la livraison GRATUITE !"
+    },
+    nl: {
+        shipping_free_unlocked: "Gratis verzending ontgrendeld!",
+        shipping_away_prefix: "Nog maar",
+        shipping_away_suffix: "verwijderd van GRATIS verzending!"
+    },
+    es: {
+        shipping_free_unlocked: "¡Envío gratuito desbloqueado!",
+        shipping_away_prefix: "¡Solo",
+        shipping_away_suffix: "más para envío GRATIS!"
     }
 };
 
@@ -340,6 +520,10 @@ function changeLanguage(lang) {
     // Refresh Views
     renderProducts();
     updateCart(); // Update cart text if needed (checkout button)
+
+    // NEW: Update URL for SEO (query based)
+    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?lang=' + lang;
+    window.history.pushState({ path: newUrl }, '', newUrl);
 }
 
 const products = [
@@ -405,6 +589,17 @@ const labelH = document.getElementById('label-h');
 
 // Initialize
 function init() {
+    // Check for lang in URL first
+    const urlParams = new URLSearchParams(window.location.search);
+    const langUrl = urlParams.get('lang');
+    if (langUrl && translations[langUrl]) {
+        currentLang = langUrl;
+        localStorage.setItem('protech_lang', langUrl);
+    }
+
+    // Set current language immediately
+    changeLanguage(currentLang);
+
     renderProducts();
     updateCartUI();
     handleSuccess();
@@ -569,6 +764,16 @@ window.requestCustomQuote = function () {
 
     const subject = encodeURIComponent(`Bespoke Design Request: ${w}x${h}mm`);
     const body = encodeURIComponent(`I am interested in a custom backsplash:\n\nMaterial: ${mat}\nDimensions: ${w}mm x ${h}mm\nEstimated Price: ${price}\n\nPlease contact me to finalize.`);
+
+    // GA Event: Custom Quote Request
+    if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', {
+            event_category: 'engagement',
+            event_label: 'custom_quote',
+            value: parseFloat(price.replace('€', '')) || 0
+        });
+    }
+
     window.location.href = `mailto:protechtsolutions.orders@gmail.com?subject=${subject}&body=${body}`;
 }
 
@@ -727,6 +932,21 @@ window.addToCart = function () {
 
     // Feedback Animation
     showToast(translations[currentLang].toast_added);
+
+    // GA Event: Add to Cart
+    if (typeof gtag === 'function') {
+        gtag('event', 'add_to_cart', {
+            currency: 'EUR',
+            value: cartItem.price,
+            items: [{
+                item_id: p.id,
+                item_name: p.title,
+                price: cartItem.price,
+                quantity: 1
+            }]
+        });
+    }
+
     const badge = document.getElementById('cart-count');
     if (badge) {
         badge.classList.remove('pulse');
@@ -793,6 +1013,36 @@ window.updateQty = function (id, delta) {
     } else {
         saveCart();
         updateCartUI();
+    }
+    updateShippingProgress();
+}
+
+function updateShippingProgress() {
+    const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const threshold = 599.99;
+    const progressContainer = document.getElementById('shipping-progress-container');
+    if (!progressContainer) return;
+
+    if (total === 0) {
+        progressContainer.style.display = 'none';
+        return;
+    }
+
+    progressContainer.style.display = 'block';
+    const fill = document.getElementById('shipping-progress-fill');
+    const text = document.getElementById('shipping-progress-text');
+    const percentage = Math.min((total / threshold) * 100, 100);
+
+    fill.style.width = `${percentage}%`;
+
+    const t = translations[currentLang];
+    if (total >= threshold) {
+        text.innerHTML = `<i class="fas fa-check-circle"></i> ${t.shipping_free_unlocked}`;
+        fill.style.background = '#10b981';
+    } else {
+        const remaining = (threshold - total).toFixed(2);
+        text.innerHTML = `${t.shipping_away_prefix} <strong>€${remaining}</strong> ${t.shipping_away_suffix}`;
+        fill.style.background = 'var(--accent)';
     }
 }
 
@@ -888,7 +1138,6 @@ function setupListeners() {
 
     if (cartOverlay) cartOverlay.onclick = closeCart;
 
-    // Modal overlay click-to-close
     const modalOverlay = document.getElementById('modal-overlay');
     if (modalOverlay) modalOverlay.onclick = closeModal;
 
@@ -897,35 +1146,28 @@ function setupListeners() {
         cartBtn.onclick = (e) => { e.preventDefault(); openCart(); };
     }
 
-    // Event Delegation for Cart (Fixes First Item Bug)
-    const cartItemsContainer = document.getElementById('cart-items');
-    if (cartItemsContainer) {
-        cartItemsContainer.addEventListener('click', (e) => {
-            const btn = e.target.closest('button');
-            if (!btn) return;
-
-            e.preventDefault();
-            e.stopPropagation();
-
-            const id = btn.dataset.id;
-            const action = btn.dataset.action;
-
-            console.log('Cart button clicked:', action, id); // Debug
-
-            if (action === 'plus') window.updateQty(id, 1);
-            else if (action === 'minus') window.updateQty(id, -1);
-            else if (action === 'remove') window.removeFromCart(id);
-        });
-    }
-
-    // Checkout
     const checkoutBtn = document.getElementById('checkout-btn');
     if (checkoutBtn) {
         checkoutBtn.onclick = async () => {
-            if (cart.length === 0) return alert("Your bag is empty.");
+            if (cart.length === 0) return alert(translations[currentLang].cart_empty_msg || "Your bag is empty.");
+
             const originalText = checkoutBtn.innerHTML;
             checkoutBtn.innerHTML = 'Processing...';
             checkoutBtn.disabled = true;
+
+            // GA Event: Begin Checkout
+            if (typeof gtag === 'function') {
+                gtag('event', 'begin_checkout', {
+                    currency: 'EUR',
+                    value: cart.reduce((sum, item) => sum + (item.price * item.qty), 0),
+                    items: cart.map(item => ({
+                        item_id: item.id,
+                        item_name: item.title,
+                        price: item.price,
+                        quantity: item.qty
+                    }))
+                });
+            }
 
             try {
                 const response = await fetch('/create-checkout-session', {
@@ -987,5 +1229,4 @@ function initScrollAnimations() {
 window.removeFromCart = removeFromCart;
 document.addEventListener('DOMContentLoaded', () => {
     init();
-    changeLanguage(currentLang);
 });

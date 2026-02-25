@@ -15,10 +15,9 @@
     <meta name="google-site-verification" content="google5fdb2e360bc9c1ef" />
 
     <!-- Primary Meta Tags -->
-    <title>RVS Platen Kopen | ProTech Solutions - Professionele RVS Achterwand Keuken</title>
-    <meta name="title" content="RVS Platen Kopen | ProTech Solutions - Professionele RVS Achterwand Keuken">
-    <meta name="description"
-        content="RVS platen kopen tegen de beste prijs! Professionele AISI 304 RVS spatwanden en achterwanden voor keukens. Vanaf €329.99. Gratis verzending > €599.99. Voedselveilig, hittebestendig. Levering in heel Europa.">
+    <title>{{SEO_TITLE}}</title>
+    <meta name="title" content="{{SEO_TITLE}}">
+    <meta name="description" content="{{SEO_DESC}}">
     <meta name="keywords"
         content="rvs platen, rvs plaat kopen, rvs spatwand, rvs achterwand keuken, inox platen, stainless steel backsplash, RVS plaat op maat, ProTech Solutions, AISI 304, rvs keukenplaat, goedkope rvs platen, rvsplaten, rvs platen belgie, rvs platen nederland">
     <meta name="author" content="ProTech Solutions">
@@ -31,22 +30,21 @@
     <link rel="alternate" hreflang="en" href="https://rvsplaten.com/">
     <link rel="alternate" hreflang="es" href="https://rvsplaten.com/">
     <link rel="alternate" hreflang="nl" href="https://rvsplaten.com/">
+    <link rel="alternate" hreflang="fr" href="https://rvsplaten.com/">
     <link rel="alternate" hreflang="x-default" href="https://rvsplaten.com/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rvsplaten.com/">
-    <meta property="og:title" content="RVS Platen Kopen | ProTech Solutions - Beste Prijs">
-    <meta property="og:description"
-        content="Professionele AISI 304 RVS platen en achterwanden voor keukens. Vanaf €329.99. Gratis verzending > €599.99. Beste prijs in de markt.">
+    <meta property="og:title" content="{{SEO_TITLE}}">
+    <meta property="og:description" content="{{SEO_DESC}}">
     <meta property="og:image" content="https://rvsplaten.com/images/hero-backsplash.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://rvsplaten.com/">
-    <meta property="twitter:title" content="RVS Platen Kopen | ProTech Solutions - Beste Prijs">
-    <meta property="twitter:description"
-        content="Professionele AISI 304 RVS platen en achterwanden. Vanaf €329.99. Gratis verzending > €599.99. Beste prijs.">
+    <meta property="twitter:title" content="{{SEO_TITLE}}">
+    <meta property="twitter:description" content="{{SEO_DESC}}">
     <meta property="twitter:image" content="https://rvsplaten.com/images/hero-backsplash.jpg">
 
     <!-- Favicon -->
@@ -145,6 +143,7 @@
                     <button onclick="changeLanguage('en')" title="English" class="lang-btn">🇬🇧</button>
                     <button onclick="changeLanguage('es')" title="Español" class="lang-btn">🇪🇸</button>
                     <button onclick="changeLanguage('nl')" title="Nederlands" class="lang-btn">🇳🇱</button>
+                    <button onclick="changeLanguage('fr')" title="Français" class="lang-btn">🇫🇷</button>
                 </div>
                 <a href="#" id="cart-btn" class="cart-icon">
                     <i class="fas fa-shopping-bag"></i>
@@ -161,6 +160,15 @@
         <div class="cart-header">
             <h3 data-i18n="cart_title">Your Order</h3>
             <span class="close-cart">&times;</span>
+        </div>
+        <!-- Shipping Progress Bar -->
+        <div id="shipping-progress-container" class="shipping-progress" style="display: none;">
+            <div class="progress-info">
+                <span id="shipping-progress-text">Only <strong>€200.00</strong> away from FREE shipping!</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div id="shipping-progress-fill" class="progress-bar-fill"></div>
+            </div>
         </div>
         <div class="cart-items" id="cart-items">
             <!-- Items -->
@@ -179,8 +187,8 @@
     <!-- Hero -->
     <section class="hero" id="overview">
         <div class="container hero-container">
-            <h1 class="fade-in" data-i18n="hero_title">ProTech Solutions<br><span
-                    style="font-size: 0.7em; font-weight: 300;">Premium Stainless Steel</span></h1>
+            <h1 class="fade-in" data-i18n="hero_title">RVS Platen & Stainless Steel<br><span
+                    style="font-size: 0.7em; font-weight: 300;">Professional Solutions</span></h1>
             <p class="subtitle fade-in delay-1" data-i18n="hero_subtitle">Professional-grade stainless steel
                 backsplashes for modern kitchens.</p>
             <div class="hero-links fade-in delay-2">
@@ -194,6 +202,47 @@
             </div>
         </div>
     </section>
+
+    <!-- Products Section (Moved Up) -->
+    <section id="products" class="buy-section reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-heading" data-i18n="section_heading">Professional AISI 304 Series</h2>
+                <div class="trust-icons">
+                    <span><i class="fab fa-cc-stripe"></i> <span data-i18n="trust_secure">Secure Payment</span></span>
+                    <span><i class="fas fa-truck-fast"></i> <span data-i18n="trust_delivery">FREE Delivery >
+                            €599.99</span></span>
+                    <span><i class="fas fa-check-circle"></i> <span data-i18n="trust_quality">Quality
+                            Guaranteed</span></span>
+                </div>
+            </div>
+            <div class="product-shelf" id="product-grid">
+                <!-- Products injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <div class="trust-bar fade-in delay-3">
+        <div class="container trust-bar-content">
+            <div class="trust-item">
+                <i class="fas fa-certificate"></i>
+                <span data-i18n="trust_food_safe">Food Safe (EU 1935/2004)</span>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-shield-alt"></i>
+                <span data-i18n="trust_iso">ISO 9001 Certified Quality</span>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-truck-fast"></i>
+                <span data-i18n="trust_fast_ship">Fast 24h Preparation</span>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-euro-sign"></i>
+                <span data-i18n="trust_best_price">Best Price Guarantee</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Success Modal -->
     <div id="success-modal" class="modal">
@@ -218,29 +267,32 @@
         </div>
     </div>
 
-    <!-- Buying Section (Moved Up) -->
-    <section id="products" class="buy-section reveal">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-heading" data-i18n="section_heading">Professional AISI 304 Series</h2>
-                <div class="trust-icons">
-                    <span><i class="fab fa-cc-stripe"></i> <span data-i18n="trust_secure">Secure Payment</span></span>
-                    <span><i class="fas fa-truck-fast"></i> <span data-i18n="trust_delivery">FREE Delivery >
-                            €599.99</span></span>
-                    <span><i class="fas fa-check-circle"></i> <span data-i18n="trust_quality">Quality
-                            Guaranteed</span></span>
+    <section class="content-section grey-bg reveal">
+        <div class="container text-center">
+            <span class="eyebrow" data-i18n="why_eyebrow">The ProTech Difference</span>
+            <h2 data-i18n="why_title">Why choose ProTech Solutions?</h2>
+            <div class="why-grid">
+                <div class="why-item">
+                    <div class="why-icon"><i class="fas fa-industry"></i></div>
+                    <h3 data-i18n="why_direct_title">Direct from Factory</h3>
+                    <p data-i18n="why_direct_desc">No middlemen. We manufacture every sheet in our local facilities to
+                        ensure the highest quality at the lowest price.</p>
                 </div>
-            </div>
-
-            <div class="product-shelf" id="product-grid">
-                <!-- Products injected here -->
+                <div class="why-item">
+                    <div class="why-icon"><i class="fas fa-box-open"></i></div>
+                    <h3 data-i18n="why_packaging_title">Premium Protection</h3>
+                    <p data-i18n="why_packaging_desc">Every RVS Platen comes with a heavy-duty laser film and reinforced
+                        edges for scratch-free arrival.</p>
+                </div>
+                <div class="why-item">
+                    <div class="why-icon"><i class="fas fa-tools"></i></div>
+                    <h3 data-i18n="why_custom_title">Precision Cut</h3>
+                    <p data-i18n="why_custom_desc">Using state-of-the-art fiber lasers, we ensure your backsplash fits
+                        perfectly, down to the millimeter.</p>
+                </div>
             </div>
         </div>
     </section>
-
-
-
-
 
     <!-- Feature Grid 1 -->
     <section class="feature-big reveal">
@@ -409,9 +461,9 @@
             <div class="legal">
                 <p>&copy; 2026 ProTech Solutions. <span data-i18n="footer_rights">All rights reserved.</span></p>
                 <div class="legal-links">
-                    <a href="#" data-i18n="footer_privacy">Privacy Policy</a>
-                    <a href="#" data-i18n="footer_terms">Terms of Service</a>
-                    <a href="#" data-i18n="footer_legal">Legal Notice</a>
+                    <a href="/privacy">{{TRANSLATION_PRIVACY}}</a>
+                    <a href="/terms">{{TRANSLATION_TERMS}}</a>
+                    <a href="/legal">{{TRANSLATION_LEGAL}}</a>
                 </div>
             </div>
         </div>

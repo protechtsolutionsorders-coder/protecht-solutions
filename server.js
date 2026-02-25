@@ -6,21 +6,79 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 const path = require('path');
-app.use(express.static(path.join(__dirname, '.'))); // Serve static files
+const fs = require('fs');
 app.use(express.json());
 
 const DOMAIN = process.env.DOMAIN || 'https://rvsplaten.com';
 
+const seoTranslations = {
+    en: {
+        title: "RVS Platen (Stainless Steel Sheets) | ProTech Solutions - Professional Backsplashes",
+        desc: "Order custom RVS Platen (AISI 304 Stainless Steel Sheets) for your kitchen. Professional grade, heat resistant, and food certified. Made to measure in Belgium & Spain."
+    },
+    es: {
+        title: "RVS Platen (Planchas de Acero Inox) | ProTech Solutions - Crédence sur Mesure",
+        desc: "Pida sus RVS Platen (Planchas Inox AISI 304) a medida. Calidad profesional, resistentes al calor y certificadas para alimentos. Envío a toda Europa."
+    },
+    nl: {
+        title: "RVS Platen op Maat | ProTech Solutions - Uw Professionele RVS Achterwand",
+        desc: "Beste prijs voor RVS Platen op maat! Professionele AISI 304 roestvrijstalen achterwanden en spatwanden. Hittebestendig, voedselveilig en duurzaam. Gratis verzending > €599.99."
+    },
+    fr: {
+        title: "RVS Platen (Plaques Inox) | ProTech Solutions - Crédence Cuisine sur Mesure",
+        desc: "Commandez vos RVS Platen (Plaques Inox AISI 304) sur mesure. Qualité professionnelle, haute résistance à la chaleur et certifié alimentaire. Livraison rapide."
+    }
+};
+
+// Root route with dynamic SEO tags
+app.get('/', (req, res) => {
+    const lang = req.query.lang || 'en';
+    const seo = seoTranslations[lang] || seoTranslations.en;
+
+    fs.readFile(path.join(__dirname, 'index.html'), 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Error loading page');
+        }
+
+        let html = data
+            .replace(/{{SEO_TITLE}}/g, seo.title)
+            .replace(/{{SEO_DESC}}/g, seo.desc);
+
+        res.send(html);
+    });
+});
+
+app.use(express.static(path.join(__dirname, '.'))); // Serve other static files after / route
+
 // Dynamic SEO Files
 app.get('/sitemap.xml', (req, res) => {
+    const lastMod = new Date().toISOString().split('T')[0];
     res.header('Content-Type', 'application/xml');
     res.send(`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>${DOMAIN}/</loc>
-      <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+      <lastmod>${lastMod}</lastmod>
       <changefreq>weekly</changefreq>
       <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>${DOMAIN}/?lang=nl</loc>
+      <lastmod>${lastMod}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>${DOMAIN}/?lang=fr</loc>
+      <lastmod>${lastMod}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>${DOMAIN}/?lang=es</loc>
+      <lastmod>${lastMod}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
    </url>
 </urlset>`);
 });
