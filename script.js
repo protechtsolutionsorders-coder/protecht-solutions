@@ -1231,6 +1231,8 @@ function initScrollAnimations() {
 
 // Global Exports
 window.removeFromCart = removeFromCart;
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
     init();
-});
+}
