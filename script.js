@@ -559,7 +559,19 @@ cart = cart.map((item, index) => {
 
 // Save fixed cart
 localStorage.setItem('metallum_apple_cart', JSON.stringify(cart));
-const stripe = Stripe('pk_live_51SzzzzQECx6xOqcU366GElFvHtQ2ZYIUpj1OCbBXcISlsV1CbOFEE1IEEU8AXpVIpuVBCWZIlOotOEFYIs0ojOSq00orS8vc5b');
+// Initialize Stripe with error handling
+let stripe = null;
+try {
+    const STRIPE_PK = 'pk_test_51T00094TngCt8dg4QCxBrvl1aFLUNxKV0YTAK4toqttZMrDF2jRMfprWshz6lGa1KOBHQFDj6AOhNcwY7CcnexzH00s9Ub5Cil';
+    if (typeof Stripe !== 'undefined') {
+        stripe = Stripe(STRIPE_PK);
+        console.log("Stripe initialized successfully.");
+    } else {
+        console.warn("Stripe.js not loaded. Checkout will be unavailable.");
+    }
+} catch (e) {
+    console.error("Failed to initialize Stripe:", e);
+}
 
 // DOM Elements
 const productGrid = document.getElementById('product-grid');
@@ -766,7 +778,7 @@ window.requestCustomQuote = function () {
         });
     }
 
-    window.location.href = `mailto:protechtsolutions.orders@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:skyvvorldlink@gmail.com?subject=${subject}&body=${body}`;
 }
 
 // Render Products

@@ -9,7 +9,7 @@ const path = require('path');
 const fs = require('fs');
 app.use(express.json());
 
-const DOMAIN = process.env.DOMAIN || 'https://rvsplaten.com';
+const DOMAIN = process.env.DOMAIN || process.env.RENDER_EXTERNAL_URL || 'https://protecht-solutions.onrender.com';
 
 const seoTranslations = {
     en: {
@@ -46,6 +46,15 @@ app.get('/', (req, res) => {
 
         res.send(html);
     });
+});
+
+// Protect sensitive files and redirect index.html
+app.get('/index.html', (req, res) => {
+    const queryString = Object.keys(req.query).length > 0 ? '?' + new URLSearchParams(req.query).toString() : '';
+    res.redirect(301, '/' + queryString);
+});
+app.use(['/.env', '/server.js', '/package.json', '/package-lock.json', '/.gitignore'], (req, res) => {
+    res.status(403).send('Forbidden');
 });
 
 app.use(express.static(path.join(__dirname, '.'))); // Serve other static files after / route
@@ -166,8 +175,8 @@ app.post('/create-checkout-session', async (req, res) => {
                 allowed_countries: ['ES', 'BE', 'FR', 'NL', 'DE', 'GB', 'CA', 'US'],
             },
             shipping_options: shippingOptions,
-            success_url: `${DOMAIN}/index.html?success=true&session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${DOMAIN}/index.html?canceled=true`,
+            success_url: `${DOMAIN}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${DOMAIN}/?canceled=true`,
         });
 
         res.json({ url: session.url });
@@ -311,7 +320,7 @@ async function sendOrderEmail(session) {
 
     const mailOptions = {
         from: `"ProTech Solutions Orders" <${process.env.EMAIL_USER}>`,
-        to: 'protechtsolutions.orders@gmail.com',
+        to: process.env.EMAIL_USER,
         subject: `[SALES] New Order #${orderId} - ProTech Solutions`,
         html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; color: #333;">
