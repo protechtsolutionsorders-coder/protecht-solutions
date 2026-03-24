@@ -494,8 +494,10 @@ function changeLanguage(lang) {
     // Update simple text elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) {
+        if (translations[lang] && translations[lang][key]) {
             el.innerHTML = translations[lang][key];
+        } else {
+            console.warn(`Translation missing for key: ${key} in lang: ${lang}`);
         }
     });
 
@@ -511,7 +513,7 @@ function changeLanguage(lang) {
 
     // Refresh Views
     renderProducts();
-    updateCart(); // Update cart text if needed (checkout button)
+    updateCartUI(); // Update cart text if needed (checkout button)
 
     // NEW: Update URL for SEO (query based)
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?lang=' + lang;
@@ -591,9 +593,20 @@ const platePreview = document.getElementById('plate-preview');
 const labelW = document.getElementById('label-w');
 const labelH = document.getElementById('label-h');
 
+// Global error handler to prevent single scripts from breaking the whole UI
+window.onerror = function(msg, url, lineNo, columnNo, error) {
+    console.error('Handled Global Error:', msg, 'at', lineNo, ':', columnNo);
+    // Ensure critical UI is still revealed if a crash happened early
+    const reveals = document.querySelectorAll('.reveal, .stagger-item');
+    reveals.forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+    });
+    return false;
+};
+
 // Initialize
 function init() {
-    document.body.classList.add('js-ready');
     // Check for lang in URL first
     const urlParams = new URLSearchParams(window.location.search);
     const langUrl = urlParams.get('lang');
@@ -602,16 +615,24 @@ function init() {
         localStorage.setItem('protech_lang', langUrl);
     }
 
-    // Set current language immediately
-    changeLanguage(currentLang);
+    try {
+        // Set current language immediately (fills labels and products)
+        changeLanguage(currentLang);
+    } catch (e) {
+        console.error("Critical: changeLanguage failed", e);
+    }
 
-    renderProducts();
-    updateCartUI();
-    handleSuccess();
-    initCustomizer();
-    setupListeners();
-    initScrollAnimations();
-    setupLogoFallback();
+    try {
+        renderProducts();
+        updateCartUI();
+        handleSuccess();
+        initCustomizer();
+        setupListeners();
+        initScrollAnimations();
+        setupLogoFallback();
+    } catch (e) {
+        console.error("Initialization error:", e);
+    }
 }
 
 function setupLogoFallback() {
@@ -1233,30 +1254,10 @@ function initScrollAnimations() {
     }, observerOptions);
 
     // Observe containers
-    document.querySelectorAll('.reveal, .product-shelf, .faq-grid, .feature-big, .content-section').forEach(el => {
+    const reveals = document.querySelectorAll('.reveal, .stagger-item');
+    reveals.forEach(el => {
         observer.observe(el);
     });
-
-    // Directly observe any loose stagger items
-    document.querySelectorAll('.stagger-item').forEach(el => {
-        if (!el.closest('.reveal, .product-shelf, .faq-grid, .feature-big, .content-section')) {
-            observer.observe(el);
-        }
-    });
-    
-    // Safety fallback: ensure nothing stays invisible forever if observer gets stuck
-    setTimeout(() => {
-        const hiddens = document.querySelectorAll('.reveal, .stagger-item, .hide');
-        hiddens.forEach(el => {
-            if (!el.classList.contains('reveal-active')) {
-                // Force it visible gracefully
-                el.style.transition = 'opacity 0.5s ease';
-                el.classList.add('reveal-active');
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }
-        });
-    }, 1500);
 }
 
 // Global Exports

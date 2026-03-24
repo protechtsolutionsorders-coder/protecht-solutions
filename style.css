@@ -117,12 +117,7 @@ h3 {
     width: 100%;
 }
 
-/* Animation Styles (Visible by default, hidden only if JS activates) */
-.js-ready .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-}
-
+/* Animation Styles (Always visible by default) */
 .reveal {
     opacity: 1;
     transform: translateY(0);
@@ -152,12 +147,7 @@ h3 {
     animation-delay: 0.3s;
 }
 
-/* Stagger Logic for JS */
-.js-ready .stagger-item {
-    opacity: 0;
-    transform: translateY(20px);
-}
-
+/* Stagger Logic */
 .stagger-item {
     opacity: 1;
     transform: translateY(0);
