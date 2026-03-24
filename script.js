@@ -593,6 +593,7 @@ const labelH = document.getElementById('label-h');
 
 // Initialize
 function init() {
+    document.body.classList.add('js-ready');
     // Check for lang in URL first
     const urlParams = new URLSearchParams(window.location.search);
     const langUrl = urlParams.get('lang');
