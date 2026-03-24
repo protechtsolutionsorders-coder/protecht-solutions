@@ -1199,34 +1199,63 @@ function setupListeners() {
 }
 
 // Premium Animations
+// Premium Animations
 function initScrollAnimations() {
+    // Check if IntersectionObserver is supported, else force show
+    if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal, .stagger-item').forEach(el => el.classList.add('reveal-active'));
+        return;
+    }
+
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
+        threshold: 0, // Trigger as soon as 1px is visible!
+        rootMargin: "150px 0px 50px 0px" // Generous margins so it triggers before or as it scrolls into view
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Add class to the container
                 entry.target.classList.add('reveal-active');
 
-                // If it's a grid/shelf, trigger its children with stagger
-                if (entry.target.classList.contains('product-shelf') || entry.target.classList.contains('faq-grid')) {
-                    const children = entry.target.querySelectorAll('.product-item, .faq-item');
-                    children.forEach((child, index) => {
-                        setTimeout(() => {
-                            child.classList.add('reveal-active');
-                        }, index * 100);
-                    });
-                }
+                // Find any staggered kids and show them with delay
+                const staggerChildren = entry.target.querySelectorAll('.stagger-item, .product-item, .faq-item, .fade-in');
+                staggerChildren.forEach((child, index) => {
+                    setTimeout(() => {
+                        child.classList.add('reveal-active');
+                    }, index * 100);
+                });
+                
+                obs.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observe sections and special elements
+    // Observe containers
     document.querySelectorAll('.reveal, .product-shelf, .faq-grid, .feature-big, .content-section').forEach(el => {
         observer.observe(el);
     });
+
+    // Directly observe any loose stagger items
+    document.querySelectorAll('.stagger-item').forEach(el => {
+        if (!el.closest('.reveal, .product-shelf, .faq-grid, .feature-big, .content-section')) {
+            observer.observe(el);
+        }
+    });
+    
+    // Safety fallback: ensure nothing stays invisible forever if observer gets stuck
+    setTimeout(() => {
+        const hiddens = document.querySelectorAll('.reveal, .stagger-item, .hide');
+        hiddens.forEach(el => {
+            if (!el.classList.contains('reveal-active')) {
+                // Force it visible gracefully
+                el.style.transition = 'opacity 0.5s ease';
+                el.classList.add('reveal-active');
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }
+        });
+    }, 1500);
 }
 
 // Global Exports
